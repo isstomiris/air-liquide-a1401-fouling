@@ -1,0 +1,20 @@
+Parameter,A  Clean (0 %),B  Assumed 30 % (team brief input),"C  Plant state, spring 2025 (fitted)","D  Plant state, end of summer 2025 (fitted)",Diff B-A,Diff C-A,Diff D-A
+"Air volumetric flow, m3/h (at fan, ambient)",342000.0,282662.0,186201.0,153415.0,-59338.0,-155799.0,-188585.0
+"Air mass flow, kg/s",110.4,91.2,60.1,49.5,-19.1,-50.3,-60.9
+"Effective UA (physical), kW/K",106.5,93.8,71.4,62.5,-12.7,-35.1,-44.0
+"Apparent UA = Q/LMTD, kW/K",145.5,124.7,85.8,70.9,-20.8,-59.7,-74.5
+"Total heat duty, kW",4242.0,4169.0,3814.0,3529.0,-74.0,-429.0,-714.0
+"Sensible heat duty, kW",1864.0,1796.0,1485.0,1261.0,-68.0,-379.0,-603.0
+"Condensation (latent) duty, kW",2378.0,2373.0,2329.0,2268.0,-6.0,-50.0,-110.0
+"Syngas inlet temperature, C",159.4,159.4,159.4,159.4,0.0,0.0,0.0
+"Syngas outlet temperature, C",36.7,41.1,60.9,75.2,4.3,24.1,38.4
+"Air inlet temperature, C",31.8,31.8,31.8,31.8,0.0,0.0,0.0
+"Air outlet temperature (mixed), C",70.0,77.2,94.9,102.6,7.2,24.9,32.6
+"Water condensed in A-1401, kg/h",3949.0,3941.0,3874.0,3780.0,-8.0,-75.0,-169.0
+"Air-side h, W/m2K",48.9,54.5,60.0,61.1,5.6,11.1,12.2
+"Active finned area, m2",5289.0,3702.0,2089.0,1666.0,-1587.0,-3200.0,-3623.0
+"Fan pressure rise (total), Pa",190.0,226.0,270.0,281.0,36.0,80.0,91.0
+"Thermal performance loss vs clean (duty), %",0.0,1.7,10.1,16.8,1.7,10.1,16.8
+"UA loss vs clean, %",0.0,11.9,32.9,41.3,11.9,32.9,41.3
+"Max dry-gas flow for outlet <= 65 C, Nm3/h",32122.0,26869.0,18400.0,15438.0,-5253.0,-13723.0,-16684.0
+"Capacity loss vs clean at 65 C outlet, %",0.0,16.4,42.7,51.9,16.4,42.7,51.9

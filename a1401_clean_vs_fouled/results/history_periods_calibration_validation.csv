@@ -1,0 +1,5 @@
+period,hours_total,hours_calibration,hours_withheld,b_fitted_on_calibration,b_eq_median_all,b_eq_p10,b_eq_p90,withheld_MAE_K,withheld_bias_K,withheld_RMSE_K,naive_constant_MAE_K,clean_model_MAE_K,T_amb_mean,T_out_meas_mean,flow_mean,T_in_mean
+Spring 2024 (1 Apr-15 May),291,215,76,0.55,0.537,0.484,0.609,8.15,3.3,8.92,5.61,37.1,18.0,86.5,31910.0,158.4
+End of summer 2024 (1 Aug-15 Sep),553,278,275,0.655,0.648,0.631,0.663,2.4,1.65,2.85,6.66,34.52,27.9,69.3,18699.0,159.2
+Spring 2025 (1 Apr-15 May),394,204,190,0.605,0.61,0.587,0.64,3.52,-2.64,4.42,5.62,40.63,21.8,72.3,23048.0,158.3
+End of summer 2025 (1 Aug-15 Sep),811,449,362,0.685,0.682,0.663,0.699,2.38,1.21,3.11,7.44,40.1,27.2,73.9,17720.0,161.4
