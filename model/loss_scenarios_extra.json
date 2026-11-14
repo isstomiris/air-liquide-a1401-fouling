@@ -1,0 +1,28 @@
+{
+ "phi56_Tin167": {
+  "phi": 0.56,
+  "T_in": 166.8,
+  "limit_starts_at_Tamb_C": 26,
+  "2025": {
+   "hours_limited": 1434,
+   "H2_lost_t": 90.4
+  },
+  "2026_Jan-Nov": {
+   "hours_limited": 1509,
+   "H2_lost_t": 103.9
+  }
+ },
+ "phi70_Tin167": {
+  "phi": 0.7,
+  "T_in": 166.8,
+  "limit_starts_at_Tamb_C": 3,
+  "2025": {
+   "hours_limited": 6297,
+   "H2_lost_t": 1080.6
+  },
+  "2026_Jan-Nov": {
+   "hours_limited": 5871,
+   "H2_lost_t": 1086.3
+  }
+ }
+}

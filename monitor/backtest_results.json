@@ -1,0 +1,34 @@
+{
+ "weather": "real ERA5 hourly (Open-Meteo), atyrau_open-meteo_47.12N_51.92E_2025-01-01_2026-11-13.csv",
+ "debris_D": 160.0,
+ "train": "Jan 2025 - Jun 2026 (2 fouling cycles)",
+ "test": "15 Jul - 13 Nov 2026 (unseen cycle after the TAR cleaning)",
+ "health_indicator_error_pct": 1.2432086418065964,
+ "health_indicator_error_pct_test": 0.8290956238877618,
+ "h7": {
+  "n": 115,
+  "model_MAE_pct": 1.69,
+  "persistence_MAE_pct": 2.44,
+  "linear_trend_MAE_pct": 2.16,
+  "band_10_90_coverage": 0.39
+ },
+ "h14": {
+  "n": 108,
+  "model_MAE_pct": 2.48,
+  "persistence_MAE_pct": 4.63,
+  "linear_trend_MAE_pct": 4.54,
+  "band_10_90_coverage": 0.5
+ },
+ "h30": {
+  "n": 92,
+  "model_MAE_pct": 3.47,
+  "persistence_MAE_pct": 9.08,
+  "linear_trend_MAE_pct": 12.11,
+  "band_10_90_coverage": 0.6
+ },
+ "true_cross_40pct": "2026-08-02",
+ "first_alarm": "2026-07-16",
+ "alarm_lead_days": 17,
+ "false_alarm_days": 0,
+ "hours_limited_true": 3912
+}

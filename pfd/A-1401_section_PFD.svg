@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="940" viewBox="0 0 1600 940" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+<defs>
+<marker id="aBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0,0 L 10,5 L 0,10 z" fill="#1d4e89"/></marker>
+<marker id="aRust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0,0 L 10,5 L 0,10 z" fill="#a34a28"/></marker>
+<marker id="aSig" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0,0 L 10,5 L 0,10 z" fill="#50565f"/></marker>
+<marker id="aCyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0,0 L 10,5 L 0,10 z" fill="#2a7f8f"/></marker>
+<marker id="aGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0,0 L 10,5 L 0,10 z" fill="#3f7a4d"/></marker>
+</defs>
+<rect width="1600" height="940" fill="#ffffff"/>
+<rect x="20" y="20" width="1560" height="900" fill="none" stroke="#b8bec7" stroke-width="1"/>
+<text x="45" y="60" font-size="21" font-weight="bold" fill="#111418" text-anchor="start">A-1401 RAW HYDROGEN AIR COOLER - SECTION PFD</text>
+<text x="45" y="82" font-size="11.5" font-weight="normal" fill="#5a6472" text-anchor="start">UPOV-2 hydrogen unit, Atyrau  |  Syngas cooling and water removal before PSA  |  Fan-speed temperature control</text>
+<rect x="1378" y="42" width="177" height="24" fill="none" stroke="#b02418" stroke-width="1.4"/>
+<text x="1466" y="59" font-size="11" font-weight="bold" fill="#b02418" text-anchor="middle" letter-spacing="0.4">NOT FOR CONSTRUCTION</text>
+<path d="M 1256,330 L 1324,330 Q 1350,330 1350,356 L 1350,584 Q 1350,610 1324,610 L 1256,610 Q 1230,610 1230,584 L 1230,356 Q 1230,330 1256,330 Z" fill="#f7f8fa" stroke="#343a46" stroke-width="2.2" stroke-linejoin="miter"/>
+<path d="M 1230,530 L 1350,530 L 1350,584 Q 1350,610 1324,610 L 1256,610 Q 1230,610 1230,584 Z" fill="#dce8f5"/>
+<line x1="1236" y1="530" x2="1344" y2="530" stroke="#1d4e89" stroke-width="1.2" stroke-dasharray="7,5"/>
+<text x="1340" y="522" font-size="8.5" font-weight="normal" fill="#5a6472" text-anchor="end" letter-spacing="0.3">WATER</text>
+<path d="M 60,420 L 218,420" fill="none" stroke="#3f7a4d" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M 282,420 L 440,420" fill="none" stroke="#3f7a4d" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M 780,420 L 898,420" fill="none" stroke="#3f7a4d" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M 962,420 L 1058,420" fill="none" stroke="#3f7a4d" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M 1122,420 L 1230,420" fill="none" stroke="#3f7a4d" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aGreen)"/>
+<path d="M 1290,330 L 1290,200 L 1570,200" fill="none" stroke="#3f7a4d" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aGreen)"/>
+<path d="M 1340,200 L 1340,130 L 1570,130" fill="none" stroke="#3f7a4d" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aGreen)"/>
+<path d="M 1320,610 L 1320,700 L 1570,700" fill="none" stroke="#1d4e89" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aBlue)"/>
+<path d="M 250,540 L 250,452" fill="none" stroke="#1d4e89" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aBlue)"/>
+<path d="M 250,388 L 250,300" fill="none" stroke="#1d4e89" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aBlue)"/>
+<path d="M 930,540 L 930,452" fill="none" stroke="#1d4e89" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aBlue)"/>
+<path d="M 930,388 L 930,300" fill="none" stroke="#1d4e89" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aBlue)"/>
+<path d="M 1090,540 L 1090,452" fill="none" stroke="#2a7f8f" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aCyan)"/>
+<path d="M 1090,388 L 1090,300" fill="none" stroke="#2a7f8f" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aCyan)"/>
+<path d="M 760,640 L 760,462" fill="none" stroke="#a34a28" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#aRust)"/>
+<rect x="440" y="380" width="340" height="80" fill="#f7f8fa" stroke="#343a46" stroke-width="2.2"/>
+<line x1="452" y1="384" x2="452" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="464" y1="384" x2="464" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="476" y1="384" x2="476" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="488" y1="384" x2="488" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="500" y1="384" x2="500" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="512" y1="384" x2="512" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="524" y1="384" x2="524" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="536" y1="384" x2="536" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="548" y1="384" x2="548" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="560" y1="384" x2="560" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="572" y1="384" x2="572" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="584" y1="384" x2="584" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="596" y1="384" x2="596" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="608" y1="384" x2="608" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="620" y1="384" x2="620" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="632" y1="384" x2="632" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="644" y1="384" x2="644" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="656" y1="384" x2="656" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="668" y1="384" x2="668" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="680" y1="384" x2="680" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="692" y1="384" x2="692" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="704" y1="384" x2="704" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="716" y1="384" x2="716" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="728" y1="384" x2="728" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="740" y1="384" x2="740" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="752" y1="384" x2="752" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="764" y1="384" x2="764" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<line x1="776" y1="384" x2="776" y2="456" stroke="#c9ced6" stroke-width="1"/>
+<rect x="455" y="398" width="290" height="44" fill="#ffffff" stroke="none" opacity="0.92"/>
+<text x="600" y="416" font-size="12" font-weight="bold" fill="#111418" text-anchor="middle">A-1401  finned-tube bundle</text>
+<text x="600" y="433" font-size="9.5" font-weight="normal" fill="#5a6472" text-anchor="middle">6 rows, 2 passes, 304L tubes, 5,288 m2 fins</text>
+<path d="M 500,520 L 500,470" stroke="#8a94a3" stroke-width="2" fill="none" marker-end="url(#aSig)"/>
+<path d="M 500,378 L 500,340" stroke="#8a94a3" stroke-width="2" fill="none" stroke-dasharray="3,4" marker-end="url(#aSig)"/>
+<ellipse cx="500" cy="532" rx="40" ry="9" fill="#ffffff" stroke="#343a46" stroke-width="1.6"/>
+<rect x="488" y="545" width="24" height="22" fill="#ffffff" stroke="#343a46" stroke-width="1.5"/>
+<text x="500" y="561" font-size="11" font-weight="bold" fill="#111418" text-anchor="middle">M</text>
+<text x="454" y="536" font-size="10" font-weight="bold" fill="#5a6472" text-anchor="end">A</text>
+<path d="M 600,520 L 600,470" stroke="#8a94a3" stroke-width="2" fill="none" marker-end="url(#aSig)"/>
+<path d="M 600,378 L 600,340" stroke="#8a94a3" stroke-width="2" fill="none" stroke-dasharray="3,4" marker-end="url(#aSig)"/>
+<ellipse cx="600" cy="532" rx="40" ry="9" fill="#ffffff" stroke="#343a46" stroke-width="1.6"/>
+<rect x="588" y="545" width="24" height="22" fill="#ffffff" stroke="#343a46" stroke-width="1.5"/>
+<text x="600" y="561" font-size="11" font-weight="bold" fill="#111418" text-anchor="middle">M</text>
+<text x="554" y="536" font-size="10" font-weight="bold" fill="#5a6472" text-anchor="end">B</text>
+<path d="M 700,520 L 700,470" stroke="#8a94a3" stroke-width="2" fill="none" marker-end="url(#aSig)"/>
+<path d="M 700,378 L 700,340" stroke="#8a94a3" stroke-width="2" fill="none" stroke-dasharray="3,4" marker-end="url(#aSig)"/>
+<ellipse cx="700" cy="532" rx="40" ry="9" fill="#ffffff" stroke="#343a46" stroke-width="1.6"/>
+<rect x="688" y="545" width="24" height="22" fill="#ffffff" stroke="#343a46" stroke-width="1.5"/>
+<text x="700" y="561" font-size="11" font-weight="bold" fill="#111418" text-anchor="middle">M</text>
+<text x="654" y="536" font-size="10" font-weight="bold" fill="#5a6472" text-anchor="end">C</text>
+<text x="600" y="330" font-size="9.5" font-weight="normal" fill="#5a6472" text-anchor="middle">hot air out (to atmosphere)</text>
+<text x="430" y="590" font-size="9.5" font-weight="normal" fill="#5a6472" text-anchor="end">3 fans x 11 kW</text>
+<text x="430" y="604" font-size="9.5" font-weight="normal" fill="#5a6472" text-anchor="end">2.4 m, VFD speed</text>
+<text x="560" y="506" font-size="9.5" font-weight="normal" fill="#5a6472" text-anchor="middle">ambient air</text>
+<text x="770" y="660" font-size="9" font-weight="normal" fill="#a34a28" text-anchor="middle">LP steam (winter</text>
+<text x="770" y="672" font-size="9" font-weight="normal" fill="#a34a28" text-anchor="middle">heating row)</text>
+<circle cx="250" cy="420" r="32" fill="#ffffff" stroke="#343a46" stroke-width="2"/>
+<path d="M 218,420 L 238,420 L 246,406 L 254,434 L 262,420 L 282,420" fill="none" stroke="#343a46" stroke-width="1.4"/>
+<text x="250" y="580" font-size="14" font-weight="bold" fill="#111418" text-anchor="middle">E-1408</text>
+<text x="250" y="598" font-size="10" font-weight="normal" fill="#5a6472" text-anchor="middle" letter-spacing="0.4">condensate preheater</text>
+<circle cx="930" cy="420" r="32" fill="#ffffff" stroke="#343a46" stroke-width="2"/>
+<path d="M 898,420 L 918,420 L 926,406 L 934,434 L 942,420 L 962,420" fill="none" stroke="#343a46" stroke-width="1.4"/>
+<text x="930" y="580" font-size="14" font-weight="bold" fill="#111418" text-anchor="middle">E-1409</text>
+<text x="930" y="598" font-size="10" font-weight="normal" fill="#5a6472" text-anchor="middle" letter-spacing="0.4">demin water heater</text>
+<circle cx="1090" cy="420" r="32" fill="#ffffff" stroke="#343a46" stroke-width="2"/>
+<path d="M 1058,420 L 1078,420 L 1086,406 L 1094,434 L 1102,420 L 1122,420" fill="none" stroke="#343a46" stroke-width="1.4"/>
+<text x="1090" y="580" font-size="14" font-weight="bold" fill="#111418" text-anchor="middle">E-1410</text>
+<text x="1090" y="598" font-size="10" font-weight="normal" fill="#5a6472" text-anchor="middle" letter-spacing="0.4">cooling-water trim</text>
+<text x="1262" y="650" font-size="14" font-weight="bold" fill="#111418" text-anchor="middle">D-1403</text>
+<text x="1262" y="668" font-size="10" font-weight="normal" fill="#5a6472" text-anchor="middle" letter-spacing="0.4">water separator</text>
+<text x="258" y="296" font-size="9.5" font-weight="normal" fill="#1d4e89" text-anchor="start">to D-1406 deaerator</text>
+<text x="258" y="552" font-size="9.5" font-weight="normal" fill="#1d4e89" text-anchor="start">process condensate</text>
+<text x="938" y="296" font-size="9.5" font-weight="normal" fill="#1d4e89" text-anchor="start">demin water out</text>
+<text x="938" y="552" font-size="9.5" font-weight="normal" fill="#1d4e89" text-anchor="start">demin water in</text>
+<text x="1098" y="296" font-size="9.5" font-weight="normal" fill="#2a7f8f" text-anchor="start">CW return</text>
+<text x="1098" y="552" font-size="9.5" font-weight="normal" fill="#2a7f8f" text-anchor="start">CW supply</text>
+<text x="60" y="450" font-size="11" font-weight="bold" fill="#3f7a4d" text-anchor="start">Wet syngas from</text>
+<text x="60" y="465" font-size="11" font-weight="bold" fill="#3f7a4d" text-anchor="start">E-1407 / MT shift</text>
+<text x="1570" y="188" font-size="11" font-weight="bold" fill="#3f7a4d" text-anchor="end">To PSA (H2 purification)</text>
+<text x="1570" y="118" font-size="11" font-weight="bold" fill="#b02418" text-anchor="end">To flare</text>
+<text x="1570" y="688" font-size="11" font-weight="bold" fill="#1d4e89" text-anchor="end">Liquid water out</text>
+<line x1="150" y1="420" x2="150" y2="372" stroke="#343a46" stroke-width="1.2"/>
+<line x1="370" y1="420" x2="370" y2="372" stroke="#343a46" stroke-width="1.2"/>
+<line x1="840" y1="420" x2="840" y2="478" stroke="#343a46" stroke-width="1.2"/>
+<path d="M 840,522 L 840,616" fill="none" stroke="#50565f" stroke-width="1.35" stroke-dasharray="7,5.5" marker-end="url(#aSig)"/>
+<path d="M 840,664 L 840,760 L 600,760 L 600,724" fill="none" stroke="#50565f" stroke-width="1.35" stroke-dasharray="7,5.5" marker-end="url(#aSig)"/>
+<path d="M 600,678 L 600,572" fill="none" stroke="#50565f" stroke-width="1.35" stroke-dasharray="7,5.5" marker-end="url(#aSig)"/>
+<path d="M 578,700 L 500,700 L 500,572" fill="none" stroke="#50565f" stroke-width="1.35" stroke-dasharray="7,5.5" marker-end="url(#aSig)"/>
+<path d="M 622,700 L 700,700 L 700,572" fill="none" stroke="#50565f" stroke-width="1.35" stroke-dasharray="7,5.5" marker-end="url(#aSig)"/>
+<line x1="1010" y1="420" x2="1010" y2="372" stroke="#343a46" stroke-width="1.2"/>
+<line x1="1170" y1="420" x2="1170" y2="372" stroke="#343a46" stroke-width="1.2"/>
+<line x1="1350" y1="560" x2="1388" y2="560" stroke="#343a46" stroke-width="1.2"/>
+<line x1="1460" y1="200" x2="1460" y2="248" stroke="#343a46" stroke-width="1.2"/>
+<path d="M 1438,270 L 1424,270" fill="none" stroke="#50565f" stroke-width="1.35" stroke-dasharray="7,5.5" marker-end="url(#aSig)"/>
+<path d="M 1400,246 L 1400,164" fill="none" stroke="#50565f" stroke-width="1.35" stroke-dasharray="7,5.5" marker-end="url(#aSig)"/>
+<line x1="1530" y1="200" x2="1530" y2="248" stroke="#343a46" stroke-width="1.2"/>
+<path d="M 1382,118 L 1382,142 L 1400,130 Z" fill="#ffffff" stroke="#343a46" stroke-width="1.6" stroke-linejoin="miter"/>
+<path d="M 1418,118 L 1418,142 L 1400,130 Z" fill="#ffffff" stroke="#343a46" stroke-width="1.6" stroke-linejoin="miter"/>
+<line x1="1400" y1="130" x2="1400" y2="150" stroke="#343a46" stroke-width="1.4"/>
+<rect x="1386" y="156" width="28" height="12" rx="6" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="1400" y="108" font-size="10.5" font-weight="bold" fill="#111418" text-anchor="middle">PV0017  (FO)</text>
+<circle cx="150" cy="350" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="150" y="348" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">TI</text>
+<text x="150" y="362" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">026</text>
+<circle cx="370" cy="350" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="370" y="348" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">TI</text>
+<text x="370" y="362" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">050</text>
+<circle cx="840" cy="500" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="840" y="498" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">TT</text>
+<text x="840" y="512" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">0055</text>
+<rect x="818" y="618" width="44" height="44" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<circle cx="840" cy="640" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="840" y="638" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">TIC</text>
+<text x="840" y="652" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">0055</text>
+<circle cx="600" cy="700" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="600" y="698" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">TY</text>
+<text x="600" y="712" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">0055</text>
+<circle cx="1010" cy="350" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="1010" y="348" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">TI</text>
+<text x="1010" y="362" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">0059</text>
+<circle cx="1170" cy="350" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="1170" y="348" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">TI</text>
+<text x="1170" y="362" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">0083</text>
+<circle cx="1410" cy="560" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="1410" y="558" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">LI</text>
+<text x="1410" y="572" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">018</text>
+<circle cx="1460" cy="270" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="1460" y="268" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">PT</text>
+<text x="1460" y="282" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">0017</text>
+<rect x="1378" y="248" width="44" height="44" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<circle cx="1400" cy="270" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="1400" y="268" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">PIC</text>
+<text x="1400" y="282" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">0017</text>
+<circle cx="1530" cy="270" r="22" fill="#ffffff" stroke="#343a46" stroke-width="1.4"/>
+<text x="1530" y="268" font-size="11.5" font-weight="bold" fill="#111418" text-anchor="middle">FI</text>
+<text x="1530" y="282" font-size="10" font-weight="normal" fill="#111418" text-anchor="middle">010</text>
+<text x="150" y="310" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="middle">164 C</text>
+<text x="370" y="310" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="middle">143 -&gt; 167 C</text>
+<text x="868" y="492" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="start">70 -&gt; 66 C</text>
+<text x="868" y="645" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="start">SP 65 C</text>
+<text x="628" y="735" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="start">fans 50% -&gt; 88%</text>
+<text x="1010" y="310" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="middle">58 -&gt; 56 C</text>
+<text x="1170" y="310" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="middle">38.8 C</text>
+<text x="1432" y="595" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="start">water level</text>
+<text x="1460" y="314" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="middle">2.56 MPa(g)</text>
+<text x="1530" y="314" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="middle">~20,800 Nm3/h</text>
+<text x="1555" y="333" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="end">(dry gas only;</text>
+<text x="1555" y="346" font-size="9.5" font-weight="bold" fill="#7a3b00" text-anchor="end">misses flared gas)</text>
+<text x="860" y="772" font-size="9.5" font-weight="normal" fill="#5a6472" text-anchor="start">temperature control: hotter outlet -> faster fans</text>
+<text x="60" y="800" font-size="11" font-weight="bold" fill="#111418" text-anchor="start" letter-spacing="0.4">DESIGN BASIS (datasheet) AND PLANT DATA</text>
+<text x="60" y="824" font-size="9.5" font-weight="normal" fill="#5a6472" text-anchor="start">&#8226;  Design: 135 -&gt; 55 C, 2.69 MPa(g), design temp 170 C; 3 fans x 114,000 m3/h at 190 Pa; 226 m2 bare / 5,288 m2 fin area.</text>
+<text x="60" y="842" font-size="9.5" font-weight="normal" fill="#5a6472" text-anchor="start">&#8226;  Values in brown: plant data 1 Jan 2026 -&gt; 14 Nov 2026 (PI). Water condenses from ~120-130 C down; D-1403 removes it.</text>
+<text x="60" y="860" font-size="9.5" font-weight="normal" fill="#5a6472" text-anchor="start">&#8226;  Conceptual drawing: relief valves, isolation/drain valves, UV0071 and line numbers omitted.</text>
+<line x1="60" y1="900" x2="105" y2="900" stroke="#3f7a4d" stroke-width="2.8"/>
+<text x="115" y="905" font-size="11" font-weight="normal" fill="#5a6472" text-anchor="start">Syngas (gas + condensing water)</text>
+<line x1="342.55" y1="900" x2="387.55" y2="900" stroke="#1d4e89" stroke-width="2.8"/>
+<text x="397.55" y="905" font-size="11" font-weight="normal" fill="#5a6472" text-anchor="start">Water / condensate</text>
+<line x1="592.55" y1="900" x2="637.55" y2="900" stroke="#2a7f8f" stroke-width="2.8"/>
+<text x="647.55" y="905" font-size="11" font-weight="normal" fill="#5a6472" text-anchor="start">Cooling water</text>
+<line x1="842.55" y1="900" x2="887.55" y2="900" stroke="#a34a28" stroke-width="2.8"/>
+<text x="897.55" y="905" font-size="11" font-weight="normal" fill="#5a6472" text-anchor="start">Steam</text>
+<line x1="1092.55" y1="900" x2="1137.55" y2="900" stroke="#50565f" stroke-width="1.6" stroke-dasharray="7,5.5"/>
+<text x="1147.55" y="905" font-size="11" font-weight="normal" fill="#5a6472" text-anchor="start">Control signal</text>
+<text x="1545" y="890" font-size="9" font-weight="normal" fill="#5a6472" text-anchor="end">Rev A  14-Nov-2026</text>
+<metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo3MjNkMWYyNi03YWMzLTQ0MWUtYTZkYy0yYjYyYzJjODRkNGYAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaABhOkJFueBcgRuA1yCtE2QAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDpiMDcwNDcxYy02NjhlLTRkOGQtOTQ5NC00NTU5OTQ1ZjY1OGZscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoi2999Yr3Vu5j0UG8ubEoxQAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggkvLdN09fhGAp0ult83IcSRwTnS9vBmChazOUlDTfecWkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaN+c/FQwUQGLBtu2YS56W2wAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIPKDF+P91xoQK4dl+KCJxJUNbBEqGIf87iGOlG3DcknAZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GVPwZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjcyM2QxZjI2LTdhYzMtNDQxZS1hNmRjLTJiNjJjMmM4NGQ0Zi9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmJmY2UzYTBhLTYxMDktNDNiNi1iZDU2LTNiZjZlMmM2MDQ1N3JjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCCS8t03T1+EYCnS6W3zchxJHBOdL28GYKFrM5SUNN95xaJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggThnIto3eR/ewaRTUZenAtOGIOcKyh9V6fLvcpGjkaLiiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggnuJaPDO7nqPmAJSIUZs2Kg1CozGcNf8Z5NQoS1EjxaZ0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQK+Hj0bg+s//AWsBcq3yKBH8v7zw484Qj2gGf+d8Z8Jlm9DilnlySwJWIp6FcHXrIraTBzHHoJ3du+vcJXStivs=</c2pa:manifest></metadata></svg>

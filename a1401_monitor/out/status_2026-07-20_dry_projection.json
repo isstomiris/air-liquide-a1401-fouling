@@ -1,0 +1,52 @@
+{
+ "asof": "2026-07-20 00:00:00",
+ "source": "simulated plant (real Atyrau weather, real cleaning dates)",
+ "method": "Solution B: monitoring + dry projection",
+ "trigger_pct": 40.0,
+ "hours_used": 12544,
+ "hours_rejected": {
+  "missing": 0,
+  "low_load": 0,
+  "flaring": 0,
+  "unsteady": 1017,
+  "inlet_below_outlet": 0
+ },
+ "level": "AMBER",
+ "message": "Plan a cleaning: the pessimistic forecast reaches the trigger within 30 days.",
+ "health_blockage_pct": 25.1,
+ "cleanliness_note": "equivalent blocked fin area (debris + anything else that cuts airflow)",
+ "forecast_pct": {
+  "7": {
+   "low": 27.0,
+   "median": 29.2,
+   "high": 31.7
+  },
+  "14": {
+   "low": 30.9,
+   "median": 33.5,
+   "high": 35.4
+  },
+  "30": {
+   "low": 37.9,
+   "median": 38.2,
+   "high": 43.2
+  }
+ },
+ "days_to_trigger": {
+  "median": null,
+  "pessimistic": 23.4
+ },
+ "impact_next_30_days": {
+  "median_forecast": {
+   "hours_limited": 0,
+   "h2_lost_t": 0.0,
+   "basis": "max flow at fans 100 %"
+  },
+  "pessimistic_forecast": {
+   "hours_limited": 0,
+   "h2_lost_t": 0.0,
+   "basis": "max flow at fans 100 %"
+  }
+ },
+ "fan_7d_mean_pct": 66.5
+}
