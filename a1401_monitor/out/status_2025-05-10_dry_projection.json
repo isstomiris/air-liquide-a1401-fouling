@@ -1,0 +1,52 @@
+{
+ "asof": "2025-05-10 00:00:00",
+ "source": "a1401_history_hourly.csv",
+ "method": "Solution B: monitoring + dry projection",
+ "trigger_pct": 66.0,
+ "hours_used": 12000,
+ "hours_rejected": {
+  "missing": 488,
+  "low_load": 134,
+  "flaring": 132,
+  "unsteady": 320,
+  "inlet_below_outlet": 107
+ },
+ "level": "RED",
+ "message": "Clean now: the blockage is at or will reach the trigger within 2 weeks (median forecast).",
+ "health_blockage_pct": 64.8,
+ "cleanliness_note": "equivalent blocked fin area (debris + anything else that cuts airflow)",
+ "forecast_pct": {
+  "7": {
+   "low": 62.0,
+   "median": 65.7,
+   "high": 69.1
+  },
+  "14": {
+   "low": 61.8,
+   "median": 66.7,
+   "high": 70.8
+  },
+  "30": {
+   "low": 62.6,
+   "median": 68.3,
+   "high": 73.1
+  }
+ },
+ "days_to_trigger": {
+  "median": 9.0,
+  "pessimistic": 1.9
+ },
+ "impact_next_30_days": {
+  "median_forecast": {
+   "hours_limited": 557,
+   "h2_lost_t": 89.8,
+   "basis": "max flow at fans 100 %"
+  },
+  "pessimistic_forecast": {
+   "hours_limited": 650,
+   "h2_lost_t": 144.7,
+   "basis": "max flow at fans 100 %"
+  }
+ },
+ "fan_7d_mean_pct": 97.9
+}

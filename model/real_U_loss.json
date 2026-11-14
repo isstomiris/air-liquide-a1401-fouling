@@ -1,0 +1,50 @@
+{
+ "clean model (0 %)": {
+  "phi": 0.0,
+  "airflow_pct": 100,
+  "UA_air_pct": 100,
+  "UA_kWK": 119.0,
+  "U_bare_Wm2K": 527,
+  "U_loss_vs_clean_pct": 0
+ },
+ "Mar-Apr 2024 (before season)": {
+  "phi": 54.1,
+  "airflow_pct": 66,
+  "UA_air_pct": 57,
+  "UA_kWK": 84.8,
+  "U_bare_Wm2K": 375,
+  "U_loss_vs_clean_pct": 29
+ },
+ "Aug-Sep 2024 (end of summer)": {
+  "phi": 69.1,
+  "airflow_pct": 50,
+  "UA_air_pct": 41,
+  "UA_kWK": 67.5,
+  "U_bare_Wm2K": 299,
+  "U_loss_vs_clean_pct": 43
+ },
+ "Mar-Apr 2025 (before season)": {
+  "phi": 63.0,
+  "airflow_pct": 57,
+  "UA_air_pct": 48,
+  "UA_kWK": 75.2,
+  "U_bare_Wm2K": 333,
+  "U_loss_vs_clean_pct": 37
+ },
+ "Aug-Sep 2025 (end of summer)": {
+  "phi": 71.9,
+  "airflow_pct": 47,
+  "UA_air_pct": 38,
+  "UA_kWK": 63.6,
+  "U_bare_Wm2K": 281,
+  "U_loss_vs_clean_pct": 47
+ },
+ "Nov 2025 (after Oct cleaning)": {
+  "phi": 59.8,
+  "airflow_pct": 61,
+  "UA_air_pct": 51,
+  "UA_kWK": 78.9,
+  "U_bare_Wm2K": 349,
+  "U_loss_vs_clean_pct": 34
+ }
+}

@@ -1,0 +1,400 @@
+<title>A-1401 Air Cooler 3D</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a plant-viewer console. Big 3D stage on top, control strip and a "what is what" guide below. Single dark look on purpose (control-room screen). */
+:root{
+  --bg:#0f1418; --panel:#161d23; --line:#2a353f; --fg:#e8edf1; --muted:#9aa8b4;
+  --hot:#ff6a3d; --cool:#3fa7ff; --alu:#c9d3db; --debris:#c9a46a; --ok:#3ccf8e; --warn:#ffb020; --bad:#ff5d5d;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--sans);font-size:15px;line-height:1.5;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 40px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:16px}
+header h1{font-size:clamp(20px,3vw,28px);margin:0;letter-spacing:.01em;text-wrap:balance}
+header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
+.tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.stage{position:relative;height:min(64vh,620px);min-height:380px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#1b252d 0%,#0f1418 70%)}
+#c{display:block;width:100%;height:100%;touch-action:none}
+.lbl{position:absolute;left:0;top:0;pointer-events:none;font-size:12.5px;line-height:1.25;white-space:nowrap;transform:translate(-50%,-100%);will-change:transform}
+.lbl span{display:inline-block;background:rgba(15,20,24,.86);border:1px solid var(--line);border-radius:6px;padding:3px 7px;color:var(--fg)}
+.lbl span b{font-weight:600}
+.lbl span small{display:block;color:var(--muted);font-size:11px}
+.lbl::after{content:"";display:block;width:1px;height:14px;margin:0 auto;background:var(--muted)}
+.lbl.k-fin span{border-color:var(--alu)} .lbl.k-gap span{border-color:var(--warn)} .lbl.k-deb span{border-color:var(--debris)}
+.lbl.k-fan span{border-color:var(--cool)} .lbl.k-hot span{border-color:var(--hot)}
+.viewbtns{position:absolute;left:12px;top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.viewbtns button,.chk{font:600 13px var(--sans);color:var(--fg);background:rgba(22,29,35,.9);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.viewbtns button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--cool);outline-offset:2px}
+.hint{position:absolute;right:12px;bottom:10px;font-size:12px;color:var(--muted);background:rgba(15,20,24,.7);padding:3px 8px;border-radius:6px}
+.controls{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr);gap:16px;align-items:stretch}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.slider label{display:flex;justify-content:space-between;gap:8px;font-weight:600}
+.slider output{font-family:var(--mono);font-size:20px}
+input[type=range]{width:100%;accent-color:var(--debris);margin:10px 0 4px}
+.scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.marks{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.marks button{font:500 12.5px var(--sans);background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 8px;cursor:pointer}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--muted)}
+.row label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi .v{font-family:var(--mono);font-size:24px;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi .n{font-size:12.5px;color:var(--muted)}
+.bar{height:5px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--cool);border-radius:3px}
+.status{margin-top:12px;display:flex;align-items:center;gap:8px;font-weight:600}
+.pill{font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid currentColor}
+.guide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.guide h3{margin:0 0 6px;font-size:16px}
+.guide p{margin:0 0 8px;color:#cdd6dd;max-width:65ch}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:baseline}
+.myth{border-left:3px solid var(--warn)}
+.foot{font-size:12.5px;color:var(--muted)}
+@media (max-width:820px){.controls,.guide{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="tag">A-1401 · raw hydrogen air cooler · UPOV-2 Atyrau</div>
+    <h1>How the fin-fan cooler works, and where the debris goes</h1>
+    <p>Drag to rotate, scroll or pinch to zoom. Switch to the close-up to see the fins and the 2&nbsp;mm gaps that clog. Move the debris slider to see what blockage does to the air and to the gas outlet temperature.</p>
+  </header>
+
+  <div class="stage" id="stage">
+    <canvas id="c" aria-label="3D model of the A-1401 air cooler"></canvas>
+    <div id="labels"></div>
+    <div class="viewbtns" role="group" aria-label="View">
+      <button id="vWhole" aria-pressed="true">Whole cooler</button>
+      <button id="vClose" aria-pressed="false">Close-up: fins and gaps</button>
+      <button id="vSide" aria-pressed="false">Side cut</button>
+    </div>
+    <div class="hint" id="hint">Simplified: 14 of 46 tubes per row drawn</div>
+  </div>
+
+  <div class="controls">
+    <div class="card slider">
+      <label for="phi"><span>Fin gaps blocked by debris</span><output id="phiOut">65%</output></label>
+      <input type="range" id="phi" min="0" max="80" step="5" value="65">
+      <div class="scale"><span>0% clean</span><span>40% the "cliff"</span><span>80%</span></div>
+      <div class="marks">
+        <button data-phi="0">Clean</button>
+        <button data-phi="35">35% (target limit)</button>
+        <button data-phi="65">65% (14 Nov estimate)</button>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="showLbl" checked> Labels</label>
+        <label><input type="checkbox" id="showAir" checked> Air flow</label>
+        <label><input type="checkbox" id="spin" checked> Animate</label>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tag" style="margin-bottom:8px">Model estimate · 38&nbsp;°C summer day · fans 100% · gas in 167&nbsp;°C · 20,800&nbsp;Nm³/h</div>
+      <div class="kpis">
+        <div class="kpi"><div class="v" id="kAir">55%</div><div class="n">Airflow vs clean</div><div class="bar"><i id="bAir"></i></div></div>
+        <div class="kpi"><div class="v" id="kUA">46%</div><div class="n">Air-side heat transfer</div><div class="bar"><i id="bUA"></i></div></div>
+        <div class="kpi"><div class="v" id="kT">95 °C</div><div class="n">Gas outlet (target 65 °C)</div><div class="bar"><i id="bT"></i></div></div>
+        <div class="kpi"><div class="v" id="kP">7.2 kW</div><div class="n">Power per fan (assumed fan curve)</div><div class="bar"><i id="bP"></i></div></div>
+      </div>
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+
+  <div class="guide">
+    <div class="card myth">
+      <h3>Fans are not fins</h3>
+      <p><b>Fans</b> are the three big propellers at the bottom (2.4&nbsp;m wide). They push outside air up.</p>
+      <p><b>Fins</b> are thousands of thin aluminium rings wrapped around every tube, about 423 per metre of tube. They add surface so the air can take more heat from the gas. Each tube has 23 times more fin area than bare tube area.</p>
+      <p>The <b>fin gap</b> is the 2&nbsp;mm space between two neighbouring rings on the same tube. Air has to squeeze through these gaps, and that is where fluff, pollen and insects get stuck.</p>
+    </div>
+    <div class="card">
+      <h3>What each part does</h3>
+      <p><span class="sw" style="background:var(--cool)"></span><b>Fans + motors (A, B, C)</b>: push 342,000&nbsp;m³/h of air up when clean; speed set by the outlet temperature controller.</p>
+      <p><span class="sw" style="background:#56626d"></span><b>Plenum</b>: the empty box between fans and tubes. It spreads the air evenly. It is not the fin gap.</p>
+      <p><span class="sw" style="background:var(--hot)"></span><b>Tube bundle</b>: 276 stainless tubes in 6 rows. Hot wet syngas flows inside, 2 passes (top rows first, then back through the bottom rows).</p>
+      <p><span class="sw" style="background:var(--alu)"></span><b>Headers</b>: boxes at each end that turn the gas round and collect it.</p>
+    </div>
+    <div class="card">
+      <h3>Why debris hurts so much</h3>
+      <p>The fans blow from below, so debris lands on the <b>underside of the bottom row</b> and wedges into the fin gaps.</p>
+      <p>Blocked gaps mean (1) more resistance, so the fans move less air, and (2) fewer fins doing any work. Both cut the heat the air can carry away.</p>
+      <p>Up to about 40% blockage the cooler copes. Past that the gas outlet temperature climbs fast, which is the "cliff" you can see with the slider.</p>
+    </div>
+  </div>
+  <p class="foot">Geometry from the A-1401 datasheet (10.5 × 3 m bundle, 6 rows, 3 × 2.4 m fans). Tube count and fins are simplified in the whole view; the close-up uses an assumed standard fin size (the datasheet gives only areas). Numbers come from the team's thermal model (Briggs &amp; Young air side, generic fan curve, fitted to one plant snapshot on 14 Nov 2026). The 14 Nov blockage is an estimate: likely 55–70%, possible range about 31–78%, depending mainly on the true gas flow and water content. All values are model results with roughly ±20% uncertainty, not measurements. Real plant history (2023–2026) shows the model's blockage figure never drops below about 50%, so read the slider as relative: debris adds about 10–15 points each summer and cleaning removes them.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function(){
+// ---------- model results (phi %, airflow %, air-side hA %, T_out at 38 C, fan kW each)
+const CURVE=[[0,100,100,49.4,9.26],[5,98,96.7,50.3,9.29],[10,95.7,93.3,51.5,9.31],[15,93.3,89.8,52.8,9.31],[20,90.8,86.2,54.3,9.29],[25,88,82.4,56.2,9.25],[30,84.9,78.4,58.4,9.18],[35,81.7,74.3,61.1,9.07],[40,78.1,70,64.4,8.92],[45,74.2,65.5,68.5,8.72],[50,70.1,60.9,73.4,8.47],[55,65.5,56,79.5,8.14],[60,60.6,50.9,86.7,7.74],[65,55.2,45.6,95.2,7.24],[70,49.4,40.1,104.7,6.65],[75,43.1,34.3,115.1,5.94],[80,36.3,28.2,125.8,5.11]];
+const rowAt=p=>CURVE[Math.round(p/5)];
+
+const canvas=document.getElementById('c'), stage=document.getElementById('stage'), labelsEl=document.getElementById('labels');
+if(!window.THREE){stage.insertAdjacentHTML('beforeend','<p style="position:absolute;inset:auto 0 50% 0;text-align:center;color:#9aa8b4">The 3D library did not load. Reload the page to try again.</p>');return;}
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setClearColor(0x0f1418,1);
+const scene=new THREE.Scene();
+scene.fog=new THREE.Fog(0x0f1418,40,90);
+const camera=new THREE.PerspectiveCamera(42,1,0.005,400);
+const controls=new THREE.OrbitControls(camera,canvas);
+controls.enableDamping=true; controls.dampingFactor=0.08;
+
+scene.add(new THREE.HemisphereLight(0xcfe3ff,0x20262c,0.85));
+const sun=new THREE.DirectionalLight(0xffffff,0.9); sun.position.set(8,14,10); scene.add(sun);
+const fill=new THREE.DirectionalLight(0x88aaff,0.35); fill.position.set(-10,4,-8); scene.add(fill);
+
+const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.55,metalness:.35},o));
+const steel=M(0x6b7783,{metalness:.6,roughness:.45}), frameM=M(0x3d4852,{metalness:.5}), alu=M(0xc9d3db,{metalness:.75,roughness:.3});
+const debrisM=M(0xc9a46a,{roughness:.95,metalness:0}), bugM=M(0x2b2116,{roughness:.8,metalness:0});
+
+// ===================== WHOLE COOLER =====================
+const whole=new THREE.Group(); scene.add(whole);
+const L=10.5, Wd=3.0;                 // bundle length / width (m)
+const ROWS=6, NT=14, tubeR=0.085, pitch=Wd/NT, rowGap=0.19;
+const yBundle=3.0;                    // bottom row centre height
+const tubeLen=L;
+
+function gradTex(c1,c2){const cv=document.createElement('canvas');cv.width=256;cv.height=4;const g=cv.getContext('2d');const gr=g.createLinearGradient(0,0,256,0);gr.addColorStop(0,c1);gr.addColorStop(1,c2);g.fillStyle=gr;g.fillRect(0,0,256,4);
+  // fin stripes
+  g.globalAlpha=.35;g.fillStyle='#ffffff';for(let x=0;x<256;x+=3)g.fillRect(x,0,1,4);const t=new THREE.CanvasTexture(cv);t.wrapS=THREE.RepeatWrapping;return t;}
+const texPass1=gradTex('#ff5a2e','#ffae3d'); // hot -> warm (left to right)
+const texPass2=gradTex('#3fa7ff','#ffae3d'); // cool (left) <- warm (right)
+const tubeGeo=new THREE.CylinderGeometry(tubeR,tubeR,tubeLen,18,1,true); tubeGeo.rotateZ(Math.PI/2);
+// fix UVs so gradient runs along the length
+{const uv=tubeGeo.attributes.uv,pos=tubeGeo.attributes.position;for(let i=0;i<uv.count;i++){uv.setXY(i,(pos.getX(i)+tubeLen/2)/tubeLen,0.5);}uv.needsUpdate=true;}
+const tubes=[];
+for(let r=0;r<ROWS;r++){
+  const pass2=r<3; // bottom 3 rows = 2nd pass (return), top 3 = 1st pass
+  const mat=new THREE.MeshStandardMaterial({map:pass2?texPass2:texPass1,roughness:.5,metalness:.3,side:THREE.DoubleSide});
+  for(let i=0;i<NT;i++){
+    const m=new THREE.Mesh(tubeGeo,mat);
+    const stagger=(r%2)*pitch/2;
+    m.position.set(0,yBundle+r*rowGap,-Wd/2+pitch/2+i*pitch+stagger-pitch/4);
+    whole.add(m); tubes.push(m);
+  }
+}
+// side frames of bundle
+const railGeo=new THREE.BoxGeometry(L,0.1,0.08); const sideRails=[];
+[-1,1].forEach(s=>{[yBundle-0.17,yBundle+(ROWS-1)*rowGap+0.17].forEach(y=>{const b=new THREE.Mesh(railGeo,frameM);b.position.set(0,y,s*(Wd/2+0.08));b.userData.side=s;whole.add(b);sideRails.push(b);});});
+// headers
+const hdrGeo=new THREE.BoxGeometry(0.5,ROWS*rowGap+0.3,Wd+0.25);
+const hdrL=new THREE.Mesh(hdrGeo,steel); hdrL.position.set(-L/2-0.25,yBundle+(ROWS-1)*rowGap/2,0); whole.add(hdrL);
+const hdrR=new THREE.Mesh(hdrGeo,steel); hdrR.position.set(L/2+0.25,yBundle+(ROWS-1)*rowGap/2,0); whole.add(hdrR);
+// nozzles
+const nozGeo=new THREE.CylinderGeometry(0.16,0.16,0.9,20);
+const nIn=new THREE.Mesh(nozGeo,M(0xff6a3d,{metalness:.3})); nIn.position.set(-L/2-0.25,yBundle+(ROWS-1)*rowGap+0.6,0.6); whole.add(nIn);
+const nIn2=nIn.clone(); nIn2.position.z=-0.6; whole.add(nIn2);
+const nOut=new THREE.Mesh(nozGeo,M(0x3fa7ff,{metalness:.3})); nOut.position.set(-L/2-0.25,yBundle-0.6,0.6); whole.add(nOut);
+const nOut2=nOut.clone(); nOut2.position.z=-0.6; whole.add(nOut2);
+// plenum (translucent walls between fans and bundle)
+const plenH=yBundle-0.25-0.9;
+const plenum=new THREE.Mesh(new THREE.BoxGeometry(L,plenH,Wd),new THREE.MeshStandardMaterial({color:0x56626d,transparent:true,opacity:.13,side:THREE.DoubleSide,depthWrite:false}));
+plenum.position.set(0,0.9+plenH/2,0); whole.add(plenum);
+const plenEdges=new THREE.LineSegments(new THREE.EdgesGeometry(plenum.geometry),new THREE.LineBasicMaterial({color:0x56626d}));
+plenEdges.position.copy(plenum.position); whole.add(plenEdges);
+// fans
+const fanX=[-3.5,0,3.5], fanR=1.2, fanY=0.9;
+const fans=[];
+fanX.forEach((x,k)=>{
+  const ring=new THREE.Mesh(new THREE.CylinderGeometry(fanR+0.06,fanR+0.06,0.35,40,1,true),M(0x3fa7ff,{metalness:.4,side:THREE.DoubleSide}));
+  ring.position.set(x,fanY,0); whole.add(ring);
+  const hub=new THREE.Group(); hub.position.set(x,fanY,0);
+  const hubC=new THREE.Mesh(new THREE.CylinderGeometry(0.16,0.16,0.2,16),steel); hub.add(hubC);
+  for(let b=0;b<4;b++){const bl=new THREE.Mesh(new THREE.BoxGeometry(fanR-0.15,0.03,0.32),M(0xa8c7e6,{metalness:.5}));bl.position.x=(fanR-0.15)/2+0.12;bl.rotation.x=0.16;const piv=new THREE.Group();piv.rotation.y=b*Math.PI/2;piv.add(bl);hub.add(piv);}
+  whole.add(hub); fans.push(hub);
+  const shaft=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.05,0.7,10),steel); shaft.position.set(x,fanY-0.45,0); whole.add(shaft);
+  const motor=new THREE.Mesh(new THREE.BoxGeometry(0.55,0.5,0.55),M(0x2f6fae,{metalness:.4})); motor.position.set(x,fanY-1.0,0); whole.add(motor);
+});
+// legs + ground
+[[-L/2,-Wd/2],[L/2,-Wd/2],[-L/2,Wd/2],[L/2,Wd/2],[0,-Wd/2],[0,Wd/2]].forEach(([x,z])=>{const g=new THREE.Mesh(new THREE.BoxGeometry(0.16,yBundle+1.1+1.6,0.16),frameM);g.position.set(x,(yBundle+1.1-1.6)/2,z);whole.add(g);});
+const grid=new THREE.GridHelper(40,40,0x2a353f,0x1c242b); grid.position.y=-1.6; whole.add(grid);
+
+// debris on underside of bottom row (instanced)
+const MAXDEB=900;
+const debGeo=new THREE.IcosahedronGeometry(0.05,0);
+const deb=new THREE.InstancedMesh(debGeo,debrisM,MAXDEB); whole.add(deb);
+const bugs=new THREE.InstancedMesh(new THREE.BoxGeometry(0.035,0.035,0.11),bugM,200); whole.add(bugs);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const debSeed=[...Array(MAXDEB)].map(()=>({x:rnd(-L/2+0.1,L/2-0.1),t:Math.floor(rnd(0,NT)),a:rnd(-2.6,-0.5),s:rnd(.6,1.6),rx:rnd(0,6),ry:rnd(0,6)}));
+const bugSeed=[...Array(200)].map(()=>({x:rnd(-L/2+0.1,L/2-0.1),t:Math.floor(rnd(0,NT)),a:rnd(-2.4,-0.7),rx:rnd(0,6),ry:rnd(0,6)}));
+const dm=new THREE.Object3D();
+function placeDebris(phi){
+  const n=Math.round(MAXDEB*phi/80), nb=Math.round(200*phi/80);
+  for(let i=0;i<MAXDEB;i++){const d=debSeed[i],tb=tubes[d.t];
+    if(i<n){dm.position.set(d.x,tb.position.y+Math.sin(d.a)*(tubeR+0.02),tb.position.z+Math.cos(d.a)*(tubeR+0.02));dm.rotation.set(d.rx,d.ry,0);dm.scale.setScalar(d.s);}else dm.scale.setScalar(0);
+    dm.updateMatrix();deb.setMatrixAt(i,dm.matrix);}
+  for(let i=0;i<200;i++){const d=bugSeed[i],tb=tubes[d.t];
+    if(i<nb){dm.position.set(d.x,tb.position.y+Math.sin(d.a)*(tubeR+0.025),tb.position.z+Math.cos(d.a)*(tubeR+0.025));dm.rotation.set(d.rx,d.ry,0);dm.scale.setScalar(1);}else dm.scale.setScalar(0);
+    dm.updateMatrix();bugs.setMatrixAt(i,dm.matrix);}
+  deb.instanceMatrix.needsUpdate=true; bugs.instanceMatrix.needsUpdate=true;
+}
+
+// air particles
+const NA=1400;
+const airGeo=new THREE.BufferGeometry(); const aPos=new Float32Array(NA*3), aCol=new Float32Array(NA*3);
+const air=[...Array(NA)].map(()=>({x:rnd(-L/2,L/2),z:rnd(-Wd/2,Wd/2),y:rnd(-1.6,yBundle+3.5),v:rnd(.8,1.2),stuck:0}));
+airGeo.setAttribute('position',new THREE.BufferAttribute(aPos,3)); airGeo.setAttribute('color',new THREE.BufferAttribute(aCol,3));
+const airPts=new THREE.Points(airGeo,new THREE.PointsMaterial({size:0.07,vertexColors:true,transparent:true,opacity:.85,depthWrite:false}));
+whole.add(airPts);
+const cCold=new THREE.Color(0x7fc4ff), cHot=new THREE.Color(0xff9a6a), cTmp=new THREE.Color();
+
+// ===================== CLOSE-UP (real scale) =====================
+const close=new THREE.Group(); close.position.set(60,0,0); scene.add(close);
+const Do=0.025, Df=0.057, tf=0.0006, fp=1/423, St=0.064, Sl=0.0554, segL=0.07;
+const cTubes=[]; const nFin=Math.floor(segL/fp);
+const cTubeGeo=new THREE.CylinderGeometry(Do/2,Do/2,segL,28,1,true); cTubeGeo.rotateZ(Math.PI/2);
+const cInnerGeo=new THREE.CylinderGeometry(0.0105,0.0105,segL+0.0005,28,1,true); cInnerGeo.rotateZ(Math.PI/2);
+const finGeo=new THREE.RingGeometry(Do/2,Df/2,40); finGeo.rotateY(Math.PI/2);
+const finMat=new THREE.MeshStandardMaterial({color:0xd5dde4,metalness:.35,roughness:.45,emissive:0x1c2228,side:THREE.DoubleSide});
+const positions=[[0,0,0],[0,0,-St],[0,Sl,-St/2]];
+const fins=new THREE.InstancedMesh(finGeo,finMat,positions.length*nFin); close.add(fins);
+let fi=0;
+positions.forEach((p,k)=>{
+  const t=new THREE.Mesh(cTubeGeo,M(0x8a96a1,{metalness:.7,roughness:.35,side:THREE.DoubleSide})); t.position.set(p[0],p[1],p[2]); close.add(t); cTubes.push(t);
+  const gas=new THREE.Mesh(cInnerGeo,new THREE.MeshBasicMaterial({color:k<2?0x3fa7ff:0xff6a3d,side:THREE.BackSide})); gas.position.copy(t.position); close.add(gas);
+  for(let i=0;i<nFin;i++){dm.position.set(-segL/2+fp/2+i*fp,p[1],p[2]);dm.rotation.set(0,0,0);dm.scale.set(1,1,1);dm.updateMatrix();fins.setMatrixAt(fi++,dm.matrix);}
+});
+// gas end caps (show gas inside)
+// close-up debris wedged in the gaps of bottom row, underside
+const MAXCD=900;
+const cDeb=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.0011,0),debrisM,MAXCD); close.add(cDeb);
+const cSeed=[...Array(MAXCD)].map(()=>({k:Math.floor(rnd(0,2)),i:Math.floor(rnd(0,nFin-1)),a:rnd(-2.7,-0.45),r:rnd(Do/2+0.002,Df/2-0.001),s:rnd(.7,1.5)}));
+function placeClose(phi){
+  const n=Math.round(MAXCD*phi/80);
+  for(let j=0;j<MAXCD;j++){const d=cSeed[j],p=positions[d.k];
+    if(j<n){dm.position.set(-segL/2+fp+d.i*fp,p[1]+Math.sin(d.a)*d.r,p[2]+Math.cos(d.a)*d.r);dm.scale.setScalar(d.s);}else dm.scale.setScalar(0);
+    dm.updateMatrix();cDeb.setMatrixAt(j,dm.matrix);}
+  cDeb.instanceMatrix.needsUpdate=true;
+}
+// gap dimension marker
+const gapI=Math.round((0.006+segL/2-fp/2)/fp), gapX=-segL/2+fp/2+gapI*fp;
+const mk=new THREE.Group(); close.add(mk);
+const lm=new THREE.LineBasicMaterial({color:0xffb020});
+function seg(a,b){const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...a),new THREE.Vector3(...b)]);mk.add(new THREE.Line(g,lm));}
+const yTop=Df/2+0.004, zM=0;
+seg([gapX,yTop,zM],[gapX+fp,yTop,zM]); seg([gapX,Df/2-0.002,zM],[gapX,yTop+0.002,zM]); seg([gapX+fp,Df/2-0.002,zM],[gapX+fp,yTop+0.002,zM]);
+// close-up air streaks
+const NCA=500; const caGeo=new THREE.BufferGeometry(); const caPos=new Float32Array(NCA*3);
+const cair=[...Array(NCA)].map(()=>({x:rnd(-segL/2,segL/2),z:rnd(-1.6*St,0.6*St),y:rnd(-0.08,0.14),v:rnd(.8,1.2)}));
+caGeo.setAttribute('position',new THREE.BufferAttribute(caPos,3));
+const caPts=new THREE.Points(caGeo,new THREE.PointsMaterial({size:0.0016,color:0x9fd2ff,transparent:true,opacity:.7,depthWrite:false})); close.add(caPts);
+
+// ===================== LABELS =====================
+const LBL={
+ whole:[
+  {p:[3.5,fanY+0.2,1.25],k:'fan',h:'<b>Fans A, B, C</b><small>2.4 m propellers push air up</small>'},
+  {p:[0,fanY-1.25,0.3],k:'fan',h:'<b>Motor + speed drive</b><small>11 kW each, VFD</small>'},
+  {p:[-0.5,1.3,Wd/2],k:'',h:'<b>Plenum</b><small>empty air box, not the fin gap</small>'},
+  {p:[1.5,yBundle+(ROWS-1)*rowGap+0.12,0.6],k:'fin',h:'<b>Finned tubes (6 rows)</b><small>gas inside, fins outside</small>'},
+  {p:[2.2,yBundle-0.14,1.2],k:'deb',h:'<b>Debris layer</b><small>under the bottom row</small>'},
+  {p:[-L/2-0.25,yBundle+(ROWS-1)*rowGap+1.05,0.6],k:'hot',h:'<b>Hot wet syngas in</b><small>~167 °C</small>'},
+  {p:[-L/2-0.25,yBundle-1.05,0.6],k:'fan',h:'<b>Cooled gas out</b><small>~66 °C</small>'},
+  {p:[L/2+0.25,yBundle+(ROWS-1)*rowGap+0.3,0],k:'',h:'<b>Return header</b><small>pass 1 turns into pass 2</small>'},
+  {p:[-1,yBundle+ROWS*rowGap+2.4,0],k:'hot',h:'<b>Warm air out</b>'}
+ ],
+ close:[
+  {p:[-0.03,Df/2-0.008,0.005],k:'fin',h:'<b>Fin</b><small>0.4 mm aluminium ring, 57 mm across</small>'},
+  {p:[gapX+fp/2,yTop+0.0015,zM],k:'gap',h:'<b>Fin gap ≈ 2.0 mm</b><small>air squeezes through here</small>'},
+  {p:[0.04,Sl+0.006,-St/2],k:'hot',h:'<b>Upper row tube</b><small>Ø25 mm stainless, hot gas inside</small>'},
+  {p:[0.016,-Df/2-0.001,0],k:'deb',h:'<b>Debris wedged in gaps</b><small>underside, where the air arrives</small>'},
+  {p:[-0.025,-0.04,0],k:'fan',h:'<b>Air from the fans</b><small>moving up</small>'}
+ ]
+};
+LBL.side=LBL.whole;
+let view='whole', lblEls=[];
+function buildLabels(){labelsEl.innerHTML='';lblEls=(LBL[view]).map(o=>{const d=document.createElement('div');d.className='lbl'+(o.k?' k-'+o.k:'');d.innerHTML='<span>'+o.h+'</span>';labelsEl.appendChild(d);return {el:d,v:new THREE.Vector3(...o.p)};});}
+const tmpV=new THREE.Vector3();
+function updateLabels(){
+  const show=document.getElementById('showLbl').checked; labelsEl.hidden=!show; if(!show)return;
+  const w=stage.clientWidth,h=stage.clientHeight; const grp=view==='close'?close:whole;
+  lblEls.forEach(o=>{tmpV.copy(o.v);grp.localToWorld(tmpV);tmpV.project(camera);
+    const vis=tmpV.z<1&&tmpV.x>-1.1&&tmpV.x<1.1&&tmpV.y>-1.1&&tmpV.y<1.1;
+    o.el.style.display=vis?'':'none';
+    o.el.style.transform=`translate(${(tmpV.x*.5+.5)*w}px,${(-tmpV.y*.5+.5)*h}px) translate(-50%,-100%)`;});
+}
+
+// ===================== VIEWS =====================
+const VIEWS={
+ whole:{pos:[12,1.7,14],tgt:[0,2.2,0],grp:'whole',hint:'Simplified: 14 of 46 tubes per row drawn'},
+ side:{pos:[0.01,2.6,15],tgt:[0,2.4,0],grp:'whole',hint:'Side cut: air goes up from the fans, through the plenum and the tubes'},
+ close:{pos:[60,0.03,0.95],tgt:[60,0.014,0],fov:9,grp:'close',hint:'Drawn with an assumed standard fin size: 57 mm across, 423 per metre, about 2 mm apart'}
+};
+function setView(v){
+  view=v; const c=VIEWS[v];
+  camera.position.set(...c.pos); controls.target.set(...c.tgt); camera.fov=c.fov||42; camera.updateProjectionMatrix();
+  controls.minDistance=v==='close'?0.15:4; controls.maxDistance=v==='close'?2:45;
+  whole.visible=c.grp==='whole'; close.visible=c.grp==='close'; scene.fog.far=c.grp==='close'?400:90; scene.fog.near=c.grp==='close'?300:40;
+  plenum.material.opacity=v==='side'?0.05:0.13; sideRails.forEach(r=>r.visible=!(v==='side'&&r.userData.side>0));
+  document.getElementById('hint').textContent=c.hint;
+  ['vWhole','vClose','vSide'].forEach(id=>document.getElementById(id).setAttribute('aria-pressed',String({vWhole:'whole',vClose:'close',vSide:'side'}[id]===v)));
+  buildLabels(); controls.update();
+}
+document.getElementById('vWhole').onclick=()=>setView('whole');
+document.getElementById('vClose').onclick=()=>setView('close');
+document.getElementById('vSide').onclick=()=>setView('side');
+
+// ===================== SLIDER =====================
+let phi=65;
+const $=id=>document.getElementById(id);
+function applyPhi(p){
+  phi=+p; $('phi').value=phi; $('phiOut').textContent=phi+'%';
+  const r=rowAt(phi);
+  $('kAir').textContent=r[1].toFixed(0)+'%'; $('kUA').textContent=r[2].toFixed(0)+'%';
+  $('kT').textContent=r[3].toFixed(0)+' °C'; $('kP').textContent=r[4].toFixed(1)+' kW';
+  $('bAir').style.width=r[1]+'%'; $('bUA').style.width=r[2]+'%';
+  $('bT').style.width=Math.min(100,(r[3]-40)/90*100)+'%'; $('bP').style.width=(r[4]/11*100)+'%';
+  const bad=r[3]>65, near=r[3]>60&&!bad;
+  $('bT').style.background=bad?'var(--bad)':near?'var(--warn)':'var(--ok)';
+  $('status').innerHTML=bad?'<span class="pill" style="color:var(--bad)">LIKELY BOTTLENECK</span> Model says the outlet goes above 65 °C, so the plant would have to cut hydrogen production on hot days.'
+    :near?'<span class="pill" style="color:var(--warn)">CLOSE TO LIMIT</span> Still holds 65 °C, but with almost no reserve.'
+    :'<span class="pill" style="color:var(--ok)">OK</span> Model says the cooler holds 65 °C even on a 38 °C day.';
+  placeDebris(phi); placeClose(phi);
+}
+$('phi').addEventListener('input',e=>applyPhi(e.target.value));
+document.querySelectorAll('[data-phi]').forEach(b=>b.onclick=()=>applyPhi(b.dataset.phi));
+['showLbl'].forEach(id=>$(id).addEventListener('change',updateLabels));
+
+// ===================== LOOP =====================
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(stage);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduce)$('spin').checked=false;
+let last=performance.now();
+function tick(now){
+  const dt=Math.min(0.05,(now-last)/1000); last=now;
+  const anim=$('spin').checked, r=rowAt(phi), flow=r[1]/100;
+  if(anim) fans.forEach(f=>f.rotation.y+=dt*9*1.0);
+  airPts.visible=caPts.visible=$('showAir').checked;
+  // whole-view air
+  const top=yBundle+ROWS*rowGap+3.5, bot=-1.6, bunLo=yBundle-0.15, bunHi=yBundle+ROWS*rowGap;
+  for(let i=0;i<NA;i++){const a=air[i];
+    if(anim){
+      if(a.stuck>0){a.stuck-=dt;}
+      else{const inBundle=a.y>bunLo-0.1&&a.y<bunHi; const sp=(inBundle?1.4:2.6)*flow*a.v; a.y+=sp*dt;
+        if(Math.abs(a.y-(bunLo-0.12))<0.05 && Math.random()<phi/80*0.5*dt*20){a.stuck=rnd(.3,1.2)*phi/80;}}
+      if(a.y>top){a.y=bot;a.x=rnd(-L/2,L/2);a.z=rnd(-Wd/2,Wd/2);}
+    }
+    // funnel near fans
+    let x=a.x,z=a.z; if(a.y<fanY+0.4){const fx=fanX.reduce((b,c)=>Math.abs(c-x)<Math.abs(b-x)?c:b);const k=Math.max(0,Math.min(1,(fanY+0.4-a.y)/2));x=x+(fx-x)*k*0.75;z=z*(1-k*0.6);}
+    aPos[i*3]=x;aPos[i*3+1]=a.y;aPos[i*3+2]=z;
+    const t=Math.max(0,Math.min(1,(a.y-bunLo)/(bunHi-bunLo)));cTmp.copy(cCold).lerp(cHot,t);aCol[i*3]=cTmp.r;aCol[i*3+1]=cTmp.g;aCol[i*3+2]=cTmp.b;
+  }
+  airGeo.attributes.position.needsUpdate=true; airGeo.attributes.color.needsUpdate=true;
+  // close-up air
+  for(let i=0;i<NCA;i++){const a=cair[i]; if(anim){a.y+=0.06*flow*a.v*dt; if(a.y>0.14){a.y=-0.08;a.x=rnd(-segL/2,segL/2);a.z=rnd(-1.6*St,0.6*St);}}
+    caPos[i*3]=a.x;caPos[i*3+1]=a.y;caPos[i*3+2]=a.z;}
+  caGeo.attributes.position.needsUpdate=true;
+  controls.update(); renderer.render(scene,camera); updateLabels();
+  requestAnimationFrame(tick);
+}
+resize(); setView('whole'); applyPhi(65); requestAnimationFrame(tick);
+})();
+</script>

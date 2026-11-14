@@ -1,0 +1,55 @@
+{
+ "trained_on": "45 simulated plants, calibrated on 15 others",
+ "weather": [
+  "atyrau_open-meteo_47.12N_51.92E_2025-01-01_2026-11-13.csv",
+  "atyrau_precip_2025-01-01_2026-11-12.csv",
+  "atyrau_precip_temp_2023-01-01_2026-11-14.csv"
+ ],
+ "debris_D_official": 153.0,
+ "health_indicator_rmse_pct": 1.36,
+ "conformal_widening": {
+  "7": 0.06,
+  "14": 0.17,
+  "30": 0.32
+ },
+ "h7": {
+  "n": 129,
+  "model_MAE_pct": 1.31,
+  "persistence_MAE_pct": 3.3,
+  "linear_trend_MAE_pct": 1.18,
+  "band_coverage": 0.68
+ },
+ "h14": {
+  "n": 122,
+  "model_MAE_pct": 2.15,
+  "persistence_MAE_pct": 6.33,
+  "linear_trend_MAE_pct": 2.43,
+  "band_coverage": 0.56
+ },
+ "h30": {
+  "n": 106,
+  "model_MAE_pct": 3.92,
+  "persistence_MAE_pct": 12.35,
+  "linear_trend_MAE_pct": 7.46,
+  "band_coverage": 0.39
+ },
+ "band_coverage_10_new_plants": {
+  "7": 0.77,
+  "14": 0.79,
+  "30": 0.78
+ },
+ "alarm_sonication": {
+  "trigger_pct": 30.0,
+  "true_cross": "2026-07-24",
+  "first_alarm": "2026-07-08",
+  "lead_days": 16,
+  "false_alarm_days": 0
+ },
+ "alarm_dry_projection": {
+  "trigger_pct": 40.0,
+  "true_cross": "2026-08-03",
+  "first_alarm": "2026-07-17",
+  "lead_days": 17,
+  "false_alarm_days": 0
+ }
+}

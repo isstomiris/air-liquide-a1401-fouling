@@ -1,0 +1,93 @@
+{
+ "usable_period": [
+  "2023-11-14 20:00:00",
+  "2026-03-11 16:00:00"
+ ],
+ "hours_used": 19065,
+ "shutdowns": [
+  [
+   "2025-10-03",
+   "2025-10-21"
+  ]
+ ],
+ "note": "values after 11 Mar 2026 17:00 are one frozen sample repeated; not used",
+ "sim_only": {
+  "h7": {
+   "n": 388,
+   "model_MAE_pct": 1.38,
+   "persistence_MAE_pct": 1.35,
+   "linear_trend_MAE_pct": 1.7,
+   "band_coverage": 0.26
+  },
+  "h14": {
+   "n": 374,
+   "model_MAE_pct": 1.67,
+   "persistence_MAE_pct": 1.68,
+   "linear_trend_MAE_pct": 2.73,
+   "band_coverage": 0.24
+  },
+  "h30": {
+   "n": 342,
+   "model_MAE_pct": 2.19,
+   "persistence_MAE_pct": 2.25,
+   "linear_trend_MAE_pct": 4.28,
+   "band_coverage": 0.27
+  }
+ },
+ "sim_trained_real_calibrated": {
+  "h7": {
+   "n": 388,
+   "model_MAE_pct": 1.39,
+   "persistence_MAE_pct": 1.35,
+   "linear_trend_MAE_pct": 1.7,
+   "band_coverage": 0.94
+  },
+  "h14": {
+   "n": 374,
+   "model_MAE_pct": 1.69,
+   "persistence_MAE_pct": 1.68,
+   "linear_trend_MAE_pct": 2.73,
+   "band_coverage": 0.98
+  },
+  "h30": {
+   "n": 342,
+   "model_MAE_pct": 2.19,
+   "persistence_MAE_pct": 2.25,
+   "linear_trend_MAE_pct": 4.28,
+   "band_coverage": 0.96
+  }
+ },
+ "flow_vs_air_temp": {
+  "-30 to 0 C": {
+   "hours": 5455,
+   "flow_median": 24477,
+   "fans_at_100_pct": 10,
+   "outlet_median": 75.0
+  },
+  "0 to 10 C": {
+   "hours": 4608,
+   "flow_median": 25486,
+   "fans_at_100_pct": 32,
+   "outlet_median": 76.6
+  },
+  "10 to 20 C": {
+   "hours": 3195,
+   "flow_median": 22508,
+   "fans_at_100_pct": 31,
+   "outlet_median": 67.4
+  },
+  "20 to 30 C": {
+   "hours": 4396,
+   "flow_median": 19061,
+   "fans_at_100_pct": 74,
+   "outlet_median": 68.7
+  },
+  "30 to 45 C": {
+   "hours": 1411,
+   "flow_median": 18802,
+   "fans_at_100_pct": 100,
+   "outlet_median": 78.4
+  }
+ },
+ "corr_flow_air_temp": -0.52
+}
