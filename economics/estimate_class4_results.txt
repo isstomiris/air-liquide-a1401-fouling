@@ -1,0 +1,13 @@
+Rates: {'FX KZT/USD': 444.3, 'Power USD/kWh': 0.09, 'Plant staff USD/h': 10.79, 'Contractor USD/h': 16.19, 'Engineer USD/h': 25.67}
+s1_direct      74,789 USD
+s1             93,486 USD
+s2_direct       5,134 USD
+s2              6,418 USD
+camp           30,215 USD
+s1_opex        11,694 USD
+s2_opex        60,430 USD
+S1 range 65,440-140,229 {'npv': 225380.084, 'irr': 0.859, 'payback': 1.111, 'disc_payback': 1.245, 'hurdle_t': 42.856}
+S2 range 4,492-9,627 {'npv': 127699.679, 'irr': 5.512, 'payback': 0.181, 'disc_payback': 0.2, 'hurdle_t': 62.569}
+margin 0.5 S1 payback 2.58 S2 -0.51
+margin 1.0 S1 payback 1.11 S2 0.18
+margin 2.0 S1 payback 0.52 S2 0.05

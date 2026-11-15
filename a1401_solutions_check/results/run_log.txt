@@ -1,0 +1,43 @@
+base b = 0.594, peak seasonal increment = 0.093
+                                                  scenario  mean_b_Jul_Sep  max_b  mean_T_out_C  mean_T_out_air_ge_30C  hours_T_out_gt_65C  hours_evaluated  mean_duty_kW  MAE_vs_measured_K  bias_vs_measured_K  mean_duty_gain_kW_vs_no_action
+0                0  No in-season action (2025 as measured)           0.686  0.688        74.567                 80.149                2651             2863      4012.596              2.667               0.806                           0.000
+1                 E  Existing-type cleaning moved to 1 Jul           0.595  0.685        65.746                 66.817                1530             2863      4190.925                NaN                 NaN                         178.329
+2              S1 conservative: coating + vibration, daily           0.651  0.658        69.155                 73.597                2008             2863      4129.264                NaN                 NaN                         116.668
+3                   S1 central: coating + vibration, daily           0.627  0.632        65.927                 70.056                1589             2863      4197.490                NaN                 NaN                         184.894
+4                S1 optimistic: coating + vibration, daily           0.613  0.620        64.091                 67.997                1302             2863      4235.394                NaN                 NaN                         222.798
+5          S1 central, coating deposition multiplier s=0.8           0.621  0.624        65.037                 69.094                1441             2863      4216.132                NaN                 NaN                         203.536
+6          S1 central, coating deposition multiplier s=0.6           0.614  0.617        64.146                 68.132                1313             2863      4234.644                NaN                 NaN                         222.048
+7     S2 conservative: DECAMEX, 2 campaigns (1 Jun, 1 Jul)           0.651  0.673        69.946                 73.834                2100             2863      4110.148                NaN                 NaN                          97.552
+8          S2 central: DECAMEX, 2 campaigns (1 Jun, 1 Jul)           0.617  0.658        66.319                 69.040                1560             2863      4183.618                NaN                 NaN                         171.022
+9       S2 optimistic: DECAMEX, 2 campaigns (1 Jun, 1 Jul)           0.599  0.649        64.330                 66.455                1325             2863      4222.896                NaN                 NaN                         210.300
+10                          S2 central, 1 campaign (1 Jul)           0.624  0.685        68.126                 70.430                1822             2863      4145.022                NaN                 NaN                         132.426
+11  S2 central, 4 campaigns (15 May, 1 Jun, 15 Jun, 1 Jul)           0.613  0.640        64.855                 68.095                1401             2863      4217.368                NaN                 NaN                         204.773
+12   Z  Seasonal increment fully absent all season (limit)           0.594  0.594        61.568                 65.337                1032             2863      4287.578                NaN                 NaN                         274.983
+{'b_before_Aug_Sep_2025': 0.682403204979178, 'b_after_Nov_2025': 0.5571815962655672, 'hours_after': 40, 'last_reading_b_ge_0p65': '2025-10-01 09:00:00', 'first_reading_b_le_0p60': '2025-10-30 03:00:00'}
+Clean bundle (model)                                    b=0.000 T=36.7 Q=4244
+Best measured after a cleaning (Nov 2025)               b=0.557 T=55.1 Q=3923
+Spring base 2025 (no seasonal debris)                   b=0.594 T=59.4 Q=3843
+No action, end of summer 2025 (fitted)                  b=0.685 T=75.2 Q=3530
+Existing-type cleaning, 1 Jul (season mean Jul-Sep)     b=0.595 T=59.6 Q=3840
+S1 conservative (season mean Jul-Sep)                   b=0.651 T=68.3 Q=3672
+S1 central (season mean Jul-Sep)                        b=0.627 T=64.2 Q=3751
+S1 optimistic (season mean Jul-Sep)                     b=0.613 T=62.1 Q=3792
+S2 conservative (season mean Jul-Sep)                   b=0.651 T=68.3 Q=3671
+S2 central (season mean Jul-Sep)                        b=0.617 T=62.7 Q=3781
+S2 optimistic (season mean Jul-Sep)                     b=0.599 T=60.1 Q=3830
+S1 conservative, one event on end-of-summer state       b=0.681 T=74.3 Q=3548
+S1 central, one event on end-of-summer state            b=0.662 T=70.4 Q=3628
+S1 optimistic, one event on end-of-summer state         b=0.640 T=66.4 Q=3710
+S2 conservative, one campaign on end-of-summer state    b=0.656 T=69.3 Q=3651
+S2 central, one campaign on end-of-summer state         b=0.622 T=63.5 Q=3766
+S2 optimistic, one campaign on end-of-summer state      b=0.600 T=60.3 Q=3827
+Doc example: 30 % initial (assumed)                     b=0.300 T=41.1 Q=4170
+Doc example: S1 central from 30 %                       b=0.224 T=39.5 Q=4198
+Doc example: S2 central from 30 %                       b=0.093 T=37.6 Q=4230
+   air_C          state    b  T_out_3fans  T_out_2fans  duty_3fans_kW  duty_2fans_kW  max_flow_65C_3fans  max_flow_65C_2fans
+0   20.0  end of summer  0.7         61.0         95.1         3814.1         3062.4             18221.9             12632.5
+1   20.0    spring base  0.6         45.0         76.3         4102.8         3505.0             22185.5             15495.9
+2   31.8  end of summer  0.7         75.2        105.1         3529.7         2779.5             15433.5             10712.9
+3   31.8    spring base  0.6         59.4         89.2         3842.9         3211.5             18770.1             13130.7
+{'energy_closure_max_pct': 1.8036685019757618e-13, 'season_no_action_MAE_K': 2.666595100813894, 'season_no_action_bias_K': 0.8060753640000334, 'outlet_monotonic_in_b': True, 'every_scenario_b_le_no_action': True}
+done

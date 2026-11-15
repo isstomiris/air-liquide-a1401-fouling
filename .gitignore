@@ -4,3 +4,9 @@ __pycache__/
 __MACOSX/
 .env
 *.zip
+# Air Liquide plant data is not published
+plant_history/
+a1401_clean_vs_fouled/data/historian_full.xlsx
+a1401_monitor/out/health_*.csv
+a1401_clean_vs_fouled/results/history_equivalent_blockage_hourly.csv
+a1401_clean_vs_fouled/results/history_withheld_predictions.csv

@@ -47,3 +47,15 @@ cd a1401_monitor && python real_backtest.py  # test the monitor on the real plan
 - PFD drawing helper `pfd/pid_lib.py` comes from [claude-manufacturing-skills](https://github.com/ScottDuncanAI/claude-manufacturing-skills) by Scott Duncan (MIT licence).
 - Slide and design skills: [anthropics/skills](https://github.com/anthropics/skills), [frontend-slides](https://github.com/zarazhangrui/frontend-slides) and [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill).
 - Weather data: [Open-Meteo](https://open-meteo.com/) (ERA5 reanalysis).
+
+## Final presentation and calculations (15 Nov 2026)
+
+| File | What it is |
+|---|---|
+| [`deck/final.html`](deck/final.html) | Final 20-slide deck. Open in a browser; arrow keys to move, **N** for speaker notes. |
+| [`docs/calculations.pdf`](docs/calculations.pdf) | Every calculation on the slides with its justification (LaTeX source: `docs/calculations.tex`). |
+| [`a1401_solutions_check/`](a1401_solutions_check/) | Solution simulation (`simulate_solutions_v2.py`), comparison matrix, protocols and defence summaries. |
+
+## Plant data
+
+The raw Air Liquide plant exports (historian workbook, hourly history, hourly model inputs) are not published in this repository because the data belongs to Air Liquide. Scripts that read `plant_history/` or `a1401_clean_vs_fouled/data/historian_full.xlsx` need those files placed back locally. Derived daily and monthly results, figures and all code are included.

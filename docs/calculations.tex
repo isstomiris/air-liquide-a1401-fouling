@@ -1,0 +1,390 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,longtable}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\setlist{nosep,leftmargin=1.4em}
+\newcommand{\unit}[1]{\ensuremath{\,\mathrm{#1}}}
+\newcommand{\src}[1]{\textcolor{gray}{\small[#1]}}
+\newcommand{\why}[1]{\par\noindent\textbf{Why this is right.} #1\par}
+
+\title{Air cooler A-1401: calculations and their justification}
+\author{AIChE Student Chapter team, Air Liquide case\\\small AIChE Student Hackathon 2026}
+\date{15 November 2026}
+
+\begin{document}
+\maketitle
+
+\noindent This file collects every calculation shown on the slides, plus the ones behind them, with the reason we believe each result. Every number comes from a script in this repository; the source is given in grey brackets. Paths are relative to the repository root.
+
+\medskip
+\noindent\textbf{Evidence labels.} \src{DS} datasheet and bundle drawing; \src{PFD} process flow diagram; \src{HIST} plant historian; \src{WX} ERA5 weather; \src{CORR} published correlation; \src{ASM} our assumption, tested in the sensitivity study.
+
+\tableofcontents
+
+%======================================================================
+\section{Basis: reference condition and inputs}
+
+All clean-versus-fouled numbers use one real, steady window of plant data: \textbf{18 July 2025, 17:00--20:00 UTC} \src{HIST}. It was chosen automatically as the steady 4-hour window in July--August 2025 with fans at 100\,\%, air 28--32\,\textdegree C and the smallest scatter.
+
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lll}
+\toprule
+Quantity & Value & Source\\\midrule
+Syngas inlet temperature & 159.4\,\textdegree C (std 0.3\,K) & HIST, TIA050\\
+Dry gas flow & 17{,}444\unit{Nm^3/h} (std 51) & HIST, FI010 (flare closed)\\
+Measured outlet & 72.9\,\textdegree C & HIST\\
+Air temperature & 31.8\,\textdegree C & WX (ERA5, 47.14\,N 51.89\,E)\\
+Process pressure & 2.75\unit{MPa} abs & DS/PFD, mid value\\
+Water / dry gas & 0.555\unit{mol/mol} & PFD steam balance (unverified)\\
+Dry gas, mol\,\% & H$_2$ 74.4, CO$_2$ 17.9, CH$_4$ 4.96, CO 2.25, N$_2$ 0.6 & plant lab medians\\
+\bottomrule\end{tabular}\end{center}
+
+\noindent Molar flow of dry gas (1\,kmol = 22.414\,Nm$^3$ at 0\,\textdegree C, 1\,atm):
+\[
+\dot n_\text{dry} = \frac{17{,}444}{22.414} = 778.3\unit{kmol/h} = 0.2162\unit{kmol/s}.
+\]
+\src{a1401\_clean\_vs\_fouled/REPORT.md \S3}
+
+%======================================================================
+\section{Geometry}
+
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lll}
+\toprule
+Item & Value & Source\\\midrule
+Tubes, rows, passes & 276, 6, 2 & DS (bundle BOM item 31)\\
+Tube OD $\times$ wall, material & $25\times2\unit{mm}$, 304L, $k_w=16\unit{W/mK}$ & DS, handbook\\
+Bare and extended area & 226 and 5{,}288.4\unit{m^2} & DS\\
+Fans & $3\times114{,}000\unit{m^3/h}$, 190\,Pa total, $\varnothing$2.4\,m, 11\,kW & DS\\
+Fin: Al, $D_f$, $t$, density & 57\,mm, 0.4\,mm, 423\unit{fins/m}, $k_f=205\unit{W/mK}$ & ASM\\
+Pitch: transverse, longitudinal & 64\,mm, 55.4\,mm (equilateral) & ASM\\
+\bottomrule\end{tabular}\end{center}
+
+\noindent The fin size is not on the datasheet. We chose the fin diameter, thickness and density so that the model reproduces \emph{both} datasheet areas:
+\begin{align*}
+L &= \frac{A_\text{bare}}{\pi D_o N} = \frac{226}{\pi\,(0.025)(276)} = 10.42\unit{m},\qquad L_\text{tot}=276\times10.42 = 2{,}876\unit{m}\\
+A_\text{fin} &= n_f L_\text{tot}\Big[2\cdot\tfrac{\pi}{4}(D_f^2-D_o^2) + \pi D_f t\Big] = 423\times2{,}876\times[4.12\times10^{-3}] = 5{,}101\unit{m^2}\\
+A_\text{root} &= \pi D_o (1-n_f t) L_\text{tot} = 187.7\unit{m^2}, \qquad A = A_\text{fin}+A_\text{root} = 5{,}289\unit{m^2}
+\end{align*}
+Clear gap between fins $s = 1/n_f - t = 1.96\unit{mm}$; fin height $l=(D_f-D_o)/2=16\unit{mm}$. Face area $A_\text{face} = 46\times0.064\times10.42 = 30.68\unit{m^2}$; minimum free-flow fraction $\sigma=0.525$.
+\why{the model gives 225.9 and 5{,}289\unit{m^2} against the datasheet 226 and 5{,}288.4\unit{m^2}. Other fin sizes could also fit, so the fin size stays an assumption; it is tested indirectly through the $\pm20\,\%$ range on $h_\text{air}$ (Section~9).}
+\src{a1401sim/config.py, a1401sim/airside.py}
+
+%======================================================================
+\section{Air-side heat-transfer coefficient and fin efficiency}
+
+Air properties at the mean air temperature of the clean case, $(31.8+70.0)/2 = 50.9\,$\textdegree C, site pressure 101.7\,kPa: $\rho=1.093\unit{kg/m^3}$, $\mu = 1.958\times10^{-5}\unit{Pa\,s}$ (Sutherland), $k=0.0281\unit{W/mK}$, $c_p=1{,}006\unit{J/kgK}$, $\Pr=0.701$.
+
+\subsection*{Step 1: velocity and Reynolds number}
+\[
+V_\text{face} = \frac{\dot V}{A_\text{face}} = \frac{95.0}{30.68} = 3.10\unit{m/s},\qquad
+V_\text{max} = \frac{V_\text{face}}{\sigma(1-b)} = \frac{3.10}{0.525} = 5.90\unit{m/s}
+\]
+\[
+\mathrm{Re} = \frac{\rho V_\text{max} D_o}{\mu} = \frac{1.093\times5.90\times0.025}{1.958\times10^{-5}} = 8{,}240.
+\]
+
+\subsection*{Step 2: Briggs--Young correlation}
+For staggered banks of helically finned tubes (Briggs and Young, 1963):
+\[
+\mathrm{Nu} = 0.134\,\mathrm{Re}^{0.681}\,\Pr^{1/3}\left(\frac{s}{l}\right)^{0.2}\left(\frac{s}{t}\right)^{0.1134}
+= 0.134\times464.3\times0.888\times0.657\times1.198 = 43.5
+\]
+\[
+h_\text{air} = \frac{\mathrm{Nu}\,k}{D_o} = \frac{43.5\times0.0281}{0.025} = 48.9\unit{W/m^2K}.
+\]
+\why{the correlation is valid for $\mathrm{Re}=1{,}100$--$18{,}000$ and fin geometries like ours; our Re is 8{,}240 clean and 10{,}770 at end of summer. Its stated scatter is about $\pm20\,\%$; changing $h_\text{air}$ by $\pm20\,\%$ moves the fitted blockage by only $-4/+3$ points (Section~9). 49\,W/m$^2$K is in the usual range for fin-fan coolers (40--60).}
+
+\subsection*{Step 3: fin efficiency (Schmidt approximation for annular fins)}
+\[
+m = \sqrt{\frac{2h}{k_f t}} = \sqrt{\frac{2\times48.9}{205\times0.0004}} = 34.5\unit{m^{-1}},\qquad
+\frac{r_e}{r_o} = \frac{28.5}{12.5} = 2.28
+\]
+\[
+\varphi = \left(\frac{r_e}{r_o}-1\right)\left(1+0.35\ln\frac{r_e}{r_o}\right) = 1.28\times1.289 = 1.649,\qquad
+x = m\,r_o\,\varphi = 34.5\times0.0125\times1.649 = 0.712
+\]
+\[
+\eta_f = \frac{\tanh x}{x} = \frac{0.612}{0.712} = 0.86,\qquad
+\eta_o = 1-\frac{A_\text{fin}}{A}(1-\eta_f) = 1-\frac{5{,}101}{5{,}289}(0.14) = 0.865.
+\]
+\why{Schmidt's formula is a standard approximation of the exact Bessel-function solution for annular fins, accurate to a few per cent in this range. Aluminium fins of 0.4\,mm at $h\approx50$ typically give 0.8--0.9, so 0.86 is expected.}
+
+\subsection*{Step 4: air-side conductance and the effect of blockage}
+Blockage $b$ is the fraction of air passages closed. Air goes only through the open part, so the local velocity is $V/(1-b)$ (which \emph{raises} $h$), and only the open area exchanges heat:
+\[
+UA_\text{air} = h_\text{air}\,\eta_o\,A\,(1-b).
+\]
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrrrrr}
+\toprule
+$b$ & Airflow, m$^3$/h & $V_\text{max}$, m/s & Re & $h_\text{air}$, W/m$^2$K & $\eta_f$ & $UA_\text{air}$, kW/K\\\midrule
+0 & 342{,}000 & 5.90 & 8{,}240 & 48.9 & 0.860 & 223.6\\
+0.30 & 282{,}700 & 6.97 & 9{,}540 & 54.5 & 0.846 & 172.0\\
+0.605 & 186{,}200 & 8.13 & 10{,}630 & 60.0 & 0.834 & 105.3\\
+0.685 & 153{,}400 & 8.40 & 10{,}770 & 61.1 & 0.831 & 85.3\\
+\bottomrule\end{tabular}\end{center}
+\why{each effect of blockage is applied once: on velocity (through $h$), on area $(1-b)$ and on pressure drop (Section~4). Applying $(1-b)$ to $h$ as well would double-count.}
+\src{a1401sim/airside.py: h\_air, fin\_efficiency, UA\_air}
+
+%======================================================================
+\section{Fan curve, system curve and airflow}
+
+There is no vendor fan curve. We use a generic axial-fan curve through the rated point (190\,Pa at 342{,}000\,m$^3$/h for three fans), with $n$ the speed fraction and $q$ the airflow as a fraction of rated:
+\[
+\frac{\Delta p_\text{fan}}{\Delta p_r} = 1.6\,n^2 - 0.6\,q^2 \qquad (1.6-0.6 = 1 \text{ at the rated point}).
+\]
+The system needs pressure for the bundle and for everything else (fan velocity pressure, inlet). The fan velocity pressure at the 2.4\,m ring:
+\[
+V_\text{ring} = \frac{114{,}000/3600}{\pi\,2.4^2/4} = 7.00\unit{m/s},\qquad \tfrac12\rho V_\text{ring}^2 = 0.5\times1.2\times7.00^2 = 29.4\unit{Pa}.
+\]
+With about 10\,Pa of inlet loss, the bundle's share of 190\,Pa is $s=(190-29.4-10)/190 = 0.79$. The bundle pressure drop rises with the velocity in the open passages to the power 1.684 (Robinson and Briggs, 1966):
+\[
+\frac{\Delta p_\text{sys}}{\Delta p_r} = (1-s)\,q^2 + s\left[\frac{q}{1-b}\right]^{1.684}.
+\]
+The airflow is where the two curves meet. Example, $b=0.685$, $n=1$, solved numerically: $q = 0.449$.
+\[
+\text{fan: } 1.6-0.6(0.449)^2 = 1.479;\qquad
+\text{system: } 0.207(0.449)^2 + 0.793(1.425)^{1.684} = 0.042+1.441 = 1.483 \;\checkmark
+\]
+Fan pressure $=190\times1.479 = 281\unit{Pa}$. Power per fan (assumed total efficiency 0.65): $P=\dot V\Delta p/(0.65\times3)$.
+
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrr}
+\toprule
+$b$ & Airflow, \% rated & Fan $\Delta p$, Pa & Shaft power per fan, kW\\\midrule
+0 & 100 & 190 & 9.3\\
+0.30 & 83 & 226 & 9.1\\
+0.605 & 54 & 270 & 7.2\\
+0.685 & 45 & 281 & 6.1\\
+\bottomrule\end{tabular}\end{center}
+\why{(1) Air density multiplies both curves equally, so the result does not depend on air temperature. (2) The power at the rated point, 9.3\,kW, is below the 11\,kW motor, as it must be. (3) Robinson--Briggs gives 219\,Pa for the clean bundle, more than the $\approx150$\,Pa available; either the real fins differ or the correlation over-predicts by about 30\,\%. That only affects how airflow responds to blockage, so we tested the bundle share from 0.65 to 0.95 and flatter and steeper fan curves: the fitted blockage moves by $\pm2.5$ points.}
+\noindent\textbf{Practical consequence.} 30\,\% blocked passages cost only 17\,\% of the air, because the fan builds more pressure as resistance rises. The model's fan power \emph{falls} with blockage; real fans near stall may not, so fan current is not used as an alarm signal until real current data is available.
+\src{a1401sim/airside.py: airflow}
+
+%======================================================================
+\section{Process side: wet syngas and condensation}
+
+FI010 measures \emph{dry} gas after the separator. The gas entering A-1401 also carries water: $W=0.555$\,mol per mol dry gas (PFD steam balance). Water is the only condensable. At pressure $P$ and temperature $T$, the gas can hold at most
+\[
+y_w = \frac{p_\text{sat}(T)}{P}, \qquad n_v = \min\!\left(W, \frac{y_w}{1-y_w}\right),\qquad n_l = W - n_v .
+\]
+At 159.4\,\textdegree C and 2.75\,MPa the gas can hold only 0.284\,mol/mol, so part of the water (3.8\,t/h) already enters as liquid; the dew point of the full $W=0.555$ is 179.1\,\textdegree C. The enthalpy per mole of dry gas is
+\[
+H(T) = h_\text{dry}(T) + n_v\,h_{v,\text{sat}}(T) + n_l\,h_{l,\text{sat}}(T),
+\]
+with ideal-gas $c_p$ for the dry gas and IAPWS-95 steam tables for water. The duty between inlet and outlet is $Q=\dot n_\text{dry}[H(T_\text{in})-H(T_\text{out})]$, split in 0.35\,K steps into dry-gas sensible, vapour sensible, liquid sensible and latent heat.
+
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrr}
+\toprule
+& Clean (to 36.7\,\textdegree C) & $b=0.685$ (to 75.2\,\textdegree C)\\\midrule
+Sensible, kW & 1{,}864 & 1{,}261\\
+Condensation (latent), kW & 2{,}378 & 2{,}268\\
+Total, kW & 4{,}242 & 3{,}529\\
+Water condensed, kg/h & 3{,}949 & 3{,}780\\
+\bottomrule\end{tabular}\end{center}
+
+\noindent\textbf{Hand check of the latent part.} $2{,}378\unit{kW} / (3{,}949/3600)\unit{kg/s} = 2{,}168\unit{kJ/kg}$. Steam tables give $h_{fg}=2{,}174\unit{kJ/kg}$ at 130\,\textdegree C and 2{,}144 at 140\,\textdegree C. Most water condenses in that range, near the hot end, so the value is consistent.
+\why{an independent Peng--Robinson flash (Caleb Bell's \texttt{thermo}) of the same inlet and outlet gives a duty 8.8\,\% higher. So the property uncertainty is about $\pm5$--9\,\%, and it affects clean and fouled cases alike. The water content $W$ is the largest single uncertainty (Section~9); the D-1403 condensate flow would fix it.}
+\src{a1401sim/thermo.py; REPORT.md \S4.1, \S6.2}
+
+%======================================================================
+\section{Air mass flow and energy balance}
+
+\begin{align*}
+\text{Clean: } \dot m_\text{air} &= \rho\dot V = 1.162\times95.0 = 110.4\unit{kg/s} &
+Q_\text{air} &= 110.4\times1.006\times(70.0-31.8) = 4{,}242\unit{kW}\\
+b=0.685: \dot m_\text{air} &= 1.162\times42.6 = 49.5\unit{kg/s} &
+Q_\text{air} &= 49.5\times1.006\times(102.6-31.8) = 3{,}529\unit{kW}
+\end{align*}
+($\rho$ at the 31.8\,\textdegree C inlet. 42.6\,m$^3$/s $=153{,}400$\,m$^3$/h.) These equal the gas-side duties of Section~5.
+
+\why{the model checks four ways that the energy balance closes: gas enthalpy change, sum of cell duties, air enthalpy gain and the sum of duty parts. The largest difference is below 0.001\,\%. The water balance (in = vapour out + liquid out) closes to $10^{-6}$\,\%. Dry gas is carried unchanged (no reaction). This proves internal consistency; agreement with the plant is tested separately (Section~8).}
+\src{results/results.json $\rightarrow$ verification; tests/test\_model.py (7/7 pass)}
+
+%======================================================================
+\section{Overall coefficient and the row-by-row rating}
+
+\subsection*{Series resistances}
+\[
+\frac{1}{UA} = \frac{1}{UA_\text{air}} + R_\text{wall} + \frac{1}{UA_\text{in}},\qquad
+R_\text{wall} = \frac{\ln(D_o/D_i)}{2\pi k_w L_\text{tot}} = \frac{\ln(25/21)}{2\pi\times16\times2{,}876} = 6.0\times10^{-7}\unit{K/W}.
+\]
+Clean, at the mean process temperature: $UA = 106.5\unit{kW/K}$. Then $1/UA = 9.39\times10^{-3}$, $1/UA_\text{air} = 4.47\times10^{-3}$ (48\,\%), $R_\text{wall}=0.60\times10^{-3}$ (6\,\%), and the tube side takes the rest, $4.32\times10^{-3}$ (46\,\%). At end of summer the air side takes 73\,\%.
+The tube side uses the Gnielinski correlation for the gas film and the Silver--Bell--Ghaly method for condensation with hydrogen present: $1/h_i = 1/h_\text{film} + Z/h_\text{gas}$, with $Z$ the sensible fraction of the local heat release and an 8{,}000\,W/m$^2$K condensate film (tested 4{,}000--16{,}000). Inside fouling 0.0002\,m$^2$K/W.
+
+\subsection*{Why U falls less than airflow}
+Debris only touches the air side, which is about half of the resistance. So 55\,\% less air gives 41\,\% less $UA$.
+
+\subsection*{Segmented crossflow rating}
+The bundle is split into 6 rows $\times$ 24 segments. Pass 1 flows in the top three rows, pass 2 back through the bottom three rows, which meet the air first. Each cell exchanges heat with the air column crossing it:
+\[
+Q_\text{cell} = C_\text{air,cell}\left[1-\exp\!\left(-\frac{UA_\text{cell}}{C_\text{air,cell}}\right)\right](T_p - T_\text{air,in}),
+\]
+the $\varepsilon$-NTU result for a cell where the gas temperature is nearly constant. Air temperature is updated row by row from the bottom; the process temperature is found from the carried enthalpy, so condensation is included automatically. The field is iterated until the outlet changes by less than 0.001\,K.
+\why{grid convergence: at $b=0.5$ the outlet is 50.68, 50.13, 50.01 and 49.99\,\textdegree C with 6, 12, 24 and 48 segments. The 24-segment result is within 0.03\,K of the finest grid.}
+\src{a1401sim/exchanger.py; REPORT.md \S4.4, \S6.1}
+
+\subsection*{Design-point consistency and the old 13.95\,kW/K}
+At design (135 $\to$ 55\,\textdegree C, 35{,}262\,Nm$^3$/h dry, fans 100\,\%) the clean model meets the duty with air at 35.1\,\textdegree C, a plausible design air temperature for Atyrau (the datasheet does not state it). Geometry gives $UA=119\unit{kW/K}$ at design; the full wet duty at design divided by the counterflow LMTD gives 131\,kW/K (10\,\% apart). An older value of 13.95\,kW/K came from dividing a \emph{dry-gas-only} duty by an LMTD; it omits condensation and liquid cooling, about 75\,\% of the duty, and should not be used.
+
+%======================================================================
+\section{Clean versus fouled, blockage sweep and validation}
+
+\subsection*{Fitting the equivalent blockage}
+For any measured hour, the equivalent blockage $b_\text{eq}$ is the value of $b$ for which the model's outlet equals the measured outlet, found by root-finding. At the reference window $b_\text{eq} = 0.674$; the period fit for August--September 2025 gives 0.685. $b_\text{eq}$ lumps together debris, louvre position, fan wear, hot-air recirculation and model error; it is not a measured debris coverage.
+
+\subsection*{Results at the reference window}
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrrr}
+\toprule
+& Clean & 30\,\% (assumed) & Spring 2025 ($b$ 0.605) & End of summer ($b$ 0.685)\\\midrule
+Airflow, m$^3$/h & 342{,}000 & 282{,}700 & 186{,}200 & 153{,}400\\
+$UA$, kW/K & 106.5 & 93.8 & 71.4 & 62.5\\
+$U$ on bare area, W/m$^2$K & 471 & 415 & 316 & 277\\
+Duty, kW & 4{,}242 & 4{,}169 & 3{,}814 & 3{,}529\\
+Outlet, \textdegree C & 36.7 & 41.1 & 60.9 & 75.2\\
+Max gas for 65\,\textdegree C, Nm$^3$/h & 32{,}100 & 26{,}900 & 18{,}400 & 15{,}400\\
+\bottomrule\end{tabular}\end{center}
+
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrrrrrrr}
+\toprule
+$b$, \% & 0 & 10 & 20 & 30 & 40 & 50 & 60 & 70\\\midrule
+Airflow, \% & 100 & 95 & 89 & 83 & 75 & 66 & 55 & 43\\
+Outlet, \textdegree C & 36.7 & 37.7 & 39.0 & 41.1 & 44.4 & 50.0 & 60.2 & 78.6\\
+\bottomrule\end{tabular}\end{center}
+The curve is flat up to 40--50\,\% and steep above: the clean cooler leaves the gas only 5\,K above the air, so lost surface first uses up this reserve.
+
+\subsection*{Hold-out test against the historian}
+For each period one $b$ is fitted on even ISO weeks; the model then predicts every hour of the odd weeks from the measured inlet, flow and air temperature (fans $\ge$ 99.5\,\%, air $\ge$ 10\,\textdegree C, flare closed).
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrrr}
+\toprule
+Period & $b$ fitted & Error on withheld weeks, K & Constant guess, K & Hours (cal./withheld)\\\midrule
+Spring 2024 & 0.550 & 8.2 & 5.6 & 215 / 76\\
+End of summer 2024 & 0.655 & 2.4 & 6.7 & 278 / 275\\
+Spring 2025 & 0.605 & 3.5 & 5.6 & 204 / 190\\
+End of summer 2025 & 0.685 & 2.4 & 7.4 & 449 / 362\\
+\bottomrule\end{tabular}\end{center}
+Three of four periods are 2--3$\times$ better than a constant. Spring 2024 ran 70\,\% more gas and its blockage was changing, so the model's response to flow is not fully confirmed at high load.
+
+\subsection*{Field test with the 2026 turnaround}
+Before the 2026 data was available, the solution study predicted that a cleaning of the existing type on 1 July would hold $b=0.595$ (59.5\,\textdegree C on the reference day). The plant cleaned on 27 June -- 7 July 2026; the measured median for July--September 2026 is $b=0.574$ (281 hours), i.e.\ 56.9\,\textdegree C. Prediction and outcome agree to 2.6\,K, with the real cleaning slightly better.
+\src{results/history\_periods\_calibration\_validation.csv; history\_equivalent\_blockage\_hourly.csv}
+
+%======================================================================
+\section{Sensitivity}
+Each assumption was changed alone; the clean case was re-run and $b$ re-fitted to the measured 72.9\,\textdegree C.
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrr}
+\toprule
+Change & Clean outlet, \textdegree C & $b_\text{eq}$ & Duty loss vs clean\\\midrule
+Base case & 36.7 & 67\,\% & 15.7\,\%\\
+$W=0.24$ / $0.284$ & 33.5 / 34.1 & 75 / 72\,\% & 15.8 / 14.5\,\%\\
+$h_\text{air}$ $-20\,\%$ / $+20\,\%$ & 38.7 / 35.7 & 63 / 70\,\% & 15.1 / 16.1\,\%\\
+Condensate film 4{,}000 / 16{,}000 & 38.0 / 36.2 & 66 / 68\,\% & 15.3 / 15.9\,\%\\
+Air $+2$\,K / $-2$\,K & 38.9 / 34.6 & 66 / 69\,\% & 15.0 / 16.4\,\%\\
+Gas flow $+10\,\%$ / $+25\,\%$ & 38.9 / 42.8 & 63 / 56\,\% & 15.0 / 13.6\,\%\\
+Bundle share 0.65 / 0.95 & 36.7 & 70 / 65\,\% & 15.7\,\%\\
+Fan curve flatter / steeper & 36.7 & 65 / 70\,\% & 15.7\,\%\\
+\bottomrule\end{tabular}\end{center}
+In every case the plant sits at 56--75\,\% equivalent blockage and loses 14--16\,\% of duty at fixed flow. The conclusions do not depend on any single assumption.
+\src{results/sensitivity.csv}
+
+%======================================================================
+\section{Plant history: seasonal loss and production impact}
+
+\subsection*{Loss of $U$ over one summer}
+Median equivalent blockage per period, converted to airflow and $U$ (bare area, fans 100\,\%, design-point model):
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrr}
+\toprule
+Period & $b$ & Airflow vs clean & $U$, W/m$^2$K\\\midrule
+Clean (model) & 0 & 100\,\% & 527\\
+Mar--Apr 2024 & 0.54 & 66\,\% & 375\\
+Aug--Sep 2024 & 0.69 & 50\,\% & 299\\
+Mar--Apr 2025 & 0.63 & 57\,\% & 333\\
+Aug--Sep 2025 & 0.72 & 47\,\% & 282\\
+Nov 2025 (after Oct cleaning) & 0.60 & 61\,\% & 349\\
+15--26 Jun 2026 (before cleaning) & 0.67 & 53\,\% & 311\\
+8--31 Jul 2026 (after cleaning) & 0.58 & 62\,\% & 357\\
+\bottomrule\end{tabular}\end{center}
+One summer costs 16--20\,\% of spring $U$ ($375\to299$, $333\to281$). A cleaning wins back 15--24\,\%. The 50--60\,\% base is never removed. (This table uses the monitor's version of the model; its $b$ values are 1--3 points above the rating model's for the same period.)
+\src{model/real\_U\_loss.json, model/run\_real\_U\_loss.py}
+
+\subsection*{Production impact (upper estimate)}
+Median dry-gas flow in warm weather (air $\ge$ 20\,\textdegree C) against cool weather of the same year: 17{,}800 vs 24{,}200\,Nm$^3$/h in 2025. Each Nm$^3$/h of missing gas is worth
+\[
+\Delta\dot m_{\mathrm{H_2}} = \Delta\dot V \times 0.744 \times 0.796 \times 0.0899\unit{kg/Nm^3},
+\]
+with 0.744 the H$_2$ fraction and 0.796 the PSA recovery back-calculated from the PFD ($12{,}200 / (0.744\times20{,}588)$). For 2025: $6{,}400\times0.744\times0.796\times0.0899 = 341\unit{kg/h}$ of H$_2$ while the gap lasts. Summed over the warm hours: 683--806\,t in 2025 and 1{,}116--1{,}588\,t in 2024. This is an upper bound: part of the summer gap may be lower demand, which the data cannot separate. Fans were at 100\,\% for 3{,}624\,h (2024) and 3{,}348\,h (2025).
+\src{a1401\_monitor/real\_backtest.py, out/real\_backtest.json}
+
+%======================================================================
+\section{Solutions: debris model and duty recovered}
+
+Only the seasonal debris is credited, never the 50--60\,\% base. Each cleaning event removes a net fraction $r = c\,d\,e$ of the seasonal debris, the product of reach ($c$), detachment ($d$) and removal ($e$). These are assumptions from vendor and literature evidence, given as low / base / high:
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrr}
+\toprule
+& $c, d, e$ (base) & Net per event: low / base / high & Events per year\\\midrule
+Sonic horns + vacuum hood & 0.5, 0.6, 0.7 & 4 / 21 / 57.6\,\% & 24 (May--Sep)\\
+DECAMEX dry powder & 0.9, 0.8, 0.9 & 24.5 / 64.8 / 93.1\,\% & 2 (1 Jun, 1 Jul)\\
+\bottomrule\end{tabular}\end{center}
+The horn case also carries a 1\,\% installed penalty on the air-side coefficient (optional coating), so if the horns remove nothing the cooler is very slightly worse than no action (75.0\,\textdegree C).
+
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrrr}
+\toprule
+Reference window, July--September state & $b$ & Duty, kW & Outlet, \textdegree C & Gas capacity gain\\\midrule
+No action (end of summer 2025) & 0.685 & 3{,}530 & 75.2 & --\\
+Horns, base (low--high) & 0.642 & 3{,}696 (+166) & 67.1 (62.4--72.5) & +10\,\%\\
+DECAMEX, base (low--high) & 0.620 & 3{,}772 (+242) & 63.2 (60.1--69.6) & +16\,\%\\
+Existing-type clean on 1 Jul (model) & 0.595 & 3{,}840 (+310) & 59.6 & +21\,\%\\
+Measured after 2026 turnaround & 0.574 & 3{,}889 (+360) & 56.9 & +26\,\%\\
+Clean bundle (model) & 0 & 4{,}244 (+714) & 36.7 & +108\,\%\\
+\bottomrule\end{tabular}\end{center}
+Duty recovered $=Q_\text{solution} - Q_\text{no action}$ at the same inlet, flow and air. The seasonal loss is 313\,kW (spring base minus end of summer); DECAMEX recovers 77\,\% of it and the horns 53\,\%.
+
+\noindent\textbf{Over the 2025 season} (2{,}863 real hours, April--September, fans 100\,\%, air $\ge$ 10\,\textdegree C; only $b$ is replaced): hours with outlet above 65\,\textdegree C fall from 2{,}651 to 1{,}921 (horns) and 1{,}605 (DECAMEX, 2 campaigns; 1{,}433 with 4). The limit with no seasonal debris at all is 1{,}032.
+\why{the energy balance closes for every state ($<10^{-12}\,\%$); the outlet rises monotonically with $b$; the earlier solution revision is reproduced exactly by the same script; and the "existing clean on 1 July" case was confirmed by the plant's 2026 turnaround (Section~8).}
+\src{a1401\_solutions\_check/simulate\_solutions\_v2.py, SIMULATION\_REPORT\_v2.md}
+
+%======================================================================
+\section{Monitoring model}
+
+\begin{enumerate}
+\item \textbf{Health indicator:} every usable hour, find $b_\text{eq}$ from the five PI tags (inlet and outlet temperature, fan output, flow, flare valve) and ERA5 air temperature.
+\item \textbf{Forecast:} 7, 14 and 30 days ahead, with an 80\,\% band; shape learned from simulated plants, band calibrated on real 2023--24 data.
+\item \textbf{Alarm:} red if the indicator is at the trigger, the median forecast reaches it within 14 days, or the cooler was flow-limited in the last 3 days; amber if the pessimistic forecast reaches it within 30 days. Triggers on the real scale: 63\,\% (horns) and 66\,\% (DECAMEX), set above the 50--60\,\% base.
+\end{enumerate}
+Backtest on real data, January 2025 -- September 2026 (mean absolute error, points of blockage):
+\begin{center}\small\setlength{\tabcolsep}{4pt}\begin{tabular}{lrrr}
+\toprule
+& 7 days & 14 days & 30 days\\\midrule
+Our forecaster & 1.38 & 1.85 & 2.53\\
+``No change'' & 1.31 & 1.70 & 2.28\\
+Straight-line trend & 1.72 & 2.82 & 4.79\\
+Truth inside the 80\,\% band & 94\,\% & 96\,\% & 93\,\%\\
+\bottomrule\end{tabular}\end{center}
+The forecast is no better than ``no change'' because fouling moves about 2 points a month. Its band is reliable. The useful outputs are the hourly health indicator and the alarm.
+\src{a1401\_monitor/README.md, out/real\_backtest.json}
+
+%======================================================================
+\section{Limitations}
+\begin{enumerate}
+\item Equivalent blockage includes everything the clean model does not explain. Only an inspection of a freshly cleaned bundle can split debris from louvres, fan wear and model offset.
+\item Fin size, fan curve and water content are assumptions (tested in Section~9). The D-1403 condensate flow and a vendor fan curve would remove the two largest.
+\item Uniform blockage over the face is assumed; real debris sits under row 1 and may be patchy.
+\item Solution clearance per event is assumed; no published test removes poplar fluff with sonic horns or DECAMEX. A pilot on a 0.5\,m$^2$ patch is the next step.
+\item DWSIM was not run; the Peng--Robinson check in Section~5 replaces it.
+\end{enumerate}
+
+\section*{References}
+\begin{itemize}
+\item Briggs D.E., Young E.H. (1963). Convection heat transfer and pressure drop of air flowing across triangular pitch banks of finned tubes. \emph{Chem. Eng. Prog. Symp. Ser.} 59(41), 1--10.
+\item Robinson K.K., Briggs D.E. (1966). Pressure drop of air flowing across triangular pitch banks of finned tubes. \emph{Chem. Eng. Prog. Symp. Ser.} 62(64), 177--184.
+\item Schmidt T.E. (1949). Heat transfer calculations for extended surfaces. \emph{Refrigerating Engineering} 57, 351--357.
+\item Gnielinski V. (1976). New equations for heat and mass transfer in turbulent pipe and channel flow. \emph{Int. Chem. Eng.} 16, 359--368.
+\item Silver L. (1947); Bell K.J., Ghaly M.A. (1973). Condensation with non-condensable gases.
+\item Wagner W., Pru\ss{} A. (2002). IAPWS-95 formulation for water. \emph{J. Phys. Chem. Ref. Data} 31, 387.
+\item Solution sources (vendor, guideline and literature): see \S4 of the comparison matrix in \texttt{a1401\_solutions\_check/}.
+\end{itemize}
+
+\end{document}

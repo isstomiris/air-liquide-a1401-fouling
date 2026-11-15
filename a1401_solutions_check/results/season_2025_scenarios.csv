@@ -1,0 +1,14 @@
+scenario,note,mean_b_Jul_Sep,max_b,mean_T_out_C,mean_T_out_air_ge_30C,hours_T_out_gt_65C,hours_evaluated,mean_duty_kW,MAE_vs_measured_K,bias_vs_measured_K,mean_duty_gain_kW_vs_no_action
+0  No in-season action (2025 as measured),smoothed measured path,0.6862,0.6876,74.5672,80.1491,2651,2863,4012.5958,2.6666,0.8061,0.0
+E  Existing-type cleaning moved to 1 Jul,removes the whole seasonal increment once (Oct 2025 cleaning removed at least that),0.5953,0.6851,65.7464,66.8166,1530,2863,4190.9252,,,178.3294
+"S1 conservative: coating + vibration, daily","c=0.4, d=0.25, e=0.5, hardware 0.002",0.6507,0.6576,69.1551,73.5966,2008,2863,4129.2639,,,116.6681
+"S1 central: coating + vibration, daily","c=0.65, d=0.5, e=0.8, hardware 0.002",0.6272,0.6316,65.9274,70.0564,1589,2863,4197.4901,,,184.8943
+"S1 optimistic: coating + vibration, daily","c=0.8, d=0.7, e=0.9, hardware 0.002",0.6134,0.6197,64.0907,67.997,1302,2863,4235.3942,,,222.7984
+"S1 central, coating deposition multiplier s=0.8",sensitivity only; no evidence for any s < 1,0.6207,0.6243,65.0367,69.0944,1441,2863,4216.132,,,203.5362
+"S1 central, coating deposition multiplier s=0.6",sensitivity only; no evidence for any s < 1,0.6143,0.617,64.1459,68.1325,1313,2863,4234.644,,,222.0482
+"S2 conservative: DECAMEX, 2 campaigns (1 Jun, 1 Jul)","c=0.7, d=0.6, e=0.75",0.6509,0.6728,69.9464,73.8343,2100,2863,4110.1479,,,97.5521
+"S2 central: DECAMEX, 2 campaigns (1 Jun, 1 Jul)","c=0.9, d=0.85, e=0.9",0.6174,0.6583,66.3186,69.0395,1560,2863,4183.6177,,,171.0219
+"S2 optimistic: DECAMEX, 2 campaigns (1 Jun, 1 Jul)","c=1.0, d=0.95, e=0.98",0.5991,0.6488,64.3301,66.4547,1325,2863,4222.8961,,,210.3003
+"S2 central, 1 campaign (1 Jul)",schedule sensitivity,0.6237,0.6851,68.1264,70.4298,1822,2863,4145.0217,,,132.4259
+"S2 central, 4 campaigns (15 May, 1 Jun, 15 Jun, 1 Jul)",schedule sensitivity,0.613,0.6399,64.8549,68.0954,1401,2863,4217.3684,,,204.7726
+Z  Seasonal increment fully absent all season (limit),upper limit of any method that acts only on the seasonal debris,0.5941,0.5941,61.5683,65.3373,1032,2863,4287.5784,,,274.9827

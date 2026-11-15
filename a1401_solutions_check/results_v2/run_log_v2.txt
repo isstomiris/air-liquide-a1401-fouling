@@ -1,0 +1,45 @@
+base 0.594  peak increment 0.093  g1=0.99 -> +0.0020 b, g1=0.97 -> +0.0060 b
+                                                   scenario  mean_b_Jul_Sep  mean_T_out_C  mean_T_out_air_ge_30C  hours_gt_60C  hours_gt_65C  hours_gt_70C  hours_evaluated  mean_duty_kW  mean_duty_gain_kW_vs_no_action
+0                    No in-season action (2025 as measured)            0.69         74.57                  80.15          2849          2651          2082             2863       4012.60                            0.00
+1                     Existing-type cleaning moved to 1 Jul            0.60         65.76                  66.82          1932          1532          1073             2863       4190.68                          178.09
+2                       S1 new low: O2T8 + horns, 24 events            0.67         72.78                  77.86          2795          2470          1840             2863       4051.01                           38.42
+3                      S1 new base: O2T8 + horns, 24 events            0.64         68.51                  72.70          2441          1921          1237             2863       4142.33                          129.74
+4                      S1 new high: O2T8 + horns, 24 events            0.62         64.70                  68.35          1986          1407           794             2863       4222.13                          209.54
+5                                 S1 new base, 12 events/yr            0.65         69.33                  73.57          2515          2014          1367             2863       4124.42                          111.83
+6                                 S1 new base, 52 events/yr            0.64         68.11                  72.39          2411          1874          1155             2863       4151.33                          138.73
+7                                    S1 new base, g1 = 0.97            0.65         69.24                  73.38          2515          2000          1346             2863       4125.77                          113.17
+8                                    S1 new base, g1 = 1.00            0.64         68.15                  72.38          2406          1876          1177             2863       4150.37                          137.77
+9                    S1 new fails (no clearance), g1 = 0.99            0.69         74.98                  80.55          2852          2680          2150             2863       4002.87                           -9.73
+10                    S1 old central: Aculon + piezo, daily            0.63         65.93                  70.06          2152          1589           882             2863       4197.49                          184.89
+11          S2 new low: DECAMEX, 2 campaigns (1 Jun, 1 Jul)            0.66         70.86                  75.07          2673          2223          1578             2863       4091.30                           78.70
+12         S2 new base: DECAMEX, 2 campaigns (1 Jun, 1 Jul)            0.62         66.65                  69.46          2171          1605          1045             2863       4177.09                          164.49
+13         S2 new high: DECAMEX, 2 campaigns (1 Jun, 1 Jul)            0.60         64.33                  66.45          1835          1325           837             2863       4222.90                          210.30
+14                          S2 new base, 1 campaign (1 Jul)            0.63         68.45                  70.92          2330          1876          1274             2863       4138.71                          126.11
+15  S2 new base, 4 campaigns (15 May, 1 Jun, 15 Jun, 1 Jul)            0.61         65.10                  68.39          2005          1433           836             2863       4212.36                          199.77
+16               S2 old central: DECAMEX, revision-1 values            0.62         66.32                  69.04          2122          1560          1016             2863       4183.62                          171.02
+17                         Limit: no seasonal debris at all            0.59         61.57                  65.34          1588          1032           479             2863       4287.58                          274.98
+Clean bundle (model)                                       b=0.000 T=36.7 Q=4244
+Measured after the 2026 turnaround cleaning (Jul-Sep 2026) b=0.574 T=56.9 Q=3889
+Spring base 2025                                           b=0.594 T=59.4 Q=3843
+No action, end of summer 2025 (fitted)                     b=0.685 T=75.2 Q=3530
+Existing-type cleaning moved to 1 Jul                      b=0.595 T=59.6 Q=3840
+S1 new low (O2T8 + horns, held Jul-Sep)                    b=0.671 T=72.5 Q=3585
+S1 new base (O2T8 + horns, held Jul-Sep)                   b=0.642 T=67.1 Q=3696
+S1 new high (O2T8 + horns, held Jul-Sep)                   b=0.613 T=62.4 Q=3787
+S1 old central (Aculon + piezo, held Jul-Sep)              b=0.627 T=64.2 Q=3751
+S2 new low (DECAMEX x2, held Jul-Sep)                      b=0.658 T=69.6 Q=3645
+S2 new base (DECAMEX x2, held Jul-Sep)                     b=0.620 T=63.2 Q=3772
+S2 new high (DECAMEX x2, held Jul-Sep)                     b=0.599 T=60.1 Q=3830
+S2 old central (DECAMEX x2, revision-1 values)             b=0.617 T=62.7 Q=3781
+S1 new low, one event on end-of-summer state               b=0.681 T=74.7 Q=3539
+S1 new base, one event on end-of-summer state              b=0.666 T=71.5 Q=3606
+S1 new high, one event on end-of-summer state              b=0.633 T=65.5 Q=3728
+S2 new low, one campaign on end-of-summer state            b=0.663 T=70.6 Q=3626
+S2 new base, one campaign on end-of-summer state           b=0.626 T=64.1 Q=3754
+S2 new high, one campaign on end-of-summer state           b=0.600 T=60.3 Q=3827
+S1 new fails, g1 = 0.99                                    b=0.685 T=75.5 Q=3523
+Doc example: 30 % initial (assumed)                        b=0.300 T=41.1 Q=4170
+Doc example: S1 new base from 30 %                         b=0.237 T=39.8 Q=4192
+Doc example: S2 new base from 30 %                         b=0.106 T=37.8 Q=4227
+{'energy_closure_max_pct': 1.8036685019757618e-13, 'outlet_monotonic_in_b_for_h_mult_1': True, 's1_failure_worse_than_no_action': True}
+done
