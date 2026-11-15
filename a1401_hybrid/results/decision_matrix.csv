@@ -1,0 +1,7 @@
+option,cooling,economics,safety,certainty,feasibility,score_today,score_after_inspection,reasons
+Sonic horns,2.9,2.5,3,2,3,2.69,2.69,"148 dB, fan stops; untested on poplar fluff; 8-12 wk order"
+DECAMEX x2 online,3.7,2.8,4,3,4,3.45,3.45,"dry powder, 1 fan off 4.8 h; used in industry, not on fluff; 4-8 wk"
+Turnaround clean (plant 2026),4.3,4.2,4,5,3,4.15,4.15,done at a stop; proven 57 °C in 2026; needs a June stop
+Turnaround + horns,4.7,4.4,3,4,3,4.0,4.0,as above plus horn risks
+Deep turnaround,4.7,4.8,4,3,3,4.09,4.39,DECAMEX through all rows at the stop; base removal unproven
+Deep turnaround + horns,5.0,5.0,3,3,3,4.1,4.4,best cooling and money; two uncertainties
