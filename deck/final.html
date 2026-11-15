@@ -40,7 +40,7 @@ h2 .h{color:var(--hot)} h2 .f{color:var(--fix)}
 .slide::before{content:"";position:absolute;right:-180px;top:-200px;width:520px;height:480px;border-radius:50%;background:radial-gradient(closest-side,rgba(15,155,255,.16),rgba(15,155,255,0));pointer-events:none;z-index:0}
 .half{position:absolute;left:1470px;top:600px;width:450px;height:450px;margin-top:-225px;border-radius:50%;background:var(--brand);clip-path:inset(0 225px 0 0);z-index:1}
 .halo{position:absolute;left:1695px;top:390px;width:225px;height:690px;background:radial-gradient(ellipse 260px 300px at 0% 50%,rgba(15,155,255,.55),rgba(15,155,255,0) 100%);z-index:1}
-.tight td,.tight th{padding:5px 12px!important;font-size:18px!important;line-height:1.25!important;height:auto!important}
+.tight td,.tight th{padding:6px 12px!important;font-size:19px!important;line-height:1.25!important;height:auto!important}
 .body{position:absolute;left:96px;right:96px;top:250px;bottom:110px}
 .mono{font-family:var(--mono)}
 .small{font-size:20px;line-height:1.45;color:var(--ink2)}
@@ -395,50 +395,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<section class="slide" aria-label="Safety: hazard register">
-  <div class="hdr"><span class="sec">2 · Solution comparison matrix</span><span>11</span></div>
-  <h2 class="r">Safety: the critical hazards are <span class="h">H₂/CO under pressure, moving fans and lost cooling</span></h2>
-  <div class="body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
-    <div class="stack r" style="--d:1;gap:16px">
-      <div class="cap" style="color:var(--hot)">Both solutions</div>
-      <div class="box hot"><h3>H01 · H₂/CO release near live bundle <span class="mono" style="font-size:17px">C4 · H</span></h3><p>integrity review, gas detection, ignition control, exclusion and escape routes</p></div>
-      <div class="box"><h3>H03 · Fan restart or windmilling <span class="mono" style="font-size:17px">C3 · H</span></h3><p>lockout, verified zero motion, restraint, guards kept</p></div>
-      <div class="box hot"><h3>H04 · One fan off: cooling margin lost <span class="mono" style="font-size:17px">C4 · H</span></h3><p>validated load/weather window, abort limits, no trip bypass</p></div>
-    </div>
-    <div class="stack r" style="--d:2;gap:16px">
-      <div class="cap" style="color:var(--fix)">S1 · O2T8 coating + sonic horns</div>
-      <div class="box hot"><h3>H06 · 200 °C cure &gt; 170 °C design <span class="mono" style="font-size:17px">C4 · H</span></h3><p>written OEM and materials approval before any shop cure</p></div>
-      <div class="box"><h3>H09 · 148 dB horn emission <span class="mono" style="font-size:17px">C3 · H</span></h3><p>remote sounding, measured exposure, alarms stay audible</p></div>
-      <div class="box hot"><h3>H10 · Structural response, fatigue <span class="mono" style="font-size:17px">C4 · H</span></h3><p>modal/strain test; ≈ 691,200 cycles per horn per year</p></div>
-      <div class="box hot"><h3>H12 · Organic dust in collector <span class="mono" style="font-size:17px">C4 · H</span></h3><p>characterise dust; rated collector, static control</p></div>
-    </div>
-    <div class="stack r" style="--d:3;gap:16px">
-      <div class="cap" style="color:var(--fix)">S2 · DECAMEX</div>
-      <div class="box"><h3>H13 · Powder inhalation, eye injury <span class="mono" style="font-size:17px">C3 · H</span></h3><p>actual product SDS, enclosed discharge, hygiene review</p></div>
-      <div class="box"><h3>H14 · Lance contact bends fins <span class="mono" style="font-size:17px">C3 · H</span></h3><p>representative patch, vendor stand-off, row inspection</p></div>
-      <div class="box"><h3>H15 · Fibres pushed deeper <span class="mono" style="font-size:17px">C2 · H</span></h3><p>prove capture at all six rows; stop if capture fails</p></div>
-    </div>
-  </div>
-  <div class="foot"><span>Preliminary HAZID, 20 hazards. C4 = multiple-fatality / major-loss potential … C1 = minor. H = hold until control is accepted. Not a HAZOP or LOPA</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §4–6</span></div>
-  <aside class="notes"><p><b>Say:</b> we listed 20 hazards across preparation, installation, cleaning, restart and waste. The critical ones are the same for both: hydrogen and CO in the tubes, fans that can restart, and losing cooling while one fan is off. Coating and horns add a 200 °C cure above the 170 °C design temperature, 148 dB sound and vibration fatigue. DECAMEX adds powder exposure and fin damage risk.</p><p><b>C4 / H:</b> C is consequence severity (C4 worst). H means hold: the activity cannot start until the control is accepted.</p></aside>
-</section>
-
-<section class="slide" aria-label="Safety: acceptance gates">
-  <div class="hdr"><span class="sec">2 · Solution comparison matrix</span><span>12</span></div>
-  <h2 class="r">Safety and material integrity: <span class="f">S2 is the practical first trial</span>; S1 is a development system behind gates</h2>
-  <div class="body">
-    <div class="r" style="--d:1;display:grid;grid-template-columns:repeat(7,1fr);gap:14px"><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G0</div><h3 style="font-size:24px;margin-top:6px">Correct basis</h3><p style="font-size:17px">P&ID, materials, access, hazardous area</p></div><div class="box fix" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G1</div><h3 style="font-size:24px;margin-top:6px">Bench / patch</h3><p style="font-size:17px">S1 4-arm test; S2 fibre-rich patch</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G2</div><h3 style="font-size:24px;margin-top:6px">Process safety</h3><p style="font-size:17px">safe fan-off window, gas and collector hazards</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G3</div><h3 style="font-size:24px;margin-top:6px">S1 install release</h3><p style="font-size:17px">OEM cure, lift, acoustic + structural limits</p></div><div class="box fix" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G4</div><h3 style="font-size:24px;margin-top:6px">Trial start</h3><p style="font-size:17px">permits, isolation, capture working, stop criteria</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G5</div><h3 style="font-size:24px;margin-top:6px">Acceptance</h3><p style="font-size:17px">no damage or leaks, measured airflow and duty</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G6</div><h3 style="font-size:24px;margin-top:6px">Retention</h3><p style="font-size:17px">1-week and seasonal follow-up</p></div></div>
-    <div class="r" style="--d:2;display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:44px">
-      <div class="eq"><div class="lbl">Stop the activity on</div><div class="num" style="font-family:var(--sans);font-size:21px">gas alarm or suspected leak · uncontrolled access or sound exposure · loss of collection · unexpected motion or structural response · fin damage · process excursion · air-system fault · uncontrolled debris</div></div>
-      <div class="eq hotq"><div class="lbl">Material integrity</div><div class="num" style="font-family:var(--sans);font-size:21px">304L tubes, aluminium fins, 170 °C design wall. No water wash (chloride cracking where water evaporates). No combination credit: DECAMEX may erode the O2T8 film (H20)</div></div>
-    </div>
-  </div>
-  <div class="foot"><span>Monitoring stays advisory: no safety credit, no automatic cleaning permissive. Kazakhstan law and Air Liquide standards govern; HSE/OSHA used as references</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §7–8</span></div>
-  <aside class="notes"><p><b>Say:</b> nothing goes onto the plant without passing these gates. DECAMEX has fewer permanent changes, so it is the practical first trial; coating plus horns needs OEM cure acceptance, acoustic and strain tests and proven collection first.</p><p><b>Acoustic note:</b> 148 dB is sound power at the horn, not worker exposure; an acoustic specialist must measure exposure on site.</p></aside>
-</section>
-
 <section class="slide" aria-label="Clean versus fouled">
-  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>13</span></div>
+  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>11</span></div>
   <h2 class="r">On a real hot day, fouling raises the outlet from <span class="f">37 °C</span> to <span class="h">75 °C</span> and halves gas capacity</h2>
   <div class="body" style="display:grid;grid-template-columns:1100px 1fr;gap:60px">
     <svg id="sweepChart" class="r" style="--d:1" width="1100" height="640" viewBox="0 0 1100 640" aria-label="Outlet temperature versus blockage"></svg>
@@ -463,7 +421,7 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Model validation">
-  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>14</span></div>
+  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>12</span></div>
   <h2 class="r">Checked against weeks it never saw, and against <span class="f">the plant's own 2026 cleaning</span></h2>
   <div class="body" style="display:grid;grid-template-columns:820px 1fr;gap:70px">
     <div>
@@ -494,7 +452,7 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Duty recovered per solution">
-  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>15</span></div>
+  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>13</span></div>
   <h2 class="r">Duty recovered on the hot day: DECAMEX <span class="f">+242 kW</span>, horns <span class="f">+166 kW</span></h2>
   <div class="body" style="display:grid;grid-template-columns:1180px 1fr;gap:60px">
     <svg id="solChart" class="r" style="--d:1" width="1180" height="640" viewBox="0 0 1180 640" aria-label="Outlet temperature per solution"></svg>
@@ -514,7 +472,7 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Whole season effect">
-  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>16</span></div>
+  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>14</span></div>
   <h2 class="r">Replayed hour by hour over summer 2025: <span class="f">1,000 fewer hours</span> above the 65 °C target</h2>
   <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
     <div><div class="cap r" style="margin-bottom:10px">Hours with outlet above 65 °C, Apr–Sep 2025</div><svg id="hoursChart" class="r" style="--d:1" width="820" height="560" viewBox="0 0 820 560" aria-label="Hours above 65 C"></svg></div>
@@ -528,7 +486,7 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Predictive monitoring">
-  <div class="hdr"><span class="sec">Performance monitoring model</span><span>17</span></div>
+  <div class="hdr"><span class="sec">Performance monitoring model</span><span>15</span></div>
   <h2 class="r">A monitor that tells operators <span class="f">when to clean</span>, built on the same model</h2>
   <div class="body">
     <div style="display:flex;gap:18px;align-items:stretch;height:250px">
@@ -565,7 +523,7 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Economic assessment: CAPEX, OPEX and payback">
-  <div class="hdr"><span class="sec">Economic assessment &amp; lead time</span><span>18</span></div>
+  <div class="hdr"><span class="sec">Economic assessment &amp; lead time</span><span>16</span></div>
   <h2 class="r">CAPEX / OPEX and payback: <span class="f">DECAMEX needs 39 t H₂ a year to pay back in 3 years</span>, coating + horns 99 t</h2>
   <div class="body" style="display:grid;grid-template-columns:1.05fr 1fr;gap:48px">
     <table class="r tight" style="--d:1;align-self:start">
@@ -590,7 +548,7 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Lead time">
-  <div class="hdr"><span class="sec">Economic assessment &amp; lead time</span><span>19</span></div>
+  <div class="hdr"><span class="sec">Economic assessment &amp; lead time</span><span>17</span></div>
   <h2 class="r">Equipment lead time: <span class="f">DECAMEX trial in 4–8 weeks</span>; full coating retrofit 16–30 weeks plus a turnaround</h2>
   <div class="body" style="display:grid;grid-template-columns:1fr 420px;gap:48px">
     <table class="r tight" style="--d:1;align-self:start">
@@ -610,7 +568,7 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Recommendation">
-  <div class="hdr"><span class="sec">Recommendation</span><span>20</span></div>
+  <div class="hdr"><span class="sec">Recommendation</span><span>18</span></div>
   <h2 class="r">Monitor all year, clean before the peak, and <span class="f">keep the fins dry and open between shutdowns</span></h2>
   <div class="body">
     <svg id="yearPlan" class="r" style="--d:1" width="1728" height="330" viewBox="0 0 1728 330" aria-label="One-year operating plan"></svg>
@@ -628,8 +586,58 @@ aside.notes{display:none}
   </aside>
 </section>
 
+<section class="slide" aria-label="Safety: hazard register">
+  <div class="hdr"><span class="sec">Safety assessment</span><span>19</span></div>
+  <h2 class="r" style="font-size:46px">Safety: critical hazards are <span class="h">pressurised H₂/CO, fan movement and temporary cooling loss</span></h2>
+  <div class="body" style="top:275px">
+    <table class="r tight" style="--d:1;align-self:start">
+      <thead><tr><th style="text-align:left">ID</th><th style="text-align:left">Activity</th><th style="text-align:center">Applies</th><th style="text-align:left">Credible consequence</th><th style="text-align:center">Severity</th><th style="text-align:center">Priority</th><th style="text-align:left">Required control</th></tr></thead>
+      <tbody><tr><td class="mono" style="text-align:left">H01</td><td style="text-align:left">Work near live syngas bundle</td><td style="text-align:center">Both</td><td style="text-align:left">H₂/CO release, ignition, toxic exposure</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">integrity review, gas detection, ignition control, exclusion</td></tr><tr><td class="mono" style="text-align:left">H02</td><td style="text-align:left">Bundle removal / boundary opening</td><td style="text-align:center">S1</td><td style="text-align:left">trapped pressure or condensate, re-energisation</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">positive isolation, depressurise, verify stored energy</td></tr><tr><td class="mono" style="text-align:left">H03</td><td style="text-align:left">Fans during intervention</td><td style="text-align:center">Both</td><td style="text-align:left">restart, windmilling, entanglement</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">lockout, verified zero motion, guards kept</td></tr><tr><td class="mono" style="text-align:left">H04</td><td style="text-align:left">One fan off / skirts fitted</td><td style="text-align:center">Both</td><td style="text-align:left">cooling lost: downstream excursion or trip</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">validated load/weather window, abort limits</td></tr><tr><td class="mono" style="text-align:left">H05</td><td style="text-align:left">Bundle lift and transport</td><td style="text-align:center">S1</td><td style="text-align:left">crane or rigging failure (10,277 kg)</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">engineered lift, exclusion zone</td></tr><tr><td class="mono" style="text-align:left">H06</td><td style="text-align:left">200 °C workshop cure</td><td style="text-align:center">S1</td><td style="text-align:left">above 170 °C design: distortion, seal damage</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">written OEM and materials approval</td></tr><tr><td class="mono" style="text-align:left">H07–08</td><td style="text-align:left">Sol synthesis, oven with solvent</td><td style="text-align:center">S1</td><td style="text-align:left">flammable vapour, oven ignition</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">qualified lab, solvent-rated oven</td></tr><tr><td class="mono" style="text-align:left">H09</td><td style="text-align:left">Horn sounding</td><td style="text-align:center">S1</td><td style="text-align:left">148 dB: hearing loss, alarms masked</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">remote sounding, measured exposure</td></tr><tr><td class="mono" style="text-align:left">H10</td><td style="text-align:left">Horn structural response</td><td style="text-align:center">S1</td><td style="text-align:left">fatigue, loose fins, eventual leak</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">modal/strain test, OEM limits</td></tr><tr><td class="mono" style="text-align:left">H12</td><td style="text-align:left">Dry organic dust in collector</td><td style="text-align:center">S1</td><td style="text-align:left">dust ignition or explosion</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">characterise dust, rated collector</td></tr><tr><td class="mono" style="text-align:left">H13</td><td style="text-align:left">DECAMEX projection</td><td style="text-align:center">S2</td><td style="text-align:left">powder inhalation, eye injury</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">product SDS, enclosed discharge</td></tr><tr><td class="mono" style="text-align:left">H14</td><td style="text-align:left">Projection / lance contact</td><td style="text-align:center">S2</td><td style="text-align:left">bent fins, damaged tubes</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">test patch, vendor stand-off, inspection</td></tr><tr><td class="mono" style="text-align:left">H15</td><td style="text-align:left">Redeposition / capture failure</td><td style="text-align:center">S2</td><td style="text-align:left">fibres driven deeper, airflow worse</td><td class="" style="text-align:center">C2</td><td style="text-align:center">H</td><td style="text-align:left">prove capture at all 6 rows</td></tr><tr><td class="mono" style="text-align:left">H19</td><td style="text-align:left">Monitoring error</td><td style="text-align:center">Both</td><td style="text-align:left">wrong cleaning demand, missed restriction</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">advisory only, no safety credit</td></tr></tbody>
+    </table>
+  </div>
+  <div class="foot"><span>Preliminary HAZID, 20 hazards (H11, H16–18, H20 in the file). C4 multiple-fatality / major loss … C1 minor. H = hold until control accepted. Not a HAZOP or LOPA</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §3–4</span></div>
+  <aside class="notes"><p><b>Say:</b> we did a preliminary hazard identification across preparation, installation, cleaning, restart and waste. Severity C4 is the worst class. Every critical item is marked H: hold, meaning that activity cannot start until the control is accepted.</p><p><b>Not a HAZOP:</b> no plant risk matrix or frequencies were supplied, so this is a HAZID; the plant's process-safety team decides on HAZOP or LOPA.</p></aside>
+</section>
+
+<section class="slide" aria-label="Safety: critical findings per solution">
+  <div class="hdr"><span class="sec">Safety assessment</span><span>20</span></div>
+  <h2 class="r">Coating + horns adds a <span class="h">200 °C cure, high acoustic emission and structural uncertainty</span>; DECAMEX has fewer permanent changes</h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:48px">
+    <div class="stack" style="gap:18px">
+      <div class="cap" style="color:var(--hot)">S1 · O2T8 coating + sonic horns + collection</div>
+      <div class="box hot r" style="--d:1"><h3>Cure-temperature gate</h3><p>200 °C, 2 h research cure vs 170 °C documented design wall. Needs OEM and materials acceptance; if rejected, coating is abandoned or redesigned</p></div>
+      <div class="box r" style="--d:2"><h3>Acoustic exposure</h3><p>148 dB sound power at the horn is not worker exposure. 720 s sounding per event → 8-h contribution L<sub>A</sub> − 16.0 dB. Remote operation first, ear defenders last</p></div>
+      <div class="box r" style="--d:3"><h3>Structural response</h3><p>120 Hz × 240 s = 28,800 cycles per horn per event, 691,200 per year: modal/strain test needed</p></div>
+      <div class="box r" style="--d:4"><h3>Coating chemistry</h3><p>TEOS / OTES / ethanol: flammable, harmful by inhalation; mixture SDS and solvent-safe oven required</p></div>
+    </div>
+    <div class="stack" style="gap:18px">
+      <div class="cap" style="color:var(--fix)">S2 · DECAMEX dry cleaning</div>
+      <div class="box fix r" style="--d:1"><h3>Remaining cooling capacity</h3><p>1.58 h per fan, 9.5 fan-hours a year: prove safe fan-off window, or trial at reduced load or in an outage</p></div>
+      <div class="box r" style="--d:2"><h3>Powder exposure and residue</h3><p>94.69 kg per campaign; "biodegradable" is not a safe-exposure claim. Record issued, collected and residual powder</p></div>
+      <div class="box r" style="--d:3"><h3>All-row cleaning without damage</h3><p>reject a result that cleans row 1 but pushes fibres deeper; inspect all six rows</p></div>
+      <div class="box r" style="--d:4"><h3>Both: not "online = no impact"</h3><p>safe weather/load windows may be shortest in the hottest weeks: clean before the season</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>S2 is the more practical first controlled field trial; S1 is a development system with unresolved material, acoustic and lifecycle gates. Neither is approved for unrestricted use</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §1, 5–6, 8</span></div>
+  <aside class="notes"><p><b>Say:</b> the coating needs a 200 °C cure but the bundle is designed for 170 °C, so the manufacturer must approve it first. Horns are loud and shake the structure, so we need measured exposure and strain tests. DECAMEX changes nothing permanently, but we must prove the plant stays safe with one fan off and that powder and fibres are collected.</p></aside>
+</section>
+
+<section class="slide" aria-label="Safety: acceptance gates">
+  <div class="hdr"><span class="sec">Safety assessment</span><span>21</span></div>
+  <h2 class="r">Safety gates: <span class="f">nothing reaches the plant before OEM cure acceptance, fan-off validation, acoustic/strain tests and verified collection</span></h2>
+  <div class="body">
+    <div class="r" style="--d:1;display:grid;grid-template-columns:repeat(7,1fr);gap:14px"><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G0</div><h3 style="font-size:24px;margin-top:6px">Correct basis</h3><p style="font-size:17px">P&ID, materials, access, hazardous area</p></div><div class="box fix" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G1</div><h3 style="font-size:24px;margin-top:6px">Bench / patch</h3><p style="font-size:17px">S1 4-arm test; S2 fibre-rich patch</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G2</div><h3 style="font-size:24px;margin-top:6px">Process safety</h3><p style="font-size:17px">safe fan-off window, gas and collector hazards</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G3</div><h3 style="font-size:24px;margin-top:6px">S1 install release</h3><p style="font-size:17px">OEM cure, lift, acoustic + structural limits</p></div><div class="box fix" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G4</div><h3 style="font-size:24px;margin-top:6px">Trial start</h3><p style="font-size:17px">permits, isolation, capture working, stop criteria</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G5</div><h3 style="font-size:24px;margin-top:6px">Acceptance</h3><p style="font-size:17px">no damage or leaks, measured airflow and duty</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G6</div><h3 style="font-size:24px;margin-top:6px">Retention</h3><p style="font-size:17px">1-week and seasonal follow-up</p></div></div>
+    <div class="r" style="--d:2;display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:44px">
+      <div class="eq"><div class="lbl">Stop the activity on</div><div class="num" style="font-family:var(--sans);font-size:21px">gas alarm or suspected leak · uncontrolled access or sound exposure · loss of collection · unexpected motion or structural response · fin damage · process excursion · air-system fault · uncontrolled debris</div></div>
+      <div class="eq hotq"><div class="lbl">Material integrity</div><div class="num" style="font-family:var(--sans);font-size:21px">304L tubes, aluminium fins, 170 °C design wall. No water wash (chloride cracking where water evaporates). No combination credit: DECAMEX may erode the O2T8 film (H20)</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Monitoring stays advisory: no safety credit, no automatic cleaning permissive. Kazakhstan law and Air Liquide standards govern; HSE/OSHA used as references</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §7–8</span></div>
+  <aside class="notes"><p><b>Say:</b> nothing goes onto the plant without passing these gates. DECAMEX has fewer permanent changes, so it is the practical first trial; coating plus horns needs OEM cure acceptance, acoustic and strain tests and proven collection first.</p><p><b>Acoustic note:</b> 148 dB is sound power at the horn, not worker exposure; an acoustic specialist must measure exposure on site.</p></aside>
+</section>
+
 <section class="slide" aria-label="Where to find everything">
-  <div class="hdr"><span class="sec">Backup</span><span>21</span></div>
+  <div class="hdr"><span class="sec">Backup</span><span>22</span></div>
   <h2 class="r">All data, code and full calculations are in the repository</h2>
   <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:70px">
     <table class="r" style="--d:1">
@@ -647,11 +655,11 @@ aside.notes{display:none}
       <div class="cap">Case criteria and where we cover them</div>
       <table>
         <tbody>
-          <tr><td>Technical accuracy &amp; fundamentals (25 %)</td><td>6–9, 13–14</td></tr>
-          <tr><td>Problem &amp; impact analysis (20 %)</td><td>2–5, 13</td></tr>
-          <tr><td>Performance monitoring model + backtest (20 %)</td><td>4, 17</td></tr>
-          <tr><td>Solution practicality &amp; innovation (20 %)</td><td>10–12, 15–16, 20</td></tr>
-          <tr><td>Economic assessment &amp; lead time (15 %)</td><td>18–19</td></tr>
+          <tr><td>Technical accuracy &amp; fundamentals (25 %)</td><td>6–9, 11–12</td></tr>
+          <tr><td>Problem &amp; impact analysis (20 %)</td><td>2–5, 11</td></tr>
+          <tr><td>Performance monitoring model + backtest (20 %)</td><td>4, 15</td></tr>
+          <tr><td>Solution practicality &amp; innovation (20 %)</td><td>10, 13–14, 18–21</td></tr>
+          <tr><td>Economic assessment &amp; lead time (15 %)</td><td>16–17</td></tr>
         </tbody>
       </table>
     </div>
@@ -661,7 +669,7 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Glossary">
-  <div class="hdr"><span class="sec">Backup</span><span>22</span></div>
+  <div class="hdr"><span class="sec">Backup</span><span>23</span></div>
   <h2 class="r">Terms in plain words</h2>
   <div class="body" style="top:220px;display:grid;grid-template-columns:1fr 1fr;gap:20px 70px;font-size:21px;line-height:1.4">
     <p><b>Duty (Q)</b> heat removed per second, kW</p>
