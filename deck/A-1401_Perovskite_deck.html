@@ -164,7 +164,7 @@ aside.notes{display:none}
       <div class="kpi hot r" style="--d:5"><div class="v">56 % <small>of duty</small></div><p>is condensing water vapour, not cooling gas (clean model, hot day)</p></div>
     </div>
   </div>
-  <div class="foot"><span>Datasheet and bundle drawing; PFD; fin size assumed to match the datasheet areas; weather: ERA5 hourly for Atyrau 2025–26</span><span class="gh">pfd/ · a1401_clean_vs_fouled/a1401sim/config.py</span></div>
+  <div class="foot"><span>Datasheet and bundle drawing; PFD; fin size assumed to match the datasheet areas; weather: ERA5 hourly for Atyrau 2025–26 · Sources [1–3]</span><span class="gh">pfd/ · a1401_clean_vs_fouled/a1401sim/config.py</span></div>
 </section>
 
 <section class="slide" aria-label="How debris hurts">
@@ -182,7 +182,7 @@ aside.notes{display:none}
   <div class="r" style="--d:5;position:absolute;left:96px;right:96px;top:720px;display:flex;gap:60px;font-size:26px;line-height:1.45;color:var(--ink2);border-top:1px solid var(--line);padding-top:28px">
     <span><b style="color:var(--ink)">Equivalent blockage b</b> = share of air gaps our model must close to match the measured outlet. It includes debris and anything else the clean model misses.</span>
   </div>
-  <div class="foot"><span>Case brief; A-1401_PFD_and_thermal_diagnosis.md</span><span class="gh">A-1401_PFD_and_thermal_diagnosis.md</span></div>
+  <div class="foot"><span>Case brief; A-1401_PFD_and_thermal_diagnosis.md · Sources [1, 22]</span><span class="gh">A-1401_PFD_and_thermal_diagnosis.md</span></div>
 </section>
 
 <section class="slide" aria-label="Three years of plant data">
@@ -196,7 +196,7 @@ aside.notes{display:none}
       <div class="kpi grey r" style="--d:4"><div class="v">50–60 %</div><p>never removed, even after cleaning. Model offset, louvres or fin damage: an inspection would tell</p></div>
     </div>
   </div>
-  <div class="foot"><span>Monthly median, 23,675 usable hours, 14 Nov 2023 – 1 Oct 2026 (monitor model)</span><span class="gh">a1401_monitor/out/real_monthly.csv</span></div>
+  <div class="foot"><span>Monthly median, 23,675 usable hours, 14 Nov 2023 – 1 Oct 2026 (monitor model) · Sources [1]</span><span class="gh">a1401_monitor/out/real_monthly.csv</span></div>
 </section>
 
 <section class="slide" aria-label="Production impact">
@@ -210,7 +210,7 @@ aside.notes{display:none}
       <div class="kpi grey r" style="--d:4"><div class="v" style="font-size:34px">Upper estimate</div><p>part of the summer gap may be lower customer demand, which the data cannot separate</p></div>
     </div>
   </div>
-  <div class="foot"><span>Dry-gas flow FI010, flare closed; label = hours with fans at 100 %. H₂ = gas gap × 74.4 % H₂ × 79.6 % PSA recovery × 0.0899 kg/Nm³</span><span class="gh">a1401_monitor/out/real_backtest.json</span></div>
+  <div class="foot"><span>Dry-gas flow FI010, flare closed; label = hours with fans at 100 %. H₂ = gas gap × 74.4 % H₂ × 79.6 % PSA recovery × 0.0899 kg/Nm³ · Sources [1]</span><span class="gh">a1401_monitor/out/real_backtest.json</span></div>
 </section>
 
 <section class="slide" aria-label="How we model the cooler">
@@ -229,7 +229,7 @@ aside.notes{display:none}
     <div class="kpi"><div class="v">±9 %</div><p>duty: our property method vs a Peng–Robinson check</p></div>
     <div class="kpi"><div class="v">0.03 K</div><p>change from 24 to 48 cells per tube (grid converged)</p></div>
   </div>
-  <div class="foot"><span>Full derivations with justification in the calculations file (LaTeX)</span><span class="gh">a1401_clean_vs_fouled/ · docs/calculations.pdf</span></div>
+  <div class="foot"><span>Full derivations with justification in the calculations file (LaTeX) · Sources [4–10]</span><span class="gh">a1401_clean_vs_fouled/ · docs/calculations.pdf</span></div>
 </section>
 
 <section class="slide" aria-label="Air-side coefficient and fin efficiency">
@@ -271,7 +271,7 @@ aside.notes{display:none}
       <div class="kpi hot r" style="--d:7"><div class="v" style="font-size:40px">224 → 85 <small>kW/K</small></div><p>UA<sub>air</sub> at end of summer (b = 0.685): h rises to 61 W/m²K in the open gaps, but only 1,666 m² of fin still sees air</p></div>
     </div>
   </div>
-  <div class="foot"><span>Air at 50.9 °C mean: ρ 1.093 kg/m³, μ 1.96·10⁻⁵ Pa·s, k 0.0281 W/mK, Pr 0.70. Fin size assumed (reproduces datasheet areas)</span><span class="gh">a1401sim/airside.py · calculations.pdf §3</span></div>
+  <div class="foot"><span>Air at 50.9 °C mean: ρ 1.093 kg/m³, μ 1.96·10⁻⁵ Pa·s, k 0.0281 W/mK, Pr 0.70. Fin size assumed (reproduces datasheet areas) · Sources [4, 6, 10]</span><span class="gh">a1401sim/airside.py · calculations.pdf §3</span></div>
 </section>
 
 <section class="slide" aria-label="Fan and system curves">
@@ -296,7 +296,7 @@ aside.notes{display:none}
       </table>
     </div>
   </div>
-  <div class="foot"><span>n = fan speed fraction (1 = 100 %), q = airflow / 342,000 m³/h. No vendor curve: shape assumed, tested flatter/steeper (b ±2.5 points)</span><span class="gh">a1401sim/airside.py · calculations.pdf §4</span></div>
+  <div class="foot"><span>n = fan speed fraction (1 = 100 %), q = airflow / 342,000 m³/h. No vendor curve: shape assumed, tested flatter/steeper (b ±2.5 points) · Sources [1, 5]</span><span class="gh">a1401sim/airside.py · calculations.pdf §4</span></div>
 </section>
 
 <section class="slide" aria-label="Air mass and energy balance">
@@ -319,7 +319,7 @@ aside.notes{display:none}
       <svg id="dutyChart" class="r" style="--d:3" width="520" height="560" viewBox="0 0 520 560" aria-label="Duty split sensible and condensation"></svg>
     </div>
   </div>
-  <div class="foot"><span>Hot-day window 18 Jul 2025 17–20 UTC: 159.4 °C, 17,444 Nm³/h dry gas, air 31.8 °C, fans 100 %. Water 0.555 mol/mol dry (PFD, unverified)</span><span class="gh">results/clean_vs_fouled_table.csv · calculations.pdf §5</span></div>
+  <div class="foot"><span>Hot-day window 18 Jul 2025 17–20 UTC: 159.4 °C, 17,444 Nm³/h dry gas, air 31.8 °C, fans 100 %. Water 0.555 mol/mol dry (PFD, unverified) · Sources [1, 8–10]</span><span class="gh">results/clean_vs_fouled_table.csv · calculations.pdf §5</span></div>
 </section>
 
 <section class="slide" aria-label="Hybrid monitoring model">
@@ -341,7 +341,7 @@ aside.notes{display:none}
       <div class="kpi r" style="--d:7"><div class="v">63 / 66 <small>%</small></div><p>real-scale triggers for sonic horns and dry projection, above the 50–60 % base that cleaning never removes</p></div>
     </div>
   </div>
-  <div class="foot"><span>Gradient boosting instead of a deep network: we have few real fouling cycles, a deep network would memorise noise. Triggers are team assumptions, adjustable</span><span class="gh">monitor/ · a1401_monitor/ (README)</span></div>
+  <div class="foot"><span>Gradient boosting instead of a deep network: we have few real fouling cycles, a deep network would memorise noise. Triggers are team assumptions, adjustable · Sources [2, 3, 11–14]</span><span class="gh">monitor/ · a1401_monitor/ (README)</span></div>
 </section>
 
 <section class="slide" aria-label="Prediction tested">
@@ -370,7 +370,7 @@ aside.notes{display:none}
       <div class="kpi fix r" style="--d:4"><div class="v" style="font-size:34px">The health number is the main value</div><p>On real data fouling is slow (≈ 2 points a month), so the forecast only ties with "no change"; the health number caught both summers rising and both cleanings</p></div>
     </div>
   </div>
-  <div class="foot"><span>Left: synthetic plant with real Atyrau weather (tests the method, not the plant). Right lower table: real backtest Jan 2025 – Sep 2026. On the synthetic cycle the band is still too narrow (39–60 % coverage)</span><span class="gh">monitor/backtest_results.json · a1401_monitor/real_backtest.py</span></div>
+  <div class="foot"><span>Left: synthetic plant with real Atyrau weather (tests the method, not the plant). Right lower table: real backtest Jan 2025 – Sep 2026. On the synthetic cycle the band is still too narrow (39–60 % coverage) · Sources [1–3, 11, 12]</span><span class="gh">monitor/backtest_results.json · a1401_monitor/real_backtest.py</span></div>
 </section>
 
 <section class="slide" aria-label="Comparison of cleaning methods">
@@ -391,7 +391,7 @@ aside.notes{display:none}
     </table>
     <p class="small r" style="--d:2;margin-top:26px;font-size:22px"><b style="color:var(--ink)">Rejected as routine:</b> compressed air (guidance: complete removal unlikely), water (chloride cracking of hot 304L, scale, effluent) and chemicals (aluminium fins tolerate only the mildest; wet fins re-foul 5–7× faster).</p>
   </div>
-  <div class="foot"><span>Evidence labels and 30 sources in the full matrix. Outlet values: our model with assumed clearance</span><span class="gh">a1401_solutions_check/A1401_Solution_Comparison_Matrix.md</span></div>
+  <div class="foot"><span>Evidence labels and 30 sources in the full matrix. Outlet values: our model with assumed clearance · Sources [15–27, 32]</span><span class="gh">a1401_solutions_check/A1401_Solution_Comparison_Matrix.md</span></div>
 </section>
 
 <section class="slide" aria-label="Clean versus fouled">
@@ -411,7 +411,7 @@ aside.notes{display:none}
       </tbody>
     </table>
   </div>
-  <div class="foot"><span>Same inlet, gas flow and air for every point. Measured outlet in that window: 72.9 °C. Loss of U: −41 %; duty at fixed flow: −17 %</span><span class="gh">results/blockage_sweep.csv · fig5</span></div>
+  <div class="foot"><span>Same inlet, gas flow and air for every point. Measured outlet in that window: 72.9 °C. Loss of U: −41 %; duty at fixed flow: −17 % · Sources [1, 4–10]</span><span class="gh">results/blockage_sweep.csv · fig5</span></div>
 </section>
 
 <section class="slide" aria-label="Model validation">
@@ -437,7 +437,7 @@ aside.notes{display:none}
       <p class="small r" style="--d:6">Across every assumption we varied (water content, h ±20 %, fan curve, flow ±25 %): plant at 56–75 % equivalent blockage, duty loss 14–16 %.</p>
     </div>
   </div>
-  <div class="foot"><span>Fit on even weeks, predict odd weeks; fans 100 %, air ≥ 10 °C. Spring 2024 ran 70 % more gas and blockage was changing</span><span class="gh">results/history_periods_calibration_validation.csv · model/real_U_loss.json</span></div>
+  <div class="foot"><span>Fit on even weeks, predict odd weeks; fans 100 %, air ≥ 10 °C. Spring 2024 ran 70 % more gas and blockage was changing · Sources [1]</span><span class="gh">results/history_periods_calibration_validation.csv · model/real_U_loss.json</span></div>
 </section>
 
 <section class="slide" aria-label="Duty recovered per solution">
@@ -451,7 +451,7 @@ aside.notes{display:none}
       <div class="kpi grey r" style="--d:4"><div class="v" style="font-size:36px">Neither beats a full clean</div><p>Their value: repeated online, without a shutdown, between turnarounds</p></div>
     </div>
   </div>
-  <div class="foot"><span>Bars: base case; whiskers: low–high assumed clearance per event. Same day as slide 13. Turnaround + DECAMEX together not yet simulated</span><span class="gh">a1401_solutions_check/SIMULATION_REPORT_v2.md</span></div>
+  <div class="foot"><span>Bars: base case; whiskers: low–high assumed clearance per event. Same day as slide 13. Turnaround + DECAMEX together not yet simulated · Sources [1, 25, 27, 32]</span><span class="gh">a1401_solutions_check/SIMULATION_REPORT_v2.md</span></div>
 </section>
 
 <section class="slide" aria-label="Whole season effect">
@@ -461,7 +461,7 @@ aside.notes{display:none}
     <div><div class="cap r" style="margin-bottom:10px">Hours with outlet above 65 °C, Apr–Sep 2025</div><svg id="hoursChart" class="r" style="--d:1" width="820" height="560" viewBox="0 0 820 560" aria-label="Hours above 65 C"></svg></div>
     <div><div class="cap r" style="margin-bottom:10px">Mean outlet when air ≥ 30 °C, °C</div><svg id="meanChart" class="r" style="--d:2" width="820" height="560" viewBox="0 0 820 560" aria-label="Mean outlet in hot hours"></svg></div>
   </div>
-  <div class="foot"><span>2,863 historian hours, fans 100 %, air ≥ 10 °C. "No debris" = limit if seasonal debris were fully prevented</span><span class="gh">results_v2/season_2025_scenarios_v2.csv</span></div>
+  <div class="foot"><span>2,863 historian hours, fans 100 %, air ≥ 10 °C. "No debris" = limit if seasonal debris were fully prevented · Sources [1–3]</span><span class="gh">results_v2/season_2025_scenarios_v2.csv</span></div>
 </section>
 
 <section class="slide" aria-label="Economic assessment: CAPEX, OPEX and payback">
@@ -486,7 +486,7 @@ aside.notes{display:none}
       </table>
     </div>
   </div>
-  <div class="foot"><span>Team planning allowances, not quotes. Coating feedstock: bio-based silica (plant ash) or local mine tailings, water-based spray, cured ≤ 170 °C. Atyrau rates assumed: technician 8–18 USD/h, power 0.05–0.09 USD/kWh (≈ 25–45 KZT), 500 KZT/USD; horns imported</span><span class="gh">economics/econ_kz.py</span></div>
+  <div class="foot"><span>Team planning allowances, not quotes. Coating feedstock: bio-based silica (plant ash) or local mine tailings, water-based spray, cured ≤ 170 °C. Atyrau rates assumed: technician 8–18 USD/h, power 0.05–0.09 USD/kWh (≈ 25–45 KZT), 500 KZT/USD; horns imported · Sources [25, 27, 28, 32]</span><span class="gh">economics/econ_kz.py</span></div>
 </section>
 
 <section class="slide" aria-label="Lead time">
@@ -505,7 +505,7 @@ aside.notes{display:none}
       <div class="kpi r" style="--d:4"><div class="v">0<small>extra shutdowns</small></div><p>in-situ spray needs no bundle removal; one extra 5-day shutdown would cost 133 t H₂</p></div>
     </div>
   </div>
-  <div class="foot"><span>Team schedule allowances, not vendor commitments. Critical path S1: bench adhesion at 60–160 °C → OEM approval → horn import. S2: vendor acceptance → fan-off window → mobilisation</span><span class="gh">A1401_Technoeconomic_Assessment_and_Lead_Time.md §8 · economics/econ_kz.py</span></div>
+  <div class="foot"><span>Team schedule allowances, not vendor commitments. Critical path S1: bench adhesion at 60–160 °C → OEM approval → horn import. S2: vendor acceptance → fan-off window → mobilisation · Sources [25, 27, 32]</span><span class="gh">A1401_Technoeconomic_Assessment_and_Lead_Time.md §8 · economics/econ_kz.py</span></div>
 </section>
 
 <section class="slide" aria-label="Recommendation">
@@ -520,7 +520,7 @@ aside.notes{display:none}
       <div class="kpi r" style="--d:5"><div class="v" style="font-size:34px">Ask how the plant cleans</div><p>the 2025 and 2026 method is not stated in the case files</p></div>
     </div>
   </div>
-  <div class="foot"><span>2026 confirmed the timing: cleaning in late June gave 62 % at end of summer vs 72 % in 2025</span><span class="gh">A1401_Solutions_Defense_Summary_2_corrected.md</span></div>
+  <div class="foot"><span>2026 confirmed the timing: cleaning in late June gave 62 % at end of summer vs 72 % in 2025 · Sources [1, 32]</span><span class="gh">A1401_Solutions_Defense_Summary_2_corrected.md</span></div>
 </section>
 
 <section class="slide" aria-label="Safety: hazard register">
@@ -532,7 +532,7 @@ aside.notes{display:none}
       <tbody><tr><td class="mono" style="text-align:left">H01</td><td style="text-align:left">Work near live syngas bundle</td><td style="text-align:center">Both</td><td style="text-align:left">H₂/CO release, ignition, toxic exposure</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">integrity review, gas detection, ignition control, exclusion</td></tr><tr><td class="mono" style="text-align:left">H02*</td><td style="text-align:left">In-situ spray next to live bundle</td><td style="text-align:center">S1</td><td style="text-align:left">mist or ignition source near H₂/CO equipment</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">water-based coating only, hot-work style permit, gas test</td></tr><tr><td class="mono" style="text-align:left">H03</td><td style="text-align:left">Fans during intervention</td><td style="text-align:center">Both</td><td style="text-align:left">restart, windmilling, entanglement</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">lockout, verified zero motion, guards kept</td></tr><tr><td class="mono" style="text-align:left">H04</td><td style="text-align:left">One fan off / skirts fitted</td><td style="text-align:center">Both</td><td style="text-align:left">cooling lost: downstream excursion or trip</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">validated load/weather window, abort limits</td></tr><tr><td class="mono" style="text-align:left">H06*</td><td style="text-align:left">Coating cure on fins</td><td style="text-align:center">S1</td><td style="text-align:left">cure above 170 °C design: distortion, seal damage</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">ambient / low-T cure ≤ 170 °C, OEM approval</td></tr><tr><td class="mono" style="text-align:left">H07*</td><td style="text-align:left">Mine-tailing or ash feedstock</td><td style="text-align:center">S1</td><td style="text-align:left">respirable crystalline silica, heavy metals</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">lab analysis (XRD, ICP), respirators, wet mixing</td></tr><tr><td class="mono" style="text-align:left">H09</td><td style="text-align:left">Horn sounding</td><td style="text-align:center">S1</td><td style="text-align:left">148 dB: hearing loss, alarms masked</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">remote sounding, measured exposure</td></tr><tr><td class="mono" style="text-align:left">H10</td><td style="text-align:left">Horn structural response</td><td style="text-align:center">S1</td><td style="text-align:left">fatigue, loose fins, eventual leak</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">modal/strain test, OEM limits</td></tr><tr><td class="mono" style="text-align:left">H12</td><td style="text-align:left">Dry organic dust in collector</td><td style="text-align:center">S1</td><td style="text-align:left">dust ignition or explosion</td><td class="hot" style="text-align:center">C4</td><td style="text-align:center">H</td><td style="text-align:left">characterise dust, rated collector</td></tr><tr><td class="mono" style="text-align:left">H13</td><td style="text-align:left">DECAMEX projection</td><td style="text-align:center">S2</td><td style="text-align:left">powder inhalation, eye injury</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">product SDS, enclosed discharge</td></tr><tr><td class="mono" style="text-align:left">H14</td><td style="text-align:left">Projection / lance contact</td><td style="text-align:center">S2</td><td style="text-align:left">bent fins, damaged tubes</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">test patch, vendor stand-off, inspection</td></tr><tr><td class="mono" style="text-align:left">H15</td><td style="text-align:left">Redeposition / capture failure</td><td style="text-align:center">S2</td><td style="text-align:left">fibres driven deeper, airflow worse</td><td class="" style="text-align:center">C2</td><td style="text-align:center">H</td><td style="text-align:left">prove capture at all 6 rows</td></tr><tr><td class="mono" style="text-align:left">H19</td><td style="text-align:left">Monitoring error</td><td style="text-align:center">Both</td><td style="text-align:left">wrong cleaning demand, missed restriction</td><td class="" style="text-align:center">C3</td><td style="text-align:center">H</td><td style="text-align:left">advisory only, no safety credit</td></tr></tbody>
     </table>
   </div>
-  <div class="foot"><span>Preliminary HAZID; * = team update for the in-situ spray coating (replaces bundle lift, 200 °C workshop cure and solvent oven). C4 multiple-fatality / major loss … C1 minor. H = hold until control accepted. Not a HAZOP or LOPA</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §3–4</span></div>
+  <div class="foot"><span>Preliminary HAZID; * = team update for the in-situ spray coating (replaces bundle lift, 200 °C workshop cure and solvent oven). C4 multiple-fatality / major loss … C1 minor. H = hold until control accepted. Not a HAZOP or LOPA · Sources [29–32]</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §3–4</span></div>
 </section>
 
 <section class="slide" aria-label="Safety: critical findings per solution">
@@ -554,7 +554,7 @@ aside.notes{display:none}
       <div class="box r" style="--d:4"><h3>Both: not "online = no impact"</h3><p>safe weather/load windows may be shortest in the hottest weeks: clean before the season</p></div>
     </div>
   </div>
-  <div class="foot"><span>S2 is the more practical first controlled field trial; S1 is a development system with unresolved material, acoustic and lifecycle gates. Neither is approved for unrestricted use</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §1, 5–6, 8</span></div>
+  <div class="foot"><span>S2 is the more practical first controlled field trial; S1 is a development system with unresolved material, acoustic and lifecycle gates. Neither is approved for unrestricted use · Sources [25, 27, 29–32]</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §1, 5–6, 8</span></div>
 </section>
 
 <section class="slide" aria-label="Safety: acceptance gates">
@@ -567,7 +567,7 @@ aside.notes{display:none}
       <div class="eq hotq"><div class="lbl">Material integrity</div><div class="num" style="font-family:var(--sans);font-size:21px">304L tubes, aluminium fins, 170 °C design wall. No water wash (chloride cracking where water evaporates). No combination credit: DECAMEX may erode the sprayed film (H20)</div></div>
     </div>
   </div>
-  <div class="foot"><span>Monitoring stays advisory: no safety credit, no automatic cleaning permissive. Kazakhstan law and Air Liquide standards govern; HSE/OSHA used as references</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §7–8</span></div>
+  <div class="foot"><span>Monitoring stays advisory: no safety credit, no automatic cleaning permissive. Kazakhstan law and Air Liquide standards govern; HSE/OSHA used as references · Sources [17, 20, 30–32]</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §7–8</span></div>
 </section>
 
 <section class="slide" aria-label="Where to find everything">
@@ -601,8 +601,18 @@ aside.notes{display:none}
   <div class="foot"><span>Private repository: plant data belongs to Air Liquide</span><span class="gh">github.com/isstomiris/air-liquide-a1401-fouling</span></div>
 </section>
 
-<section class="slide" aria-label="Glossary">
+<section class="slide" aria-label="References">
   <div class="hdr"><span class="sec">Backup</span><span>24</span></div>
+  <h2 class="r" style="font-size:44px">References</h2>
+  <div class="body r" style="--d:1;top:220px;display:grid;grid-template-columns:1fr 1fr;gap:48px;font:400 15.5px/1.32 var(--sans);color:var(--ink2)">
+    <ol style="margin:0;padding-left:30px;display:flex;flex-direction:column;gap:7px"><li value="1">Air Liquide, AIChE Student Hackathon 2026 case files: A-1401 datasheet and bundle drawing, UPOV-2 PFD, PI historian export 2023–2026, cleaning dates.</li><li value="2">Hersbach H. et al. (2020). The ERA5 global reanalysis. <i>Q. J. R. Meteorol. Soc.</i> 146, 1999–2049.</li><li value="3">Open-Meteo Historical Weather API, hourly data for Atyrau (47.12 N, 51.92 E), open-meteo.com.</li><li value="4">Briggs D.E., Young E.H. (1963). Convection heat transfer and pressure drop of air flowing across triangular pitch banks of finned tubes. <i>Chem. Eng. Prog. Symp. Ser.</i> 59(41), 1–10.</li><li value="5">Robinson K.K., Briggs D.E. (1966). Pressure drop of air flowing across triangular pitch banks of finned tubes. <i>Chem. Eng. Prog. Symp. Ser.</i> 62(64), 177–184.</li><li value="6">Schmidt T.E. (1949). Heat transfer calculations for extended surfaces. <i>Refrigerating Engineering</i> 57, 351–357.</li><li value="7">Gnielinski V. (1976). New equations for heat and mass transfer in turbulent pipe and channel flow. <i>Int. Chem. Eng.</i> 16, 359–368.</li><li value="8">Silver L. (1947), <i>Trans. Inst. Chem. Eng.</i> 25, 30–42; Bell K.J., Ghaly M.A. (1973), <i>AIChE Symp. Ser.</i> 69(131), 72–79: condensation with non-condensable gases.</li><li value="9">Wagner W., Pruß A. (2002). IAPWS-95 formulation for water. <i>J. Phys. Chem. Ref. Data</i> 31, 387–535.</li><li value="10">Bell I.H. et al. (2014). CoolProp. <i>Ind. Eng. Chem. Res.</i> 53, 2498–2508.</li><li value="11">Benaggoune K. et al. (2022). Multi-step-ahead prognostics with uncertainty. <i>Applied Energy</i> 313, 118835.</li><li value="12">Romano Y., Patterson E., Candès E. (2019). Conformalized quantile regression. <i>NeurIPS</i> 32.</li><li value="13">Friedman J.H. (2001). Greedy function approximation: a gradient boosting machine. <i>Ann. Stat.</i> 29, 1189–1232.</li><li value="14">Pedregosa F. et al. (2011). Scikit-learn: machine learning in Python. <i>JMLR</i> 12, 2825–2830.</li><li value="15">Shin D.H. et al. (2024). Air side fouling and cleaning of air conditioning heat exchangers. ASim2024, IBPSA Asia, Osaka.</li><li value="16">Zhan F. et al. (2018). Wet-particle deposition on fin-and-tube heat exchangers. <i>Int. J. Heat Mass Transfer</i> 124, 1230–1244.</li><li value="17">ACC Users Group (2018). ACC02 Guidelines for finned tube cleaning in air cooled condensers.</li></ol>
+    <ol style="margin:0;padding-left:30px;display:flex;flex-direction:column;gap:7px"><li value="18">Wermac, Cleaning air cooled heat exchangers; Goodman SA-026, Aluminum coil cleaning recommendations.</li><li value="19">Abubakar A.A. et al. (2020). <i>Sci. Rep.</i> 10, 14346 (dust removal from hydrophobic surfaces).</li><li value="20">SSINA, Chloride stress corrosion cracking of stainless steels, ssina.com.</li><li value="21">Basso M. et al. (2023). O2T8 hydrophobic silica coating. <i>J. Non-Cryst. Solids: X</i> 17, 100143.</li><li value="22">Poplar seed fiber as a natural oil sorbent (2019). <i>Textile Research Journal</i>, doi 10.1177/0040517519829001.</li><li value="23">Zhao B. et al. (2021). Ni–P coatings against dust deposition in air-cooled condensers. <i>Clean Technol. Environ. Policy</i> 23, 1727–1736.</li><li value="24">Fayard E.H. (2010). ACC pressure cleaning. <i>Power Engineering</i>, May 2010.</li><li value="25">CTP Environnement: DECAMEX process and references (Malaysian LNG, Thai cogeneration, French steelworks), ctp-environnement.com.</li><li value="26">Baker Hughes, SureFOAM fin fan cleaning service, bakerhughes.com.</li><li value="27">Primasonics: PAS-120 data pack (2022) and BHSL case study, primasonics.com.</li><li value="28">Kalapathy U., Proctor A., Shultz J. (2000). A simple method for production of pure silica from rice hull ash. <i>Bioresour. Technol.</i> 73, 257–262.</li><li value="29">U.S. DOE, Safe use of hydrogen; CDC/NIOSH Pocket Guide, Carbon monoxide.</li><li value="30">UK HSE: maintenance of work equipment; HSG253 safe isolation; lifting operations; explosive atmospheres; noise regulations.</li><li value="31">US OSHA: 29 CFR 1910.242(b) compressed air for cleaning; combustible dust overview.</li><li value="32">Perovskite team internal documents: Engineering Protocols Rev. 2, Solution Comparison Matrix, Technoeconomic Assessment and Lead Time, Safety and Hazards Assessment (repository).</li></ol>
+  </div>
+  <div class="foot"><span>Numbers in square brackets in slide footers refer to this list. Web sources checked 15 Nov 2026</span><span class="gh">docs/calculations.pdf · a1401_solutions_check/</span></div>
+</section>
+
+<section class="slide" aria-label="Glossary">
+  <div class="hdr"><span class="sec">Backup</span><span>25</span></div>
   <h2 class="r">Terms in plain words</h2>
   <div class="body" style="top:220px;display:grid;grid-template-columns:1fr 1fr;gap:20px 70px;font-size:21px;line-height:1.4">
     <p><b>Duty (Q)</b> heat removed per second, kW</p>
