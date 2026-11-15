@@ -55,3 +55,7 @@ cd a1401_monitor && python real_backtest.py  # test the monitor on the real plan
 | [`deck/final.html`](deck/final.html) | Final 20-slide deck. Open in a browser; arrow keys to move, **N** for speaker notes. |
 | [`docs/calculations.pdf`](docs/calculations.pdf) | Every calculation on the slides with its justification (LaTeX source: `docs/calculations.tex`). |
 | [`a1401_solutions_check/`](a1401_solutions_check/) | Solution simulation (`simulate_solutions_v2.py`), comparison matrix, protocols and defence summaries. |
+
+## Plant data
+
+The raw Air Liquide plant exports (historian workbook, hourly history, hourly model inputs) are not published in this repository because the data belongs to Air Liquide. Scripts that read `plant_history/` or `a1401_clean_vs_fouled/data/historian_full.xlsx` need those files placed back locally. Derived daily and monthly results, figures and all code are included.
