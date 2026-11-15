@@ -1,0 +1,19 @@
+scenario,group,note,mean_b_Jul_Sep,mean_T_out_C,mean_T_out_air_ge_30C,hours_gt_60C,hours_gt_65C,hours_gt_70C,hours_evaluated,mean_duty_kW,mean_duty_gain_kW_vs_no_action
+No in-season action (2025 as measured),reference,smoothed measured path,0.6862,74.5672,80.1491,2849,2651,2082,2863,4012.5958,0.0
+Existing-type cleaning moved to 1 Jul,reference,full increment removed once,0.5954,65.7586,66.8166,1932,1532,1073,2863,4190.6826,178.0868
+"S1 new low: O2T8 + horns, 24 events",S1 new,"c=0.2, d=0.4, e=0.5, g1=0.99",0.6729,72.7794,77.8613,2795,2470,1840,2863,4051.0147,38.4189
+"S1 new base: O2T8 + horns, 24 events",S1 new,"c=0.5, d=0.6, e=0.7, g1=0.99",0.6441,68.5062,72.704,2441,1921,1237,2863,4142.3321,129.7363
+"S1 new high: O2T8 + horns, 24 events",S1 new,"c=0.8, d=0.8, e=0.9, g1=0.99",0.6151,64.7034,68.3508,1986,1407,794,2863,4222.1321,209.5363
+"S1 new base, 12 events/yr",S1 new sensitivity,event-count sensitivity,0.6485,69.3265,73.5744,2515,2014,1367,2863,4124.4212,111.8254
+"S1 new base, 52 events/yr",S1 new sensitivity,event-count sensitivity,0.6425,68.1056,72.3927,2411,1874,1155,2863,4151.3276,138.7318
+"S1 new base, g1 = 0.97",S1 new sensitivity,installed-penalty sensitivity,0.6481,69.2383,73.3755,2515,2000,1346,2863,4125.7706,113.1748
+"S1 new base, g1 = 1.00",S1 new sensitivity,installed-penalty sensitivity,0.6421,68.1498,72.3751,2406,1876,1177,2863,4150.3701,137.7743
+"S1 new fails (no clearance), g1 = 0.99",S1 new sensitivity,failure case,0.6882,74.9832,80.5539,2852,2680,2150,2863,4002.8672,-9.7286
+"S1 old central: Aculon + piezo, daily",S1 old,revision-1 inputs,0.6272,65.9274,70.0564,2152,1589,882,2863,4197.4901,184.8943
+"S2 new low: DECAMEX, 2 campaigns (1 Jun, 1 Jul)",S2 new,"c=0.7, d=0.5, e=0.7",0.6578,70.8602,75.0689,2673,2223,1578,2863,4091.2966,78.7009
+"S2 new base: DECAMEX, 2 campaigns (1 Jun, 1 Jul)",S2 new,"c=0.9, d=0.8, e=0.9",0.6203,66.6455,69.4611,2171,1605,1045,2863,4177.0852,164.4894
+"S2 new high: DECAMEX, 2 campaigns (1 Jun, 1 Jul)",S2 new,"c=1.0, d=0.95, e=0.98",0.5991,64.3301,66.4547,1835,1325,837,2863,4222.8961,210.3003
+"S2 new base, 1 campaign (1 Jul)",S2 new sensitivity,schedule sensitivity,0.6274,68.4478,70.921,2330,1876,1274,2863,4138.7082,126.1124
+"S2 new base, 4 campaigns (15 May, 1 Jun, 15 Jun, 1 Jul)",S2 new sensitivity,schedule sensitivity,0.615,65.0952,68.3862,2005,1433,836,2863,4212.3627,199.7669
+"S2 old central: DECAMEX, revision-1 values",S2 old,revision-1 inputs,0.6174,66.3186,69.0395,2122,1560,1016,2863,4183.6177,171.0219
+Limit: no seasonal debris at all,reference,upper limit for seasonal-only methods,0.5941,61.5683,65.3373,1588,1032,479,2863,4287.5784,274.9827

@@ -1,0 +1,841 @@
+<title>A-1401 Fouling Case</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: fixed 1920x1080 stage, sober engineering-report slides. Orange = problem, blue = fix, grey = reference. */
+:root{
+  --bg:#ffffff; --panel:#f3f5f6; --line:#d6dcdf; --muted-line:#e8ecee;
+  --ink:#14202a; --ink2:#4b5963; --ink3:#7d8a92;
+  --hot:#b8450f; --hot-soft:#f6e3d8;
+  --fix:#1f5f8b; --fix-soft:#dde9f2;
+  --good:#2e7d32; --warn:#b07d00; --bad:#c62828;
+  --sans:'IBM Plex Sans',Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --stage-bg:#e9edef;
+  color-scheme:light;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--stage-bg);color:var(--ink);font-family:var(--sans)}
+
+/* === FIXED STAGE (frontend-slides viewport-base) === */
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage-bg)}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--bg);box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;visibility:hidden;opacity:0;pointer-events:none;background:var(--bg);transition:opacity .35s ease,visibility .35s}
+.slide.active{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media print{html,body{overflow:visible;height:auto}.deck-viewport{position:static}.deck-stage{position:static;transform:none!important;width:1920px;height:auto;box-shadow:none}.slide{position:relative;visibility:visible;opacity:1;break-after:page}.deck-controls,.notes-panel,.progress{display:none!important}}
+
+/* === SLIDE GRID === */
+.slide{padding:72px 96px 0}
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font:500 20px/1 var(--mono);color:var(--ink3);letter-spacing:.08em;text-transform:uppercase}
+.hdr .sec b{color:var(--fix);font-weight:600;margin-right:14px}
+.hdr .sec.hotsec b{color:var(--hot)}
+h1{font:600 92px/1.05 var(--sans);letter-spacing:-.015em;text-wrap:balance}
+h2{font:600 54px/1.12 var(--sans);letter-spacing:-.01em;margin-top:26px;max-width:1600px;text-wrap:balance}
+h2 .h{color:var(--hot)} h2 .f{color:var(--fix)}
+.foot{position:absolute;left:96px;right:96px;bottom:40px;display:flex;justify-content:space-between;gap:40px;font:400 17px/1.4 var(--mono);color:var(--ink3);border-top:1px solid var(--line);padding-top:14px}
+.foot .gh::before{content:"GitHub ▸ ";color:var(--fix)}
+.body{position:absolute;left:96px;right:96px;top:250px;bottom:110px}
+.mono{font-family:var(--mono)}
+.small{font-size:20px;line-height:1.45;color:var(--ink2)}
+.cap{font:500 18px/1.3 var(--mono);color:var(--ink3);letter-spacing:.06em;text-transform:uppercase}
+
+/* reveal: one short fade, staggered */
+.r{opacity:0;transition:opacity .45s ease;transition-delay:calc(var(--d,0)*90ms + 80ms)}
+.slide.active .r{opacity:1}
+.draw{stroke-dasharray:var(--len,4000);stroke-dashoffset:var(--len,4000);transition:stroke-dashoffset 1.8s ease .4s}
+.slide.active .draw{stroke-dashoffset:0}
+.grow{transform:scaleY(0);transform-origin:bottom;transform-box:fill-box;transition:transform .9s ease;transition-delay:calc(var(--d,0)*90ms + 300ms)}
+.growx{transform:scaleX(0);transform-origin:left;transform-box:fill-box;transition:transform .9s ease;transition-delay:calc(var(--d,0)*90ms + 300ms)}
+.slide.active .grow,.slide.active .growx{transform:none}
+
+/* KPI */
+.kpi{border-top:3px solid var(--ink);padding-top:14px}
+.kpi.hot{border-color:var(--hot)} .kpi.fix{border-color:var(--fix)} .kpi.grey{border-color:var(--ink3)}
+.kpi .v{font:600 54px/1 var(--sans);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.kpi.hot .v{color:var(--hot)} .kpi.fix .v{color:var(--fix)}
+.kpi .v small{font-size:24px;font-weight:500;color:var(--ink2);margin-left:6px}
+.kpi p{font-size:21px;line-height:1.4;color:var(--ink2);margin-top:10px}
+.stack{display:flex;flex-direction:column;gap:34px}
+
+/* equation cards */
+.eq{background:var(--panel);border-left:3px solid var(--fix);padding:18px 24px}
+.eq .lbl{font:600 17px/1 var(--mono);color:var(--fix);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.eq .f{font:400 27px/1.35 var(--sans);font-style:italic}
+.eq .f .n{font-style:normal}
+.eq .num{font:500 22px/1.4 var(--mono);color:var(--ink2);margin-top:6px}
+.eq .num b{color:var(--ink);font-weight:600}
+.eq.hotq{border-color:var(--hot)} .eq.hotq .lbl{color:var(--hot)}
+sub,sup{font-size:.62em;font-style:normal}
+
+/* tables */
+table{border-collapse:collapse;width:100%;font:400 21px/1.3 var(--sans);font-variant-numeric:tabular-nums}
+th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:right;vertical-align:middle}
+th:first-child,td:first-child{text-align:left}
+th{font:500 16px/1.2 var(--mono);color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid var(--ink)}
+td.fix{color:var(--fix);font-weight:600} td.hot{color:var(--hot);font-weight:600}
+
+/* matrix */
+.mx td,.mx th{text-align:center;font-size:20px;padding:12px 10px}
+.mx td:first-child,.mx th:first-child{text-align:left;color:var(--ink2);font-size:19px}
+.mx th.ours{background:var(--fix-soft);color:var(--fix)}
+.mx td.ours{background:#f2f7fb}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:8px;vertical-align:1px}
+.g{background:var(--good)} .y{background:var(--warn)} .rd{background:var(--bad)} .nd{background:var(--line)}
+
+/* flow boxes */
+.box{border:1.5px solid var(--ink3);background:var(--bg);padding:20px 22px}
+.box h3{font:600 26px/1.2 var(--sans);margin-bottom:8px}
+.box p{font-size:19px;line-height:1.4;color:var(--ink2)}
+.box.fix{border-color:var(--fix);background:var(--fix-soft)}
+.box.hot{border-color:var(--hot);background:var(--hot-soft)}
+.arrow{align-self:center;font:400 40px/1 var(--sans);color:var(--ink3)}
+
+svg text{font-family:var(--mono)}
+.lamp{width:30px;height:30px;border-radius:50%;display:inline-block}
+
+/* notes + controls (outside stage) */
+.deck-controls{opacity:.15;transition:opacity .3s;position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:1000;display:flex;gap:8px;align-items:center;font:500 13px/1 var(--mono);color:var(--ink2)}
+.deck-controls:hover,.deck-controls.show{opacity:1}
+.deck-controls button{min-width:40px;height:40px;padding:0 10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;font:500 14px/1 var(--mono)}
+.deck-controls button:hover,.deck-controls button:focus-visible{border-color:var(--fix);outline:2px solid var(--fix-soft)}
+.progress{position:fixed;left:0;top:0;height:3px;background:var(--fix);z-index:1000;transition:width .3s ease}
+.notes-panel{position:fixed;left:0;right:0;bottom:0;max-height:42vh;overflow:auto;background:#fffdf5;border-top:2px solid var(--warn);z-index:999;padding:16px max(20px,env(safe-area-inset-right,0px)) calc(70px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));font:400 16px/1.55 var(--sans);color:var(--ink)}
+.notes-panel h4{font:600 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--warn);margin-bottom:8px}
+.notes-panel p{max-width:110ch;margin-bottom:8px}
+.notes-panel b{font-weight:600}
+aside.notes{display:none}
+</style>
+
+<div class="progress" id="progress"></div>
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- ============ 1. TITLE ============ -->
+<section class="slide active" aria-label="Title">
+  <div class="hdr"><span>AIChE Student Hackathon 2026 · Air Liquide case</span><span>15 Nov 2026</span></div>
+  <div style="position:absolute;left:96px;top:250px;width:1080px">
+    <div class="cap r" style="color:var(--fix)">Air cooler A-1401 · UPOV-2 hydrogen unit, Atyrau</div>
+    <h1 class="r" style="--d:1;margin-top:26px">Why A-1401 loses cooling every summer, and how to keep it clean</h1>
+    <p class="small r" style="--d:2;font-size:26px;margin-top:34px;max-width:900px">Diagnosis from 3 years of plant data · wet thermal model · predictive monitoring · two dry, online cleaning solutions</p>
+  </div>
+  <svg class="r" style="--d:3;position:absolute;right:96px;top:230px" width="560" height="620" viewBox="0 0 560 620" aria-label="Cross-section of finned tubes with debris on the air-entry side">
+    <g id="finsTitle"></g>
+    <text x="280" y="604" text-anchor="middle" font-size="18" fill="#7d8a92">Finned tubes, cross-section. Air enters from below.</text>
+  </svg>
+  <div class="foot"><span>Team: AIChE Student Chapter</span><span class="gh">isstomiris/air-liquide-a1401-fouling</span></div>
+  <aside class="notes">
+    <p><b>What to say (20 s):</b> A-1401 is an air cooler in Air Liquide's hydrogen unit in Atyrau. Every summer plant fluff, insects and dust clog its fins, the gas leaves hotter and the plant runs less gas. We measured how big the problem is from 3 years of plant data, built a model of the cooler, built a monitor that says when to clean, and propose two dry cleaning methods.</p>
+    <p><b>Air cooler (fin-fan):</b> a bank of tubes with thin metal fins; fans push outside air across the fins and the air carries the heat away. No cooling water is used.</p>
+  </aside>
+</section>
+
+<!-- ============ 2. WHERE IT SITS ============ -->
+<section class="slide" aria-label="Where A-1401 sits">
+  <div class="hdr"><span class="sec"><b>01</b>The equipment</span><span>02</span></div>
+  <h2 class="r">A-1401 cools wet syngas before hydrogen purification. <span class="h">Most of its job is condensing water.</span></h2>
+  <div class="body">
+    <svg class="r" style="--d:1" width="1728" height="330" viewBox="0 0 1728 330" aria-label="Process strip from shift reactor to PSA">
+      <g font-size="20" fill="#14202a">
+        <rect x="0" y="90" width="210" height="110" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="105" y="140" text-anchor="middle">MT shift</text><text x="105" y="168" text-anchor="middle" fill="#4b5963" font-size="17">reactor</text>
+        <rect x="270" y="90" width="230" height="110" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="385" y="140" text-anchor="middle">E-1407 / E-1408</text><text x="385" y="168" text-anchor="middle" fill="#4b5963" font-size="17">heat recovery</text>
+        <rect x="560" y="70" width="330" height="150" fill="#f6e3d8" stroke="#b8450f" stroke-width="3"/><text x="725" y="128" text-anchor="middle" font-size="26" font-weight="600" fill="#b8450f">A-1401</text><text x="725" y="160" text-anchor="middle" fill="#4b5963" font-size="17">air cooler, 3 fans</text><text x="725" y="186" text-anchor="middle" fill="#4b5963" font-size="17">3.5–4.2 MW</text>
+        <rect x="950" y="90" width="230" height="110" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="1065" y="140" text-anchor="middle">E-1409 / E-1410</text><text x="1065" y="168" text-anchor="middle" fill="#4b5963" font-size="17">water coolers</text>
+        <rect x="1240" y="80" width="150" height="130" rx="60" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="1315" y="140" text-anchor="middle">D-1403</text><text x="1315" y="168" text-anchor="middle" fill="#4b5963" font-size="17">separator</text>
+        <rect x="1450" y="90" width="150" height="110" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="1525" y="140" text-anchor="middle">PSA</text><text x="1525" y="168" text-anchor="middle" fill="#4b5963" font-size="17">H₂ purifier</text>
+        <text x="1660" y="152" font-weight="600" font-size="24" fill="#1f5f8b">H₂</text>
+      </g>
+      <g stroke="#14202a" stroke-width="2.5" fill="none" marker-end="url(#ar)">
+        <path d="M210 145H262"/><path d="M500 145H552"/><path d="M890 145H942"/><path d="M1180 145H1232"/><path d="M1390 145H1442"/><path d="M1600 145H1650"/>
+        <path d="M1315 210V270" /></g>
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#14202a"/></marker></defs>
+      <text x="1315" y="300" text-anchor="middle" font-size="18" fill="#1f5f8b">condensed water out</text>
+      <g font-size="19">
+        <text x="526" y="60" text-anchor="middle" fill="#b8450f">158–167 °C in</text>
+        <text x="920" y="60" text-anchor="middle" fill="#1f5f8b">60–70 °C target</text>
+      </g>
+      <text x="725" y="262" text-anchor="middle" font-size="18" fill="#4b5963">gas in tubes, outside air across fins</text>
+    </svg>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:48px;margin-top:40px">
+      <div class="kpi r" style="--d:2"><div class="v">276 <small>tubes</small></div><p>6 rows, 10.4 m long, stainless 304L, 25 × 2 mm</p></div>
+      <div class="kpi r" style="--d:3"><div class="v">5,288 <small>m²</small></div><p>aluminium fin area, 23× the bare tube area. Fin gap ≈ 2 mm</p></div>
+      <div class="kpi r" style="--d:4"><div class="v">3 × 114,000 <small>m³/h</small></div><p>forced-draft fans, 190 Pa, 11 kW each. Air enters from <b>below</b></p></div>
+      <div class="kpi hot r" style="--d:5"><div class="v">56 % <small>of duty</small></div><p>is condensing water vapour, not cooling gas (clean model, hot day)</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Datasheet and bundle drawing; PFD; fin size assumed to match the datasheet areas</span><span class="gh">pfd/ · a1401_clean_vs_fouled/a1401sim/config.py</span></div>
+  <aside class="notes">
+    <p><b>Syngas:</b> the gas leaving the shift reactor: about 74 % hydrogen, 18 % CO₂, some methane and CO, plus a lot of steam.</p>
+    <p><b>Why water condenses:</b> the gas is saturated with water at high pressure (2.7 MPa). As A-1401 cools it, water vapour turns to liquid and releases its latent heat. On a hot day 56 % of the heat A-1401 removes is this latent heat. The separator D-1403 removes the liquid before the PSA.</p>
+    <p><b>PSA (pressure swing adsorption):</b> purifies hydrogen by adsorbing the other gases on a solid. It needs cool, dry gas.</p>
+    <p><b>Forced draft:</b> fans sit below the tubes and blow air up. So debris collects on the underside of the bottom row, where the air enters.</p>
+  </aside>
+</section>
+
+<!-- ============ 3. MECHANISM ============ -->
+<section class="slide" aria-label="How debris hurts">
+  <div class="hdr"><span class="sec hotsec"><b>02</b>The problem</span><span>03</span></div>
+  <h2 class="r">Fluff on the fins chokes the air. On hot days the gas leaves too hot and <span class="h">the plant runs less gas.</span></h2>
+  <div class="body" style="display:flex;gap:22px;align-items:stretch;top:330px;bottom:430px">
+    <div class="box r" style="--d:1;flex:1"><div class="cap" style="margin-bottom:12px">May–Aug</div><h3>Poplar fluff, insects, dust</h3><p>carried up by the fans, stick under the bottom tube row</p></div>
+    <div class="arrow r" style="--d:2">→</div>
+    <div class="box r" style="--d:2;flex:1"><div class="cap" style="margin-bottom:12px">air side</div><h3>Fewer open gaps</h3><p>more resistance, so the fans move less air; less fin area touches the air</p></div>
+    <div class="arrow r" style="--d:3">→</div>
+    <div class="box r" style="--d:3;flex:1"><div class="cap" style="margin-bottom:12px">heat transfer</div><h3>Lower UA</h3><p>the cooler moves less heat per degree of temperature difference</p></div>
+    <div class="arrow r" style="--d:4">→</div>
+    <div class="box hot r" style="--d:4;flex:1"><div class="cap" style="margin-bottom:12px;color:var(--hot)">hot weather</div><h3>Outlet too hot</h3><p>fans already at 100 %, so operators cut gas flow to hold the outlet temperature</p></div>
+  </div>
+  <div class="r" style="--d:5;position:absolute;left:96px;right:96px;top:720px;display:flex;gap:60px;font-size:26px;line-height:1.45;color:var(--ink2);border-top:1px solid var(--line);padding-top:28px">
+    <span><b style="color:var(--ink)">Equivalent blockage b</b> = share of air gaps our model must close to match the measured outlet. It includes debris and anything else the clean model misses.</span>
+  </div>
+  <div class="foot"><span>Case brief; A-1401_PFD_and_thermal_diagnosis.md</span><span class="gh">A-1401_PFD_and_thermal_diagnosis.md</span></div>
+  <aside class="notes">
+    <p><b>UA</b> = overall heat-transfer coefficient U (W per m² per K) times area A. Duty Q ≈ UA × temperature difference. If UA falls, the cooler removes less heat at the same temperatures.</p>
+    <p><b>Equivalent blockage:</b> we cannot see inside the bundle, so we ask the model: "what fraction of the air gaps must be closed to give the outlet temperature the plant measured?" That number is our health indicator. Be honest: it also contains louvres, fan wear and any error in our model, so it is not a direct measurement of fluff.</p>
+  </aside>
+</section>
+
+<!-- ============ 4. HISTORY ============ -->
+<section class="slide" aria-label="Three years of plant data">
+  <div class="hdr"><span class="sec hotsec"><b>02</b>Problem and impact</span><span>04</span></div>
+  <h2 class="r">Three years of plant data show a <span class="h">summer saw-tooth</span>: debris builds up, cleaning removes it</h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 420px;gap:60px">
+    <svg id="histChart" class="r" style="--d:1" width="1240" height="640" viewBox="0 0 1240 640" aria-label="Monthly equivalent blockage Nov 2023 to Oct 2026"></svg>
+    <div class="stack">
+      <div class="kpi hot r" style="--d:2"><div class="v">+10–15 <small>points</small></div><p>added every May–Aug (54→70 % in 2024, 62→72 % in 2025)</p></div>
+      <div class="kpi fix r" style="--d:3"><div class="v">−9 to −12 <small>points</small></div><p>won back by each cleaning (Oct 2025: 72→60 %; Jun–Jul 2026: 67→58 %)</p></div>
+      <div class="kpi grey r" style="--d:4"><div class="v">50–60 %</div><p>never removed, even after cleaning. Model offset, louvres or fin damage: an inspection would tell</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Monthly median, 23,675 usable hours, 14 Nov 2023 – 1 Oct 2026 (monitor model)</span><span class="gh">a1401_monitor/out/real_monthly.csv</span></div>
+  <aside class="notes">
+    <p><b>How the line is made:</b> for every hour of plant data we run the cooler model and find the blockage that reproduces the measured outlet temperature. Each point is the median of one month.</p>
+    <p><b>The key message:</b> the rise every summer is measured, not assumed. In 2026 the plant cleaned in late June, before the hottest weeks, and the end-of-summer value was 62 % instead of 72 % in 2025. That is exactly the timing our analysis recommends.</p>
+    <p><b>If asked about the 50–60 % base:</b> we can't split it yet. It could be our model being optimistic, louvres partly closed, or permanent fin damage. Inspecting a freshly cleaned bundle would settle it.</p>
+  </aside>
+</section>
+
+<!-- ============ 5. IMPACT ============ -->
+<section class="slide" aria-label="Production impact">
+  <div class="hdr"><span class="sec hotsec"><b>02</b>Problem and impact</span><span>05</span></div>
+  <h2 class="r">In warm weather the fans are at 100 % and the plant runs <span class="h">25–35 % less gas</span></h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 560px;gap:70px">
+    <svg id="flowChart" class="r" style="--d:1" width="1100" height="640" viewBox="0 0 1100 640" aria-label="Median gas flow by air temperature"></svg>
+    <div class="stack">
+      <div class="kpi hot r" style="--d:2"><div class="v">3,350–3,640 <small>h / year</small></div><p>with all fans at 100 % (2024 and 2025), about 40 % of the year</p></div>
+      <div class="kpi hot r" style="--d:3"><div class="v">700–800 <small>t H₂ (2025)</small></div><p>if the whole warm-weather gap is due to cooling. 1,100–1,600 t in 2024</p></div>
+      <div class="kpi grey r" style="--d:4"><div class="v" style="font-size:34px">Upper estimate</div><p>part of the summer gap may be lower customer demand, which the data cannot separate</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Dry-gas flow FI010, flare closed; label = hours with fans at 100 %. H₂ = gas gap × 74.4 % H₂ × 79.6 % PSA recovery × 0.0899 kg/Nm³</span><span class="gh">a1401_monitor/out/real_backtest.json</span></div>
+  <aside class="notes">
+    <p><b>How we get the tonnes:</b> we compare the median gas flow in warm weather (air ≥ 20 °C) with cool weather of the same year: 17,800 vs 24,200 Nm³/h in 2025. The missing gas times hydrogen content times PSA recovery gives lost H₂.</p>
+    <p><b>Why "upper estimate":</b> customers may need less hydrogen in summer. We cannot tell the two apart from the data, so we say "up to".</p>
+    <p><b>Nm³:</b> normal cubic metre, gas volume at 0 °C and 1 atm.</p>
+    <p>2026 is not comparable: only Jan–Sep, and the plant changed its outlet target (60, 70, then 65 °C).</p>
+  </aside>
+</section>
+
+<!-- ============ 6. MODEL OVERVIEW ============ -->
+<section class="slide" aria-label="How we model the cooler">
+  <div class="hdr"><span class="sec"><b>03</b>Engineering model</span><span>06</span></div>
+  <h2 class="r">A physics model of the real bundle, row by row, <span class="f">with water condensation</span></h2>
+  <div class="body" style="display:grid;grid-template-columns:repeat(5,1fr);gap:22px;top:300px;bottom:470px">
+    <div class="box r" style="--d:1"><div class="cap" style="margin-bottom:10px">input</div><h3>Plant data</h3><p>datasheet geometry, hourly history, ERA5 air temperature</p></div>
+    <div class="box r" style="--d:2"><div class="cap" style="margin-bottom:10px">gas side</div><h3>Wet syngas</h3><p>enthalpy of gas + vapour + liquid water; condensation counted step by step</p></div>
+    <div class="box r" style="--d:3"><div class="cap" style="margin-bottom:10px">air side</div><h3>h<sub>air</sub>, fin efficiency</h3><p>Briggs–Young correlation, Schmidt fin efficiency</p></div>
+    <div class="box r" style="--d:4"><div class="cap" style="margin-bottom:10px">airflow</div><h3>Fan meets system</h3><p>fan curve vs bundle resistance gives the airflow at each blockage</p></div>
+    <div class="box fix r" style="--d:5"><div class="cap" style="margin-bottom:10px;color:var(--fix)">output</div><h3>6 rows × 24 cells</h3><p>outlet T, duty, UA, airflow; or the blockage that fits a measured hour</p></div>
+  </div>
+  <div class="r" style="--d:6;position:absolute;left:96px;right:96px;bottom:120px;display:grid;grid-template-columns:repeat(4,1fr);gap:48px">
+    <div class="kpi fix"><div class="v">&lt; 0.001 %</div><p>energy balance error, gas side vs air side</p></div>
+    <div class="kpi fix"><div class="v">2.4 K</div><p>error on weeks the model never saw (summer periods)</p></div>
+    <div class="kpi"><div class="v">±9 %</div><p>duty: our property method vs a Peng–Robinson check</p></div>
+    <div class="kpi"><div class="v">0.03 K</div><p>change from 24 to 48 cells per tube (grid converged)</p></div>
+  </div>
+  <div class="foot"><span>Full derivations with justification in the calculations file (LaTeX)</span><span class="gh">a1401_clean_vs_fouled/ · docs/calculations.pdf</span></div>
+  <aside class="notes">
+    <p><b>Why row by row:</b> the air heats up as it climbs through 6 rows, and the gas cools along the tube. Splitting the bundle into 144 small cells and solving each with the standard ε-NTU formula handles this without a correction factor.</p>
+    <p><b>Correlation:</b> an equation fitted to many lab experiments (here Briggs and Young, 1963, for finned tubes). Typical accuracy ±20 %, which we tested.</p>
+    <p><b>Hold-out test:</b> we fit the blockage on even weeks and predict the odd weeks. Error 2.4 K in summer is 2–3× better than a constant guess.</p>
+  </aside>
+</section>
+
+<!-- ============ 7. CALC 1: h and fin efficiency ============ -->
+<section class="slide" aria-label="Air-side coefficient and fin efficiency">
+  <div class="hdr"><span class="sec"><b>03</b>Key calculation 1</span><span>07</span></div>
+  <h2 class="r">Air-side coefficient and fin efficiency, clean bundle on a hot day</h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 1fr 430px;gap:34px">
+    <div class="stack" style="gap:20px">
+      <div class="eq r" style="--d:1"><div class="lbl">1 · Reynolds number in the narrowest gap</div>
+        <div class="f">Re = ρ V<sub>max</sub> D<sub>o</sub> / μ</div>
+        <div class="num">= 1.093 × 5.90 × 0.025 / 1.96·10⁻⁵ = <b>8,240</b></div></div>
+      <div class="eq r" style="--d:2"><div class="lbl">2 · Briggs–Young correlation</div>
+        <div class="f">Nu = 0.134 Re<sup>0.681</sup> Pr<sup>1/3</sup> (s/l)<sup>0.2</sup> (s/t)<sup>0.113</sup></div>
+        <div class="num">= 0.134 × 464 × 0.888 × 0.657 × 1.198 = <b>43.5</b></div></div>
+      <div class="eq r" style="--d:3"><div class="lbl">3 · Air-side coefficient</div>
+        <div class="f">h = Nu k / D<sub>o</sub></div>
+        <div class="num">= 43.5 × 0.0281 / 0.025 = <b>48.9 W/m²K</b></div></div>
+    </div>
+    <div class="stack" style="gap:20px">
+      <div class="eq r" style="--d:4"><div class="lbl">4 · Fin parameter</div>
+        <div class="f">m = √(2h / k<sub>f</sub> t)</div>
+        <div class="num">= √(2 × 48.9 / (205 × 0.0004)) = <b>34.5 m⁻¹</b></div></div>
+      <div class="eq r" style="--d:5"><div class="lbl">5 · Annular fin efficiency (Schmidt)</div>
+        <div class="f">φ = (r<sub>e</sub>/r<sub>o</sub> − 1)(1 + 0.35 ln r<sub>e</sub>/r<sub>o</sub>), &nbsp;η<sub>f</sub> = tanh(m r<sub>o</sub> φ) / (m r<sub>o</sub> φ)</div>
+        <div class="num">φ = 1.65, m r<sub>o</sub>φ = 0.712 → <b>η<sub>f</sub> = 0.86</b></div></div>
+      <div class="eq r" style="--d:6"><div class="lbl">6 · Air-side conductance</div>
+        <div class="f">η<sub>o</sub> = 1 − (A<sub>fin</sub>/A)(1 − η<sub>f</sub>), &nbsp;UA<sub>air</sub> = h η<sub>o</sub> A (1 − b)</div>
+        <div class="num">η<sub>o</sub> = 0.865 → UA<sub>air</sub> = 48.9 × 0.865 × 5,289 = <b>224 kW/K</b></div></div>
+    </div>
+    <div class="stack" style="gap:24px">
+      <svg class="r" style="--d:2" width="430" height="300" viewBox="0 0 430 300" aria-label="Annular fin with radii">
+        <circle cx="215" cy="150" r="128" fill="#dde9f2" stroke="#1f5f8b" stroke-width="2"/>
+        <circle cx="215" cy="150" r="56" fill="#f3f5f6" stroke="#14202a" stroke-width="2.5"/>
+        <circle cx="215" cy="150" r="47" fill="#fff" stroke="#7d8a92" stroke-width="1"/>
+        <path d="M215 150H343" stroke="#1f5f8b" stroke-width="2"/><path d="M215 150V94" stroke="#14202a" stroke-width="2"/>
+        <text x="262" y="174" font-size="17" fill="#1f5f8b">r<tspan font-size="12" dy="4">e</tspan><tspan dy="-4"> = 28.5 mm</tspan></text>
+        <text x="150" y="88" font-size="17" fill="#14202a">r<tspan font-size="12" dy="4">o</tspan><tspan dy="-4"> = 12.5 mm</tspan></text>
+        <text x="215" y="296" text-anchor="middle" font-size="16" fill="#4b5963">Al fin, t = 0.4 mm, 423 fins/m, gap 1.96 mm</text>
+      </svg>
+      <div class="kpi hot r" style="--d:7"><div class="v" style="font-size:40px">224 → 85 <small>kW/K</small></div><p>UA<sub>air</sub> at end of summer (b = 0.685): h rises to 61 W/m²K in the open gaps, but only 1,666 m² of fin still sees air</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Air at 50.9 °C mean: ρ 1.093 kg/m³, μ 1.96·10⁻⁵ Pa·s, k 0.0281 W/mK, Pr 0.70. Fin size assumed (reproduces datasheet areas)</span><span class="gh">a1401sim/airside.py · calculations.pdf §3</span></div>
+  <aside class="notes">
+    <p><b>Reynolds number:</b> ratio of inertia to viscous forces; tells whether flow is smooth or turbulent. We use the speed in the narrowest gap between fins (V<sub>max</sub>).</p>
+    <p><b>Nusselt number:</b> heat transfer made dimensionless. Once we know Nu, h = Nu × (air conductivity) / (tube diameter).</p>
+    <p><b>Fin efficiency:</b> a fin is cooler at the root and warmer at the tip (heat must conduct along it). η<sub>f</sub> = 0.86 means the fin works like 86 % of an ideal fin at root temperature. Thin fins and high h lower it.</p>
+    <p><b>Why blockage doesn't lower h:</b> air squeezes through the remaining open gaps faster, so h rises slightly (49 → 61). But the blocked area carries no air, so the product falls by 62 %.</p>
+  </aside>
+</section>
+
+<!-- ============ 8. CALC 2: fan / system ============ -->
+<section class="slide" aria-label="Fan and system curves">
+  <div class="hdr"><span class="sec"><b>03</b>Key calculation 2</span><span>08</span></div>
+  <h2 class="r">Fan curve meets system curve: <span class="f">30 % blocked gaps give only 17 % less air</span></h2>
+  <div class="body" style="display:grid;grid-template-columns:1080px 1fr;gap:60px">
+    <svg id="fanChart" class="r" style="--d:1" width="1080" height="640" viewBox="0 0 1080 640" aria-label="Fan and system pressure curves"></svg>
+    <div class="stack" style="gap:20px">
+      <div class="eq r" style="--d:2"><div class="lbl">Fan (generic axial, through 190 Pa rated)</div>
+        <div class="f">Δp / Δp<sub>r</sub> = 1.6 n² − 0.6 q²</div></div>
+      <div class="eq r" style="--d:3"><div class="lbl">System: other losses + bundle</div>
+        <div class="f">Δp / Δp<sub>r</sub> = 0.21 q² + 0.79 [q / (1 − b)]<sup>1.684</sup></div>
+        <div class="num">0.79 = (190 − 29 velocity − 10 inlet) / 190. 1.684 from Robinson–Briggs</div></div>
+      <table class="r" style="--d:4">
+        <thead><tr><th>b</th><th>Air, % rated</th><th>Fan Δp, Pa</th><th>Power/fan</th></tr></thead>
+        <tbody>
+          <tr><td>0 (clean)</td><td>100</td><td>190</td><td>9.3 kW</td></tr>
+          <tr><td>0.30 (case input)</td><td>83</td><td>226</td><td>9.1 kW</td></tr>
+          <tr><td>0.605 (spring 2025)</td><td>54</td><td>270</td><td>7.2 kW</td></tr>
+          <tr><td>0.685 (end of summer)</td><td class="hot">45</td><td>281</td><td>6.1 kW</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>n = fan speed fraction (1 = 100 %), q = airflow / 342,000 m³/h. No vendor curve: shape assumed, tested flatter/steeper (b ±2.5 points)</span><span class="gh">a1401sim/airside.py · calculations.pdf §4</span></div>
+  <aside class="notes">
+    <p><b>Fan curve:</b> how much pressure a fan can push at each flow; it falls as flow rises. <b>System curve:</b> how much pressure the bundle needs for each flow; it rises with flow. The fan runs where the two cross.</p>
+    <p><b>Why 30 % blocked ≠ 30 % less air:</b> as the bundle gets harder to push through, the fan builds more pressure and keeps much of the flow. Only the open fraction carries air, so the pressure drop rises like [q/(1−b)]<sup>1.684</sup>.</p>
+    <p><b>Honest point:</b> we have no vendor fan curve, so we used a generic axial shape through the datasheet point and tested other shapes.</p>
+    <p><b>Fan power falls</b> in the model as the fan is pushed back on its curve; real fans near stall may not. So fan current is not a reliable early warning without real data.</p>
+  </aside>
+</section>
+
+<!-- ============ 9. CALC 3: air mass & energy balance ============ -->
+<section class="slide" aria-label="Air mass and energy balance">
+  <div class="hdr"><span class="sec"><b>03</b>Key calculation 3</span><span>09</span></div>
+  <h2 class="r">Air mass and energy balance: the heat the gas loses is the heat the air gains</h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 1fr 520px;gap:40px">
+    <div class="stack" style="gap:20px">
+      <div class="cap r">Clean bundle (b = 0)</div>
+      <div class="eq r" style="--d:1"><div class="lbl">Air mass flow</div><div class="f">ṁ<sub>air</sub> = ρ V̇</div><div class="num">= 1.162 × 95.0 m³/s = <b>110.4 kg/s</b></div></div>
+      <div class="eq r" style="--d:2"><div class="lbl">Heat taken by the air</div><div class="f">Q = ṁ<sub>air</sub> c<sub>p</sub> (T<sub>air,out</sub> − T<sub>air,in</sub>)</div><div class="num">= 110.4 × 1.006 × (70.0 − 31.8) = <b>4,242 kW</b></div></div>
+      <div class="eq r" style="--d:3"><div class="lbl">Heat lost by the gas</div><div class="f">Q = ṅ<sub>dry</sub> [H(159.4 °C) − H(36.7 °C)]</div><div class="num">= 1,864 sensible + 2,378 condensation = <b>4,242 kW</b></div></div>
+    </div>
+    <div class="stack" style="gap:20px">
+      <div class="cap r" style="color:var(--hot)">End of summer 2025 (b = 0.685)</div>
+      <div class="eq hotq r" style="--d:4"><div class="lbl">Air mass flow</div><div class="f">ṁ<sub>air</sub> = ρ V̇</div><div class="num">= 1.162 × 42.6 m³/s = <b>49.5 kg/s</b> (−55 %)</div></div>
+      <div class="eq hotq r" style="--d:5"><div class="lbl">Heat taken by the air</div><div class="f">Q = ṁ<sub>air</sub> c<sub>p</sub> ΔT<sub>air</sub></div><div class="num">= 49.5 × 1.006 × (102.6 − 31.8) = <b>3,529 kW</b></div></div>
+      <div class="eq hotq r" style="--d:6"><div class="lbl">Heat lost by the gas</div><div class="f">to 75.2 °C instead of 36.7 °C</div><div class="num">= 1,261 sensible + 2,268 condensation = <b>3,529 kW</b></div></div>
+    </div>
+    <div>
+      <svg id="dutyChart" class="r" style="--d:3" width="520" height="560" viewBox="0 0 520 560" aria-label="Duty split sensible and condensation"></svg>
+    </div>
+  </div>
+  <div class="foot"><span>Hot-day window 18 Jul 2025 17–20 UTC: 159.4 °C, 17,444 Nm³/h dry gas, air 31.8 °C, fans 100 %. Water 0.555 mol/mol dry (PFD, unverified)</span><span class="gh">results/clean_vs_fouled_table.csv · calculations.pdf §5</span></div>
+  <aside class="notes">
+    <p><b>Mass balance on air:</b> mass flow = density × volume flow. Clean: 342,000 m³/h = 95 m³/s. Blocked: only 45 % of that gets through.</p>
+    <p><b>Energy balance:</b> the heat the gas gives up must equal the heat the air takes. Both sides agree to better than 0.001 %, which shows the model is internally consistent (not that it is right: that is the hold-out test).</p>
+    <p><b>Sensible vs latent:</b> sensible heat changes temperature (c<sub>p</sub>ΔT); latent heat is released when water vapour condenses. Fouling mostly costs sensible cooling at the cold end: condensation happens near the hot end and barely changes (−5 %).</p>
+    <p><b>Water balance</b> also closes: water in = vapour out + liquid out (3,949 kg/h condensed clean, 3,780 fouled).</p>
+  </aside>
+</section>
+
+<!-- ============ 10. CLEAN VS FOULED ============ -->
+<section class="slide" aria-label="Clean versus fouled">
+  <div class="hdr"><span class="sec hotsec"><b>04</b>Thermal diagnosis</span><span>10</span></div>
+  <h2 class="r">On a real hot day, fouling raises the outlet from <span class="f">37 °C</span> to <span class="h">75 °C</span> and halves gas capacity</h2>
+  <div class="body" style="display:grid;grid-template-columns:1100px 1fr;gap:60px">
+    <svg id="sweepChart" class="r" style="--d:1" width="1100" height="640" viewBox="0 0 1100 640" aria-label="Outlet temperature versus blockage"></svg>
+    <table class="r" style="--d:2;align-self:start">
+      <thead><tr><th></th><th>Clean</th><th>b 0.685</th></tr></thead>
+      <tbody>
+        <tr><td>Outlet, °C</td><td class="fix">36.7</td><td class="hot">75.2</td></tr>
+        <tr><td>Duty, kW</td><td>4,242</td><td>3,529</td></tr>
+        <tr><td>UA, kW/K</td><td>106.5</td><td>62.5</td></tr>
+        <tr><td>U (bare), W/m²K</td><td>471</td><td>277</td></tr>
+        <tr><td>Airflow, m³/h</td><td>342,000</td><td>153,400</td></tr>
+        <tr><td>Max gas at 65 °C, Nm³/h</td><td class="fix">32,100</td><td class="hot">15,400</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>Same inlet, gas flow and air for every point. Measured outlet in that window: 72.9 °C. Loss of U: −41 %; duty at fixed flow: −17 %</span><span class="gh">results/blockage_sweep.csv · fig5</span></div>
+  <aside class="notes">
+    <p><b>The "cliff":</b> the clean cooler has a big reserve on this day (outlet only 5 K above the air). Blockage first eats that reserve, so up to about 40–50 % the outlet hardly moves; above 50 % it climbs steeply. The plant lives at 60–69 %, on the steep part, so every point of debris matters.</p>
+    <p><b>Capacity:</b> the largest gas flow that still leaves at 65 °C. It halves from clean to end of summer. This is how fouling shows up at the plant: lost throughput, not lost duty at a fixed flow.</p>
+    <p><b>U</b> here is UA divided by the 226 m² bare tube area.</p>
+  </aside>
+</section>
+
+<!-- ============ 11. VALIDATION ============ -->
+<section class="slide" aria-label="Model validation">
+  <div class="hdr"><span class="sec"><b>04</b>Is the model right?</span><span>11</span></div>
+  <h2 class="r">Checked against weeks it never saw, and against <span class="f">the plant's own 2026 cleaning</span></h2>
+  <div class="body" style="display:grid;grid-template-columns:820px 1fr;gap:70px">
+    <div>
+      <div class="cap r" style="margin-bottom:10px">Outlet error on withheld weeks, K (lower is better)</div>
+      <svg id="maeChart" class="r" style="--d:1" width="820" height="560" viewBox="0 0 820 560" aria-label="Hold-out error per period"></svg>
+    </div>
+    <div class="stack" style="gap:30px">
+      <div class="cap r" style="--d:2">Field test: cleaning before the peak</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px" class="r" style="--d:3">
+        <div class="kpi"><div class="v">59.5 °C</div><p>predicted for a cleaning on 1 July (b = 0.595)</p></div>
+        <div class="kpi fix"><div class="v">56.9 °C</div><p>measured state after the real 27 Jun – 7 Jul 2026 cleaning (b = 0.574)</p></div>
+      </div>
+      <div class="cap r" style="--d:4;margin-top:10px">Loss of overall U over one summer</div>
+      <table class="r" style="--d:5">
+        <thead><tr><th>Year</th><th>Spring</th><th>End summer</th><th>Lost</th></tr></thead>
+        <tbody><tr><td>2024</td><td>375</td><td>299 W/m²K</td><td class="hot">−20 %</td></tr>
+        <tr><td>2025</td><td>333</td><td>281 W/m²K</td><td class="hot">−16 %</td></tr></tbody>
+      </table>
+      <p class="small r" style="--d:6">Across every assumption we varied (water content, h ±20 %, fan curve, flow ±25 %): plant at 56–75 % equivalent blockage, duty loss 14–16 %.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Fit on even weeks, predict odd weeks; fans 100 %, air ≥ 10 °C. Spring 2024 ran 70 % more gas and blockage was changing</span><span class="gh">results/history_periods_calibration_validation.csv · model/real_U_loss.json</span></div>
+  <aside class="notes">
+    <p><b>Hold-out test:</b> we never test on the data we tuned on. One blockage value is fitted on even weeks, then the model predicts the outlet hour by hour on odd weeks. In three of four periods the error is 2.4–3.5 K, 2–3× better than a constant guess.</p>
+    <p><b>Spring 2024 is weak (8.2 K):</b> the plant ran much more gas and the blockage changed during the period. We say so openly.</p>
+    <p><b>Field test:</b> before the 2026 data arrived, our solution study predicted what a cleaning on 1 July would do. The plant cleaned on 27 Jun – 7 Jul and the result was slightly better than predicted.</p>
+  </aside>
+</section>
+
+<!-- ============ 12. MONITORING ============ -->
+<section class="slide" aria-label="Predictive monitoring">
+  <div class="hdr"><span class="sec"><b>05</b>Monitoring model</span><span>12</span></div>
+  <h2 class="r">A monitor that tells operators <span class="f">when to clean</span>, built on the same model</h2>
+  <div class="body">
+    <div style="display:flex;gap:18px;align-items:stretch;height:250px">
+      <div class="box r" style="--d:1;flex:1"><div class="cap" style="margin-bottom:10px">every hour</div><h3>Read 5 PI tags + weather</h3><p>inlet / outlet T, fan output, flow, flare valve; air temperature</p></div>
+      <div class="arrow r" style="--d:2">→</div>
+      <div class="box r" style="--d:2;flex:1"><div class="cap" style="margin-bottom:10px">health</div><h3>Equivalent blockage</h3><p>model finds b that matches the measured outlet</p></div>
+      <div class="arrow r" style="--d:3">→</div>
+      <div class="box r" style="--d:3;flex:1"><div class="cap" style="margin-bottom:10px">30 days ahead</div><h3>Forecast + risk</h3><p>blockage band and H₂ at risk with last year's weather</p></div>
+      <div class="arrow r" style="--d:4">→</div>
+      <div class="box fix r" style="--d:4;flex:1"><div class="cap" style="margin-bottom:10px;color:var(--fix)">action</div><h3>Alarm</h3><p style="display:flex;gap:12px;align-items:center;margin-top:8px"><span class="lamp" style="background:var(--good)"></span>none <span class="lamp" style="background:var(--warn)"></span>plan <span class="lamp" style="background:var(--bad)"></span>clean now</p></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:50px">
+      <table class="r" style="--d:5">
+        <thead><tr><th>Mean error, % blockage</th><th>7 d</th><th>14 d</th><th>30 d</th></tr></thead>
+        <tbody>
+          <tr><td>Our forecaster</td><td class="fix">1.38</td><td class="fix">1.85</td><td class="fix">2.53</td></tr>
+          <tr><td>"No change"</td><td>1.31</td><td>1.70</td><td>2.28</td></tr>
+          <tr><td>Straight-line trend</td><td>1.72</td><td>2.82</td><td>4.79</td></tr>
+          <tr><td>Truth inside 80 % band</td><td>94 %</td><td>96 %</td><td>93 %</td></tr>
+        </tbody>
+      </table>
+      <div class="stack r" style="--d:6;gap:22px">
+        <div class="kpi"><div class="v" style="font-size:38px">No better than "no change"</div><p>Fouling moves slowly, about 2 points a month. Backtest on real data Jan 2025 – Sep 2026.</p></div>
+        <div class="kpi fix"><div class="v" style="font-size:38px">The value is the health number</div><p>It caught both summers rising and both cleanings. The alarm triggers on it, not on the forecast.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Trigger levels are set relative to the 50–60 % base (63 % and 66 % on the real scale); team assumptions, adjustable</span><span class="gh">a1401_monitor/ (README, real_backtest.py, out/)</span></div>
+  <aside class="notes">
+    <p><b>Backtest:</b> we pretend it is a past date, forecast, then compare with what really happened. The forecaster learned its shape from simulated plants and its uncertainty band from real 2023–24 data; it was tested on 2025–26.</p>
+    <p><b>Be honest:</b> a simple "tomorrow = today" guess is as good as our forecast, because fouling is slow. The useful parts are the hourly health number and the clean-now alarm. The forecast also missed the July 2026 shutdown drop because it is not told about planned shutdowns.</p>
+    <p><b>Practical use:</b> it runs on the 5 tags already in PI, so no new instruments are needed.</p>
+  </aside>
+</section>
+
+<!-- ============ 13. MATRIX ============ -->
+<section class="slide" aria-label="Comparison of cleaning methods">
+  <div class="hdr"><span class="sec"><b>06</b>Solutions</span><span>13</span></div>
+  <h2 class="r">Five ways to clean A-1401. Ours are <span class="f">dry and run during the season</span></h2>
+  <div class="body" style="top:290px">
+    <table class="mx r" style="--d:1">
+      <thead><tr><th style="width:360px"></th><th>Compressed air</th><th>Water wash</th><th>Chemical / foam</th><th class="ours">1 · Sonic horns + vacuum hood</th><th class="ours">2 · DECAMEX dry powder</th></tr></thead>
+      <tbody>
+        <tr><td>Hot-day outlet (no cleaning 75 °C)</td><td><span class="dot nd"></span>no data</td><td><span class="dot nd"></span>no data</td><td><span class="dot nd"></span>no data</td><td class="ours"><span class="dot y"></span>67 °C</td><td class="ours"><span class="dot g"></span>63 °C</td></tr>
+        <tr><td>Plant must stop?</td><td><span class="dot g"></span>no</td><td><span class="dot y"></span>usually at shutdown</td><td><span class="dot y"></span>usually at shutdown</td><td class="ours"><span class="dot g"></span>no (coating option: once)</td><td class="ours"><span class="dot g"></span>no</td></tr>
+        <tr><td>Water on hot 304L tubes</td><td><span class="dot g"></span>no</td><td><span class="dot rd"></span>yes</td><td><span class="dot rd"></span>yes (rinse)</td><td class="ours"><span class="dot g"></span>no</td><td class="ours"><span class="dot g"></span>no</td></tr>
+        <tr><td>Risk to metal</td><td><span class="dot y"></span>medium</td><td><span class="dot rd"></span>medium–high</td><td><span class="dot rd"></span>high</td><td class="ours"><span class="dot g"></span>low</td><td class="ours"><span class="dot g"></span>low</td></tr>
+        <tr><td>Waste</td><td><span class="dot y"></span>dust blown around</td><td><span class="dot rd"></span>dirty water</td><td><span class="dot rd"></span>chemical water</td><td class="ours"><span class="dot g"></span>dust collected</td><td class="ours"><span class="dot g"></span>dry dust</td></tr>
+        <tr><td>Proven on poplar fluff?</td><td><span class="dot rd"></span>no</td><td><span class="dot y"></span>one plant</td><td><span class="dot rd"></span>no</td><td class="ours"><span class="dot rd"></span>not yet</td><td class="ours"><span class="dot rd"></span>not yet</td></tr>
+        <tr><td>Used in industry?</td><td><span class="dot g"></span>yes</td><td><span class="dot g"></span>yes</td><td><span class="dot g"></span>yes</td><td class="ours"><span class="dot y"></span>parts only</td><td class="ours"><span class="dot g"></span>yes</td></tr>
+      </tbody>
+    </table>
+    <p class="small r" style="--d:2;margin-top:26px;font-size:22px"><b style="color:var(--ink)">Rejected as routine:</b> compressed air (guidance: complete removal unlikely), water (chloride cracking of hot 304L, scale, effluent) and chemicals (aluminium fins tolerate only the mildest; wet fins re-foul 5–7× faster).</p>
+  </div>
+  <div class="foot"><span>Evidence labels and 30 sources in the full matrix. Outlet values: our model with assumed clearance</span><span class="gh">a1401_solutions_check/A1401_Solution_Comparison_Matrix.md</span></div>
+  <aside class="notes">
+    <p><b>Sonic horns:</b> compressed-air horns (Primasonics PAS-120) send loud low-frequency sound (120 Hz) through the air; the vibration shakes loose deposits, and a moving vacuum hood collects them. An O2T8 non-stick coating is an optional upgrade, but it needs a 200 °C cure, above the 170 °C design temperature, so we keep it optional.</p>
+    <p><b>DECAMEX:</b> a vendor service (CTP) that blows a fine dry powder through the fins at low pressure, one fan sector at a time, while the plant runs. Used on hundreds of industrial air coolers.</p>
+    <p><b>Chloride stress-corrosion cracking:</b> stainless steel can crack when chloride from water concentrates on a hot surface under stress. Reported at as little as 10 ppm chloride; our tubes run at 60–160 °C.</p>
+    <p><b>Wet fins re-foul faster:</b> lab study (Zhan 2018): wet surfaces collected 4.7–7.4× more particles than dry ones.</p>
+  </aside>
+</section>
+
+<!-- ============ 14. DUTY RECOVERED ============ -->
+<section class="slide" aria-label="Duty recovered per solution">
+  <div class="hdr"><span class="sec"><b>06</b>Duty recovered</span><span>14</span></div>
+  <h2 class="r">Duty recovered on the hot day: DECAMEX <span class="f">+242 kW</span>, horns <span class="f">+166 kW</span></h2>
+  <div class="body" style="display:grid;grid-template-columns:1180px 1fr;gap:60px">
+    <svg id="solChart" class="r" style="--d:1" width="1180" height="640" viewBox="0 0 1180 640" aria-label="Outlet temperature per solution"></svg>
+    <div class="stack" style="gap:26px">
+      <div class="kpi fix r" style="--d:2"><div class="v">+16 % <small>gas capacity</small></div><p>DECAMEX, 2 campaigns (1 Jun, 1 Jul). Recovers 77 % of the seasonal loss</p></div>
+      <div class="kpi fix r" style="--d:3"><div class="v">+10 % <small>gas capacity</small></div><p>Horns, 24 short events May–Sep. Recovers 53 % of the seasonal loss</p></div>
+      <div class="kpi grey r" style="--d:4"><div class="v" style="font-size:36px">Neither beats a full clean</div><p>Their value: repeated online, without a shutdown, between turnarounds</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Bars: base case; whiskers: low–high assumed clearance per event. Same day as slide 10. Turnaround + DECAMEX together not yet simulated</span><span class="gh">a1401_solutions_check/SIMULATION_REPORT_v2.md</span></div>
+  <aside class="notes">
+    <p><b>How we credit a solution:</b> we only let it remove the seasonal debris (the part that grows each summer), never the 50–60 % base. Clearance per event is an assumption from the vendor and literature, shown as low / base / high.</p>
+    <p><b>Duty recovered</b> = duty with the solution minus duty with no action, same day, same gas flow. DECAMEX +242 kW (+6.9 %), horns +166 kW (+4.7 %), a full clean on 1 July +310 kW.</p>
+    <p><b>Gas capacity</b> = how much more gas the plant could run at the 65 °C outlet target. Same result at 60 or 70 °C targets.</p>
+    <p><b>If the horns fail</b> to remove fibre, the cooler is very slightly worse than no action (75.0 °C) because we assumed a 1 % installation penalty.</p>
+  </aside>
+</section>
+
+<!-- ============ 15. SEASON ============ -->
+<section class="slide" aria-label="Whole season effect">
+  <div class="hdr"><span class="sec"><b>06</b>Over a whole season</span><span>15</span></div>
+  <h2 class="r">Replayed hour by hour over summer 2025: <span class="f">1,000 fewer hours</span> above the 65 °C target</h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
+    <div><div class="cap r" style="margin-bottom:10px">Hours with outlet above 65 °C, Apr–Sep 2025</div><svg id="hoursChart" class="r" style="--d:1" width="820" height="560" viewBox="0 0 820 560" aria-label="Hours above 65 C"></svg></div>
+    <div><div class="cap r" style="margin-bottom:10px">Mean outlet when air ≥ 30 °C, °C</div><svg id="meanChart" class="r" style="--d:2" width="820" height="560" viewBox="0 0 820 560" aria-label="Mean outlet in hot hours"></svg></div>
+  </div>
+  <div class="foot"><span>2,863 historian hours, fans 100 %, air ≥ 10 °C. "No debris" = limit if seasonal debris were fully prevented</span><span class="gh">results_v2/season_2025_scenarios_v2.csv</span></div>
+  <aside class="notes">
+    <p><b>Method:</b> we take every real hour of summer 2025 (real gas flow, real inlet, real air temperature) and replace only the blockage with what each solution would have held. Then we count hours above 65 °C.</p>
+    <p><b>Frequency:</b> more DECAMEX campaigns help (4 campaigns: 1,433 h); more horn events help little (52 instead of 24: −0.4 K) because the sound only reaches part of the deposit.</p>
+  </aside>
+</section>
+
+<!-- ============ 16. SAFETY ============ -->
+<section class="slide" aria-label="Safety and integrity">
+  <div class="hdr"><span class="sec hotsec"><b>07</b>Safety and integrity</span><span>16</span></div>
+  <h2 class="r">Every option has a side effect. We quantified them and <span class="f">designed around them</span></h2>
+  <div class="body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px">
+    <div class="stack r" style="--d:1;gap:18px">
+      <div class="cap" style="color:var(--fix)">1 · Sonic horns</div>
+      <div class="box"><h3>148 dB at the horn</h3><p>hearing-protection zone during 10 s bursts; run at night, remote</p></div>
+      <div class="box"><h3>1 fan off ≈ 24 h / year</h3><p>20 min per sector × 3 × 24 events</p></div>
+      <div class="box"><h3>Coating cure 200 °C &gt; 170 °C design</h3><p>so coating stays optional, only with OEM approval</p></div>
+    </div>
+    <div class="stack r" style="--d:2;gap:18px">
+      <div class="cap" style="color:var(--fix)">2 · DECAMEX</div>
+      <div class="box"><h3>1 fan off: +30 K outlet</h3><p>for 1.6 h per sector, ≈ 9.6 h / year: use a cool night window or trim load</p></div>
+      <div class="box"><h3>Powder on aluminium fins</h3><p>SDS and fin compatibility to confirm with CTP; test on a 0.5 m² patch first</p></div>
+      <div class="box"><h3>Static from powder flow</h3><p>earth the lance; H₂ Ex zone</p></div>
+    </div>
+    <div class="stack r" style="--d:3;gap:18px">
+      <div class="cap" style="color:var(--hot)">All methods, and why not water</div>
+      <div class="box hot"><h3>Chloride cracking of 304L</h3><p>at ≥ 10 ppm Cl where water evaporates; tubes run 60–160 °C</p></div>
+      <div class="box"><h3>H₂ unit: Ex zone</h3><p>pneumatic horns and lances; Ex-rated hood fan</p></div>
+      <div class="box"><h3>Fluff is flammable</h3><p>collect it, never blow it onto hot surfaces. LOTO per fan, work at height</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Sources: SSINA (chloride SCC), ACC Users Group ACC02, OSHA 1910.242(b), Primasonics PAS-120, CTP references</span><span class="gh">a1401_solutions_check/ (matrix §2, protocols)</span></div>
+  <aside class="notes">
+    <p><b>One fan off:</b> while a sector is cleaned its fan must stop (LOTO = lock-out, tag-out, so nobody can restart it). With the current fouling one fan off raises the outlet about 30 K at constant gas flow, so we schedule it at night when the air is cool.</p>
+    <p><b>Ex zone:</b> area where hydrogen could form an explosive mixture; electrical equipment must be explosion-proof. Horns and DECAMEX are driven by compressed air, so they bring no spark source.</p>
+    <p><b>Material integrity:</b> tubes are 304L stainless, fins aluminium. Dry methods avoid chlorides and scale on the tubes and avoid harsh chemicals on the aluminium.</p>
+  </aside>
+</section>
+
+<!-- ============ 17. ECONOMICS ============ -->
+<section class="slide" aria-label="Economics and lead time">
+  <div class="hdr"><span class="sec"><b>08</b>Economics and lead time</span><span>17</span></div>
+  <h2 class="r">Cost, lead time and payback</h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:70px">
+    <div class="stack" style="gap:22px">
+      <div class="cap r">What each option uses (team estimates)</div>
+      <table class="r" style="--d:1">
+        <thead><tr><th></th><th>Horns</th><th>DECAMEX</th></tr></thead>
+        <tbody>
+          <tr><td>Events per year</td><td>24</td><td>2</td></tr>
+          <tr><td>Compressed air / event</td><td>15.3 m³</td><td>1,920 m³</td></tr>
+          <tr><td>Energy / event</td><td>5.2 kWh</td><td>259 kWh</td></tr>
+          <tr><td>Consumable / event</td><td>none</td><td>≈ 95 kg powder</td></tr>
+          <tr><td>Fan-off time / year</td><td>≈ 24 h</td><td>≈ 9.6 h</td></tr>
+          <tr><td>New hardware</td><td>3 horns, hood</td><td>none (service)</td></tr>
+        </tbody>
+      </table>
+      <div class="eq r" style="--d:2"><div class="lbl">Payback</div><div class="f">payback = CAPEX / (ΔH₂ × margin − OPEX)</div><div class="num">ΔH₂ from extra gas capacity in hot hours (slides 14–15)</div></div>
+    </div>
+    <div class="stack" style="gap:22px">
+      <div class="cap r" style="--d:3;color:var(--warn)">From the team's cost and lead-time file</div>
+      <div class="box r" style="--d:3;border-style:dashed"><h3>CAPEX · OPEX</h3><p>[to fill from the team's economics file]</p></div>
+      <div class="box r" style="--d:4;border-style:dashed"><h3>Lead time</h3><p>[to fill] DECAMEX is a vendor service (no hardware to buy); horns need procurement and installation at a shutdown</p></div>
+      <div class="box r" style="--d:5;border-style:dashed"><h3>Payback</h3><p>[to fill]</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Utilities and powder mass are team assumptions, not vendor specifications</span><span class="gh">a1401_solutions_check/A1401_Detailed_Engineering_Protocols_2_corrected.md</span></div>
+  <aside class="notes">
+    <p><b>CAPEX</b> = one-time purchase and installation cost. <b>OPEX</b> = yearly running cost (air, power, powder, service fee). <b>Payback</b> = years until the extra hydrogen sold pays back the purchase.</p>
+    <p>This slide is waiting for the team's economics and lead-time file; the placeholders are marked.</p>
+  </aside>
+</section>
+
+<!-- ============ 18. RECOMMENDATION ============ -->
+<section class="slide" aria-label="Recommendation">
+  <div class="hdr"><span class="sec"><b>09</b>Recommendation</span><span>18</span></div>
+  <h2 class="r">Monitor all year, clean before the peak, and <span class="f">keep the fins dry and open between shutdowns</span></h2>
+  <div class="body">
+    <svg id="yearPlan" class="r" style="--d:1" width="1728" height="330" viewBox="0 0 1728 330" aria-label="One-year operating plan"></svg>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:40px">
+      <div class="kpi fix r" style="--d:2"><div class="v" style="font-size:34px">Pilot on real fluff</div><p>0.5 m² patch, DECAMEX and horns, before the 2027 season</p></div>
+      <div class="kpi r" style="--d:3"><div class="v" style="font-size:34px">Inspect a cleaned bundle</div><p>explains the 50–60 % base: debris, louvres or damaged fins</p></div>
+      <div class="kpi r" style="--d:4"><div class="v" style="font-size:34px">Measure D-1403 condensate</div><p>pins down water content, our largest model uncertainty</p></div>
+      <div class="kpi r" style="--d:5"><div class="v" style="font-size:34px">Ask how the plant cleans</div><p>the 2025 and 2026 method is not stated in the case files</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>2026 confirmed the timing: cleaning in late June gave 62 % at end of summer vs 72 % in 2025</span><span class="gh">A1401_Solutions_Defense_Summary_2_corrected.md</span></div>
+  <aside class="notes">
+    <p><b>Our pitch in one sentence:</b> the monitor tells you when, the turnaround clean does the deep clean before the hottest weeks, and a dry online method (DECAMEX first, horns as the development option) stops fluff from piling up again between shutdowns.</p>
+    <p><b>Why a pilot first:</b> no published test shows either method removing poplar fluff. Poplar seed fibre repels water and holds oil, so we must test on the real material.</p>
+  </aside>
+</section>
+
+<!-- ============ 19. CRITERIA + REPO ============ -->
+<section class="slide" aria-label="Where to find everything">
+  <div class="hdr"><span class="sec"><b>10</b>Everything is reproducible</span><span>19</span></div>
+  <h2 class="r">All data, code and full calculations are in the repository</h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:70px">
+    <table class="r" style="--d:1">
+      <thead><tr><th>Folder</th><th style="text-align:left">What it holds</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">docs/calculations.pdf</td><td style="text-align:left">all hand calculations with justification</td></tr>
+        <tr><td class="mono">a1401_clean_vs_fouled/</td><td style="text-align:left">rating model, tests, results, figures</td></tr>
+        <tr><td class="mono">a1401_solutions_check/</td><td style="text-align:left">solution simulation, matrix, protocols</td></tr>
+        <tr><td class="mono">a1401_monitor/</td><td style="text-align:left">monitor, backtests, dashboards</td></tr>
+        <tr><td class="mono">plant_history/ · weather/</td><td style="text-align:left">hourly plant data, ERA5 weather</td></tr>
+        <tr><td class="mono">a1401-3d/</td><td style="text-align:left">interactive 3D model of the cooler</td></tr>
+      </tbody>
+    </table>
+    <div class="stack r" style="--d:2;gap:22px">
+      <div class="cap">Case criteria and where we cover them</div>
+      <table>
+        <tbody>
+          <tr><td>Technical accuracy &amp; fundamentals (25 %)</td><td>6–11</td></tr>
+          <tr><td>Problem &amp; impact analysis (20 %)</td><td>3–5, 10</td></tr>
+          <tr><td>Monitoring model + backtest (20 %)</td><td>4, 12</td></tr>
+          <tr><td>Practicality &amp; innovation (20 %)</td><td>13–16, 18</td></tr>
+          <tr><td>Economics &amp; lead time (15 %)</td><td>17</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>Private repository: plant data belongs to Air Liquide</span><span class="gh">github.com/isstomiris/air-liquide-a1401-fouling</span></div>
+  <aside class="notes"><p>Point the judges to the calculations PDF for any number they want to check. Everything on the slides can be regenerated by running the scripts.</p></aside>
+</section>
+
+<!-- ============ 20. GLOSSARY (backup) ============ -->
+<section class="slide" aria-label="Glossary">
+  <div class="hdr"><span class="sec"><b>B</b>Backup · glossary</span><span>20</span></div>
+  <h2 class="r">Terms in plain words</h2>
+  <div class="body" style="top:220px;display:grid;grid-template-columns:1fr 1fr;gap:20px 70px;font-size:21px;line-height:1.4">
+    <p><b>Duty (Q)</b> heat removed per second, kW</p>
+    <p><b>UA</b> heat moved per degree of temperature difference, kW/K</p>
+    <p><b>h (film coefficient)</b> how easily heat passes between a surface and the fluid, W/m²K</p>
+    <p><b>Fin efficiency η<sub>f</sub></b> how well a fin works compared with one at root temperature</p>
+    <p><b>Equivalent blockage b</b> share of air gaps the model closes to match the measured outlet</p>
+    <p><b>Fan / system curve</b> pressure the fan gives vs pressure the bundle needs; airflow is where they cross</p>
+    <p><b>Sensible / latent heat</b> heat that changes temperature / heat released when vapour condenses</p>
+    <p><b>Reynolds, Nusselt, Prandtl</b> dimensionless flow, heat-transfer and fluid-property numbers</p>
+    <p><b>Forced draft</b> fans below the bundle push air up through it</p>
+    <p><b>Hold-out test</b> checking a model on data it was not fitted to</p>
+    <p><b>Chloride SCC</b> cracking of stainless steel by chloride under stress at high temperature</p>
+    <p><b>LOTO · Ex zone</b> lock-out/tag-out of machines · area with explosive-gas risk</p>
+    <p><b>Nm³</b> gas volume at 0 °C and 1 atm</p>
+    <p><b>CAPEX / OPEX</b> one-time cost / yearly running cost</p>
+  </div>
+  <div class="foot"><span>Press N for speaker notes on every slide</span><span class="gh">docs/calculations.pdf</span></div>
+  <aside class="notes"><p>Backup slide. Use it if a judge asks about a term.</p></aside>
+</section>
+
+</main>
+</div>
+<div class="notes-panel" id="notesPanel" hidden><h4>Speaker notes</h4><div id="notesBody"></div></div>
+<nav class="deck-controls" aria-label="Slide navigation">
+  <button id="notesBtn" aria-label="Show speaker notes" title="Speaker notes (N)">Notes</button>
+  <button id="prevBtn" aria-label="Previous slide">←</button>
+  <span id="count">1 / 20</span>
+  <button id="nextBtn" aria-label="Next slide">→</button>
+</nav>
+
+<script>
+/* ===== small SVG helpers ===== */
+const NS='http://www.w3.org/2000/svg';
+const C={ink:'#14202a',ink2:'#4b5963',ink3:'#7d8a92',line:'#d6dcdf',hot:'#b8450f',hotS:'#f6e3d8',fix:'#1f5f8b',fixS:'#dde9f2',panel:'#f3f5f6'};
+function el(t,a,p,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;p&&p.appendChild(e);return e;}
+function T(p,x,y,s,o={}){return el('text',Object.assign({x,y,'font-size':o.fs||18,fill:o.fill||C.ink2,'text-anchor':o.a||'start','font-weight':o.w||400},o.extra||{}),p,s);}
+function axisY(svg,L,R,y,vals,fmt){vals.forEach(v=>{el('line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:C.line,'stroke-width':1},svg);T(svg,L-12,y(v)+6,fmt(v),{a:'end'});});}
+
+/* ===== title: fin cross-section ===== */
+(function(){const g=document.getElementById('finsTitle');
+  for(let r=0;r<4;r++)for(let c=0;c<4;c++){const cx=70+c*140+(r%2?70:0),cy=90+r*125;if(cx>520)continue;
+    el('circle',{cx,cy,r:52,fill:C.fixS,stroke:C.fix,'stroke-width':1.5},g);el('circle',{cx,cy,r:23,fill:'#fff',stroke:C.ink,'stroke-width':2},g);}
+  for(let i=0;i<70;i++){const x=20+Math.random()*510,y=470+Math.random()*60;el('circle',{cx:x,cy:y,r:2+Math.random()*3,fill:i%3?C.ink3:C.hot,opacity:.75},g);}
+  for(let i=0;i<4;i++){const x=90+i*125;el('path',{d:`M${x} 580V545M${x-8} 556L${x} 545L${x+8} 556`,stroke:C.fix,'stroke-width':2.5,fill:'none'},g);}
+})();
+
+/* ===== history chart ===== */
+(function(){const svg=document.getElementById('histChart');
+  const v=[58,53,51,54,54,54,56,63,67,69,70,64,67,65,63,62,62,64,65,70,72,72,72,71,60,62,67,69,64,64,63,67,58,63,62];
+  const L=70,R=1220,Tp=30,B=540,y0=45,y1=75,x=i=>L+(R-L)*i/(v.length-1),y=p=>B-(B-Tp)*(p-y0)/(y1-y0);
+  [[6,9],[18,21],[30,33]].forEach(([a,b])=>{el('rect',{x:x(a)-14,y:Tp,width:x(b)-x(a)+28,height:B-Tp,fill:C.hotS,opacity:.7},svg);T(svg,(x(a)+x(b))/2,Tp+24,'May–Aug',{a:'middle',fill:C.hot,fs:17});});
+  el('rect',{x:L,y:y(60),width:R-L,height:y(50)-y(60),fill:C.panel},svg);T(svg,L+12,y(50)-12,'base 50–60 %: not removed by cleaning',{fs:17});
+  axisY(svg,L,R,y,[45,50,55,60,65,70,75],v=>v+' %');
+  [[23.3,'Oct 2025 clean'],[31.5,'Jun–Jul 2026 clean']].forEach(([i,t])=>{el('line',{x1:x(i),x2:x(i),y1:Tp+40,y2:B,stroke:C.fix,'stroke-width':2,'stroke-dasharray':'6 5'},svg);T(svg,x(i)-8,B-14,t,{a:'end',fill:C.fix,fs:17});});
+  [[0,'Nov 23'],[2,'Jan 24'],[8,'Jul 24'],[14,'Jan 25'],[20,'Jul 25'],[26,'Jan 26'],[32,'Jul 26']].forEach(([i,t])=>T(svg,x(i),B+34,t,{a:'middle'}));
+  const pts=v.map((p,i)=>x(i)+','+y(p)).join(' ');
+  const ln=el('polyline',{points:pts,fill:'none',stroke:C.hot,'stroke-width':4,'stroke-linejoin':'round',class:'draw'},svg);
+  [[10,70],[21,72],[24,60],[31,67],[32,58],[33,63]].forEach(([i,p])=>{el('circle',{cx:x(i),cy:y(p),r:6,fill:'#fff',stroke:C.ink,'stroke-width':2.5},svg);T(svg,x(i)+(i==32?0:0),y(p)+(i==32||i==24?32:-16),p+'%',{a:'middle',fill:C.ink,w:600,fs:18});});
+  T(svg,L,B+80,'Equivalent blockage, monthly median',{fs:17});
+})();
+
+/* ===== flow by air temperature ===== */
+(function(){const svg=document.getElementById('flowChart');
+  const d=[['< 0 °C',24482,10],['0–10 °C',25052,31],['10–20 °C',21430,26],['20–30 °C',18941,60],['≥ 30 °C',18577,78]];
+  const L=130,R=1080,Tp=40,B=520,y=f=>B-(B-Tp)*f/30000,w=(R-L)/d.length;
+  axisY(svg,L,R,y,[0,10000,20000,30000],f=>f/1000+'k');
+  d.forEach(([lab,f,fan],i)=>{const hot=i>=3,cx=L+w*i+w/2;const r=el('rect',{x:cx-w*.3,y:y(f),width:w*.6,height:B-y(f),fill:hot?C.hot:C.ink3,class:'grow'},svg);r.style.setProperty('--d',i);
+    T(svg,cx,y(f)-14,f.toLocaleString('en-US'),{a:'middle',fill:C.ink,w:600,fs:21});T(svg,cx,B+34,lab,{a:'middle'});T(svg,cx,B+66,fan+' %',{a:'middle',fill:hot?C.hot:C.ink2,fs:18});});
+  T(svg,L,Tp-14,'Median dry-gas flow, Nm³/h, by outside air temperature (Nov 2023 – Oct 2026)',{fs:17});T(svg,L-10,B+66,'fans 100 %:',{a:'end',fs:16});
+})();
+
+/* ===== fan vs system curves ===== */
+(function(){const svg=document.getElementById('fanChart');
+  const L=90,R=1050,Tp=30,B=540,qx=q=>L+(R-L)*q/1.2,py=p=>B-(B-Tp)*p/350;
+  axisY(svg,L,R,py,[0,50,100,150,200,250,300,350],p=>p);
+  [0,0.2,0.4,0.6,0.8,1.0,1.2].forEach(q=>T(svg,qx(q),B+32,(q*100).toFixed(0)+'%',{a:'middle'}));
+  T(svg,(L+R)/2,B+68,'Airflow, % of rated 342,000 m³/h',{a:'middle',fs:18});T(svg,L,Tp-8,'Pressure, Pa',{fs:17});
+  const fan=q=>190*(1.6-0.6*q*q),sys=(q,b)=>190*(0.2074*q*q+0.7926*Math.pow(q/(1-b),1.684));
+  let p='';for(let q=0;q<=1.2;q+=0.01){p+=(p?'L':'M')+qx(q)+' '+py(fan(q));}
+  el('path',{d:p,fill:'none',stroke:C.ink,'stroke-width':4,class:'draw'},svg);T(svg,qx(0.05),py(fan(0.05))-14,'fan curve, 100 % speed',{fill:C.ink,w:600});
+  [[0,'b = 0',C.fix,1.0],[0.3,'0.30',C.fix,0.826],[0.605,'0.605',C.hot,0.544],[0.685,'0.685',C.hot,0.449]].forEach(([b,lab,col,qop])=>{
+    let s='';for(let q=0;q<=1.2;q+=0.01){const v=sys(q,b);if(v>350)break;s+=(s?'L':'M')+qx(q)+' '+py(v);}
+    el('path',{d:s,fill:'none',stroke:col,'stroke-width':2.5,'stroke-dasharray':b?'8 6':'0'},svg);
+    el('circle',{cx:qx(qop),cy:py(fan(qop)),r:8,fill:col,stroke:'#fff','stroke-width':2},svg);
+    const dy={0:28,0.3:28,0.605:-16,0.685:34}[b];T(svg,qx(qop)+(b>0.5?-14:14),py(fan(qop))+dy,'b '+lab+' → '+Math.round(qop*100)+'%',{fill:col,w:600,a:b>0.5?'end':'start'});});
+})();
+
+/* ===== duty split stacked bars ===== */
+(function(){const svg=document.getElementById('dutyChart');
+  const d=[['Clean',1864,2378],['b 0.685',1261,2268]];const B=470,Tp=40,y=q=>(B-Tp)*q/4500,x0=[90,300];
+  [0,1000,2000,3000,4000].forEach(v=>{el('line',{x1:60,x2:500,y1:B-y(v),y2:B-y(v),stroke:C.line},svg);T(svg,52,B-y(v)+6,v.toLocaleString('en-US'),{a:'end',fs:16});});
+  d.forEach(([lab,s,l],i)=>{const x=x0[i];const r1=el('rect',{x,y:B-y(l),width:130,height:y(l),fill:C.fix,class:'grow'},svg);
+    const r2=el('rect',{x,y:B-y(l)-y(s),width:130,height:y(s),fill:i?C.hot:C.ink3,class:'grow'},svg);r2.style.setProperty('--d',2);
+    T(svg,x+65,B-y(l)/2+6,l.toLocaleString('en-US'),{a:'middle',fill:'#fff',w:600});T(svg,x+65,B-y(l)-y(s)/2+6,s.toLocaleString('en-US'),{a:'middle',fill:'#fff',w:600});
+    T(svg,x+65,B-y(l+s)-12,(l+s).toLocaleString('en-US')+' kW',{a:'middle',fill:C.ink,w:600,fs:20});T(svg,x+65,B+30,lab,{a:'middle'});});
+  el('rect',{x:90,y:520,width:16,height:16,fill:C.fix},svg);T(svg,114,534,'condensation',{fs:16});
+  el('rect',{x:270,y:520,width:16,height:16,fill:C.ink3},svg);T(svg,294,534,'sensible',{fs:16});
+})();
+
+/* ===== blockage sweep ===== */
+(function(){const svg=document.getElementById('sweepChart');
+  const b=[0,10,20,30,40,50,60,70],t=[36.7,37.7,39.0,41.1,44.4,50.0,60.2,78.6];
+  const L=90,R=1060,Tp=30,B=540,x=v=>L+(R-L)*v/75,y=v=>B-(B-Tp)*(v-30)/55;
+  axisY(svg,L,R,y,[30,40,50,60,70,80],v=>v+'°');
+  [0,10,20,30,40,50,60,70].forEach(v=>T(svg,x(v),B+32,v+'%',{a:'middle'}));
+  T(svg,(L+R)/2,B+68,'Equivalent blockage b',{a:'middle',fs:18});T(svg,L,Tp-8,'Syngas outlet, °C (hot day, fans 100 %)',{fs:17});
+  el('rect',{x:x(60.5),y:Tp,width:x(68.5)-x(60.5),height:B-Tp,fill:C.hotS},svg);T(svg,x(64.5),Tp+26,'plant',{a:'middle',fill:C.hot,fs:17});
+  el('line',{x1:L,x2:R,y1:y(65),y2:y(65),stroke:C.fix,'stroke-dasharray':'6 6','stroke-width':1.5},svg);T(svg,x(2),y(65)-10,'65 °C target',{fill:C.fix,fs:17});
+  // smooth curve by interpolation
+  let p='';for(let i=0;i<b.length;i++)p+=(i?'L':'M')+x(b[i])+' '+y(t[i]);
+  el('path',{d:p,fill:'none',stroke:C.ink,'stroke-width':4,class:'draw'},svg);
+  [[0,36.7,'clean 36.7',C.fix],[30,41.1,'30 %: 41.1',C.fix],[60.5,60.9,'spring 60.9',C.hot],[68.5,75.2,'end of summer 75.2',C.hot]].forEach(([bb,tt,lab,col],i)=>{
+    el('circle',{cx:x(bb),cy:y(tt),r:8,fill:col,stroke:'#fff','stroke-width':2},svg);T(svg,x(bb)+(i<2?10:-12),y(tt)-16,lab,{fill:col,w:600,a:i<2?'start':'end'});});
+  el('circle',{cx:x(68.5),cy:y(72.9),r:7,fill:'#fff',stroke:C.ink,'stroke-width':2.5},svg);T(svg,x(68.5)-14,y(72.9)+26,'measured 72.9',{fill:C.ink,fs:17,a:'end'});
+})();
+
+/* ===== hold-out MAE ===== */
+(function(){const svg=document.getElementById('maeChart');
+  const d=[['Spring 2024',8.2,5.6],['Summer 2024',2.4,6.7],['Spring 2025',3.5,5.6],['Summer 2025',2.4,7.4]];
+  const L=60,R=800,Tp=20,B=460,y=v=>B-(B-Tp)*v/9,w=(R-L)/4;
+  axisY(svg,L,R,y,[0,3,6,9],v=>v);
+  d.forEach(([lab,m,c],i)=>{const cx=L+w*i+w/2;const r1=el('rect',{x:cx-62,y:y(m),width:56,height:B-y(m),fill:i?C.fix:C.ink3,class:'grow'},svg);r1.style.setProperty('--d',i);
+    const r2=el('rect',{x:cx+6,y:y(c),width:56,height:B-y(c),fill:C.line,class:'grow'},svg);r2.style.setProperty('--d',i);
+    T(svg,cx-34,y(m)-10,m,{a:'middle',fill:C.ink,w:600});T(svg,cx+34,y(c)-10,c,{a:'middle'});T(svg,cx,B+32,lab,{a:'middle'});});
+  el('rect',{x:L,y:B+56,width:16,height:16,fill:C.fix},svg);T(svg,L+24,B+70,'our model',{fs:17});
+  el('rect',{x:L+170,y:B+56,width:16,height:16,fill:C.line},svg);T(svg,L+194,B+70,'constant guess',{fs:17});
+})();
+
+/* ===== solutions outlet bars ===== */
+(function(){const svg=document.getElementById('solChart');
+  const d=[['No action (end of summer)',75.2,null,null,C.hot,''],['1 · Sonic horns, 24 events',67.1,62.4,72.5,C.fix,'+166 kW'],['2 · DECAMEX, 2 campaigns',63.2,60.1,69.6,C.fix,'+242 kW'],['Full clean on 1 Jul (model)',59.6,null,null,C.ink3,'+310 kW'],['Measured after 2026 clean',56.9,null,null,C.ink3,'+360 kW'],['Clean bundle (model)',36.7,null,null,C.line,'+714 kW']];
+  const L=380,R=930,Tp=20,h=86,x=v=>L+(R-L)*v/80;
+  [0,20,40,60,80].forEach(v=>{el('line',{x1:x(v),x2:x(v),y1:Tp,y2:Tp+h*d.length,stroke:C.line},svg);T(svg,x(v),Tp+h*d.length+30,v+' °C',{a:'middle'});});
+  d.forEach(([lab,v,lo,hi,col,gain],i)=>{const yy=Tp+i*h+18;
+    T(svg,L-16,yy+32,lab,{a:'end',fill:C.ink,fs:20});
+    const r=el('rect',{x:L,y:yy,width:x(v)-L,height:48,fill:col,class:'growx'},svg);r.style.setProperty('--d',i);
+    T(svg,x(v)+(lo?0:12),yy+32,'',{});
+    if(lo){el('line',{x1:x(lo),x2:x(hi),y1:yy+24,y2:yy+24,stroke:C.ink,'stroke-width':2},svg);[lo,hi].forEach(z=>el('line',{x1:x(z),x2:x(z),y1:yy+12,y2:yy+36,stroke:C.ink,'stroke-width':2},svg));}
+    T(svg,x(lo?hi:v)+14,yy+32,v.toFixed(1)+' °C'+(gain?'   '+gain:''),{fill:C.ink,w:600,fs:20});});
+  el('line',{x1:x(65),x2:x(65),y1:Tp,y2:Tp+h*d.length,stroke:C.fix,'stroke-width':2,'stroke-dasharray':'6 5'},svg);T(svg,x(65),Tp+h*d.length+58,'65 °C target',{a:'middle',fill:C.fix,fs:17});
+})();
+
+/* ===== season bars ===== */
+function barsH(id,d,max,fmt){const svg=document.getElementById(id);const L=60,R=800,Tp=30,B=430,w=(R-L)/d.length,y=v=>B-(B-Tp)*v/max;
+  el('line',{x1:L,x2:R,y1:B,y2:B,stroke:C.ink3},svg);
+  d.forEach(([lab,v,col],i)=>{const cx=L+w*i+w/2;const r=el('rect',{x:cx-w*.3,y:y(v),width:w*.6,height:B-y(v),fill:col,class:'grow'},svg);r.style.setProperty('--d',i);
+    T(svg,cx,y(v)-12,fmt(v),{a:'middle',fill:C.ink,w:600,fs:21});lab.split('|').forEach((s,k)=>T(svg,cx,B+32+k*24,s,{a:'middle',fs:17}));});}
+barsH('hoursChart',[['No action',2651,C.hot],['Horns|24 events',1921,C.fix],['DECAMEX|2 campaigns',1605,C.fix],['DECAMEX|4 campaigns',1433,C.fix],['No debris|(limit)',1032,C.line]],3000,v=>v.toLocaleString('en-US'));
+barsH('meanChart',[['No action',80.1,C.hot],['Horns|24 events',72.7,C.fix],['DECAMEX|2 campaigns',69.5,C.fix],['DECAMEX|4 campaigns',68.4,C.fix],['No debris|(limit)',65.3,C.line]],90,v=>v.toFixed(1));
+
+/* ===== year plan ===== */
+(function(){const svg=document.getElementById('yearPlan');const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const L=360,R=1720,w=(R-L)/12,x=i=>L+w*i;
+  m.forEach((s,i)=>{T(svg,x(i)+w/2,24,s,{a:'middle',fs:18});el('line',{x1:x(i),x2:x(i),y1:36,y2:320,stroke:C.muted||'#e8ecee'},svg);});
+  el('rect',{x:x(4),y:36,width:w*4,height:284,fill:C.hotS,opacity:.6},svg);T(svg,x(6),312,'fluff and heat season',{a:'middle',fill:C.hot,fs:17});
+  const rows=[['Monitor (health + alarm)',0,12,C.ink3,'all year'],['Turnaround deep clean',5.85,6.25,C.ink,'late June'],['DECAMEX campaigns',5,5.12,C.fix,'1 Jun'],['',6,6.12,C.fix,'1 Jul · or on alarm'],['Sonic horns (option)',4,9,C.fixS,'24 short events']];
+  let r=0;rows.forEach(([lab,a,b,col,note])=>{if(lab)r++;const yy=40+r*52;if(lab)T(svg,L-16,yy+24,lab,{a:'end',fill:C.ink,fs:19});
+    const rc=el('rect',{x:x(a),y:yy,width:Math.max(x(b)-x(a),14),height:32,fill:col,class:'growx'},svg);rc.style.setProperty('--d',r);
+    T(svg,x(b)+10,yy+23,note,{fs:17,fill:C.ink2});});
+})();
+
+/* ===== deck controller ===== */
+class Deck{constructor(){this.s=[...document.querySelectorAll('.slide')];this.i=0;this.stage=document.getElementById('deckStage');this.np=document.getElementById('notesPanel');
+  const sc=()=>{const nh=this.np.hidden?0:this.np.offsetHeight;const H=innerHeight-nh;const f=Math.min(innerWidth/1920,H/1080);this.stage.style.transform=`translate(${(innerWidth-1920*f)/2}px,${(H-1080*f)/2}px) scale(${f})`;};
+  this.sc=sc;sc();addEventListener('resize',sc);
+  addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();this.go(this.i+1);}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();this.go(this.i-1);}
+    else if(e.key==='Home')this.go(0);else if(e.key==='End')this.go(this.s.length-1);else if(e.key==='n'||e.key==='N')this.toggleNotes();});
+  let sx=null;addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+  addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)this.go(this.i+(dx<0?1:-1));sx=null;});
+  document.getElementById('prevBtn').onclick=()=>this.go(this.i-1);document.getElementById('nextBtn').onclick=()=>this.go(this.i+1);
+  document.getElementById('notesBtn').onclick=()=>this.toggleNotes();
+  const m=location.hash.match(/^#s(\d+)$/);this.go(m?+m[1]-1:0,true);
+  addEventListener('hashchange',()=>{const m=location.hash.match(/^#s(\d+)$/);if(m)this.go(+m[1]-1,true);});}
+ toggleNotes(){this.np.hidden=!this.np.hidden;this.fill();this.sc();}
+ fill(){const a=this.s[this.i].querySelector('aside.notes');document.getElementById('notesBody').innerHTML=a?a.innerHTML:'<p>No notes.</p>';}
+ go(n,q){n=Math.max(0,Math.min(n,this.s.length-1));this.s.forEach((s,k)=>s.classList.toggle('active',k===n));this.i=n;
+  document.getElementById('count').textContent=`${n+1} / ${this.s.length}`;document.getElementById('progress').style.width=`${(n+1)/this.s.length*100}%`;
+  if(!this.np.hidden)this.fill();try{history.replaceState(null,'','#s'+(n+1));}catch(e){}}}
+new Deck();
+(()=>{const c=document.querySelector('.deck-controls');let t;addEventListener('mousemove',()=>{c.classList.add('show');clearTimeout(t);t=setTimeout(()=>c.classList.remove('show'),2000);});})();
+</script>
