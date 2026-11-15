@@ -6,30 +6,33 @@
 
 | Speaker | Slides | Topic | Time |
 |---|---|---|---|
-| Speaker 1 | 1–5 | Object, problem, plant data | 1:40 |
-| Speaker 2 | 6–11 | Thermal model, hybrid monitoring | 1:50 |
+| Speaker 1 | 1–5 | Hook, object, problem, plant data | 1:45 |
+| Speaker 2 | 6–11 | Thermal model, hybrid monitoring | 1:40 |
 | Speaker 3 | 12–16 | Solutions and results | 1:30 |
-| Speaker 4 | 17–24 | Economics, plan, safety | 2:00 |
+| Speaker 4 | 17–25 | Economics, plan, safety, closing | 2:00 |
 
-Slides 25–27 are backup (repository, references, glossary). Don't present them; open them only for a question.
+Total 6:55, which leaves 5 seconds of slack. Slides 26–28 are backup (repository, references, glossary). Don't present them; open them only for a question.
 
 Speak at about 130 words a minute. If you run late, skip the lines marked *(optional)*.
 
+**Prop:** a small ball of cotton wool, or real poplar fluff in a clear bag. Speaker 1 holds it up at the start, and Speaker 4 holds the same one up at the end. The same object at both ends is what people remember.
+
 ---
 
-## Speaker 1 · Problem (1:40)
+## Speaker 1 · Hook and problem (1:45)
 
-**Slide 1 · Title (10 s)**
-"Good morning. We are the Perovskite team. Our object is the air cooler A-1401 at Air Liquide's hydrogen unit UPOV-2 in Atyrau. The question: why it loses cooling every summer, and how to keep it clean."
+**Slide 1 · Hook (30 s)**
+*Before you speak, pause for two seconds and hold up the cotton wool.*
+"Every June, Atyrau gets snow in summer. This is poplar fluff. It weighs almost nothing. Yet every summer it chokes the air cooler A-1401 at Air Liquide's hydrogen unit, cuts its airflow by more than half, and costs the plant hydrogen. We are the Perovskite team, and today we'll show you how to beat a fluffball without stopping the plant."
 
-**Slide 2 · Where A-1401 sits (25 s)**
-"A-1401 cools wet syngas before the PSA. Atyrau air ranges from minus 20 to over 40 °C, and in May to July poplar fluff flies everywhere. 56 % of the cooler's duty is condensing water, so it is really a condenser."
+**Slide 2 · Where A-1401 sits (20 s)**
+"A-1401 cools wet syngas before the PSA. Atyrau air ranges from minus 20 to over 40 °C. 56 % of the cooler's duty is condensing water, so it is really a condenser."
 
-**Slide 3 · How debris hurts (20 s)**
-"Fluff sticks under the bottom tube row. Gaps close, the fans move less air, and the cooler moves less heat. On hot days the fans are already at 100 %, so the only control left is to cut gas flow."
+**Slide 3 · How debris hurts (15 s)**
+"Fluff sticks under the bottom tube row, the fans move less air, and on hot days the only control left is to cut gas flow."
 
-**Slide 4 · Three years of data (25 s)**
-"We turned three years of plant history into one number: equivalent blockage. Every summer it climbs 10 to 15 points, and every cleaning wins back 9 to 12. But a 50 to 60 % base never goes away."
+**Slide 4 · Three years of data (20 s)**
+"From three years of plant history we built one number: equivalent blockage. Every summer it climbs 10 to 15 points, each cleaning wins back 9 to 12, and a 50 to 60 % base never goes away."
 
 **Slide 5 · Production impact (20 s)**
 "Fans run at 100 % for about 40 % of the year. In hot weather the plant runs 25 to 35 % less gas, up to 800 tonnes of hydrogen in 2025. That is an upper bound, because demand may explain part of it."
@@ -38,7 +41,7 @@ Speak at about 130 words a minute. If you run late, skip the lines marked *(opti
 
 ---
 
-## Speaker 2 · Model and monitoring (1:50)
+## Speaker 2 · Model and monitoring (1:40)
 
 **Slide 6 · How we model the cooler (20 s)**
 "This is a physics model of the real bundle: 6 rows by 24 cells, with water condensation in every cell. The energy balance closes to 0.001 %, and the error on weeks the model never saw is 2.4 K."
@@ -49,7 +52,7 @@ Speak at about 130 words a minute. If you run late, skip the lines marked *(opti
 **Slide 8 · Fan and system curves (15 s)**
 "Where the fan curve meets the system curve, 30 % blockage costs only 17 % of the airflow. At 68 % blockage, only 45 % of the air gets through."
 
-**Slide 9 · Energy balance (10 s)** *(optional)*
+**Slide 9 · Energy balance (10 s)** *(optional: skip it and the block is 1:40)*
 "The heat the gas loses equals the heat the air gains: 4,242 kW clean, against 3,529 kW fouled."
 
 **Slide 10 · Hybrid monitoring (25 s)**
@@ -83,13 +86,13 @@ Speak at about 130 words a minute. If you run late, skip the lines marked *(opti
 
 ---
 
-## Speaker 4 · Economics, plan, safety (2:00)
+## Speaker 4 · Economics, plan, safety, closing (2:00)
 
-**Slide 17 · Economics (30 s)**
-"We built the cost line by line with Atyrau unit rates: the National Bank exchange rate, the local power tariff and local wages. Spray coating plus horns costs 93,500 dollars and pays back in 1.1 years. DECAMEX starts for 6,400, but each campaign costs 30,000 because the crew flies in. This is a Class 4 estimate, minus 30 to plus 50 %."
+**Slide 17 · Economics (25 s)**
+"We built the cost line by line with Atyrau rates: the National Bank exchange rate, the local power tariff and local wages. Spray coating plus horns costs 93,500 dollars and pays back in 1.1 years. DECAMEX starts for 6,400, but each campaign costs 30,000. This is a Class 4 estimate, minus 30 to plus 50 %."
 
-**Slide 18 · Turnaround compared (20 s)**
-"A wash during a planned turnaround is cheapest, about 11,500 dollars. But if it needs its own 3-day stop, that loses 80 tonnes of hydrogen. Our methods run during the season."
+**Slide 18 · Turnaround compared (15 s)**
+"A wash in a planned turnaround is cheapest, about 11,500 dollars. But its own 3-day stop would lose 80 tonnes of hydrogen."
 
 **Slide 19 · Lead time (10 s)**
 "A DECAMEX trial is possible in 4 to 8 weeks, and a spray-coated test bay in 6 to 10."
@@ -100,11 +103,13 @@ Speak at about 130 words a minute. If you run late, skip the lines marked *(opti
 **Slide 21 · Safety verdict (20 s)**
 "DECAMEX passes for a controlled trial. The coating and horn retrofit does not pass yet. The 120 Hz horn sits close to a tube vibration mode, and the original 200 °C cure was above the 170 °C design limit. Our spray cures below 170 °C."
 
-**Slides 22–24 · Safety detail (15 s)** *(show quickly)*
-"These slides hold the calculations: tube modes, a 15.6 MPa hoop stress, the fan-off check, and a pass, conditional or hold verdict for every step."
+**Slides 22–24 · Safety detail (5 s)** *(click through quickly)*
+"The calculations behind each verdict are on these three slides."
 
-**Close (5 s)**
-"Thank you. All data, code and calculations are behind the QR code."
+**Slide 25 · Closing (25 s)**
+"A turnaround cleans the cooler once a year. The fluff comes back every summer. So we don't fight the fluff once. We keep it out all season, while the plant keeps running."
+*Hold up the same cotton wool and pause for a second.*
+"Next June, when you see the summer snow in Atyrau, remember Perovskite. Thank you. Everything is behind the QR code."
 
 ---
 
@@ -181,7 +186,7 @@ Speak at about 130 words a minute. If you run late, skip the lines marked *(opti
 
 ## If you don't know, or don't remember
 
-- **Don't guess a number.** Say: *"I don't want to give you a wrong figure. It's in our calculations file, and we can send it today."* Then point to the QR code or the backup slide.
+- **Don't guess a number.** Say: *"I don't want to give you a wrong figure. It's in our calculations file, and we can send it today."* Then point to the QR code on slide 25 or the backup slides 26–28.
 - **Hand over.** Say: *"[Name] built that part. [Name], can you take it?"* Agree beforehand who covers what.
 - **Bridge to what you do know.** Say: *"We didn't model that directly. What we can say is…"* and give the nearest result.
 - **Name the limit, then the next step.** Say: *"That's outside the data we had. We'd answer it with [a strain test / the condensate measurement / a vendor quote]."* Judges value honesty about limits.
@@ -191,4 +196,4 @@ Speak at about 130 words a minute. If you run late, skip the lines marked *(opti
 
 ### Numbers worth memorising
 
-37 → 75 °C · 56 % condensing · 25–35 % less gas · 700–800 t H₂ · +242 kW / +166 kW · 1,000 fewer hours above 65 °C · alarm 17 days early · 93,500 USD and 1.1 years · 6,400 + 30,215 USD per campaign · 80 t H₂ per 3-day stop · 120 Hz vs 112 Hz · 170 °C design limit
+Airflow: only 45 % gets through at end of summer (the hook says "more than half" lost, slide 8) · 37 → 75 °C · 56 % condensing · 25–35 % less gas · 700–800 t H₂ · +242 kW / +166 kW · 1,000 fewer hours above 65 °C · alarm 17 days early · 93,500 USD and 1.1 years · 6,400 + 30,215 USD per campaign · 80 t H₂ per 3-day stop · 120 Hz vs 112 Hz · 170 °C design limit
