@@ -8,9 +8,9 @@
 :root{
   --bg:#ffffff; --panel:#f3f5f6; --line:#d6dcdf; --muted-line:#e8ecee;
   --ink:#0b0b0c; --ink2:#4b5963; --ink3:#7d8a92;
-  --hot:#b8450f; --hot-soft:#f6e3d8;
+  --hot:#0a3a75; --hot-soft:#dbe9f7;
   --fix:#0b80dc; --fix-soft:#e4f3ff; --brand:#0f9bff;
-  --good:#2e7d32; --warn:#b07d00; --bad:#c62828;
+  --good:#9ccff5; --warn:#3d95e0; --bad:#0a3a75;
   --sans:'DM Sans',Arial,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,monospace;
   --stage-bg:#1f1f1f;
@@ -40,6 +40,7 @@ h2 .h{color:var(--hot)} h2 .f{color:var(--fix)}
 .slide::before{content:"";position:absolute;right:-180px;top:-200px;width:520px;height:480px;border-radius:50%;background:radial-gradient(closest-side,rgba(15,155,255,.16),rgba(15,155,255,0));pointer-events:none;z-index:0}
 .half{position:absolute;left:1470px;top:600px;width:450px;height:450px;margin-top:-225px;border-radius:50%;background:var(--brand);clip-path:inset(0 225px 0 0);z-index:1}
 .halo{position:absolute;left:1695px;top:390px;width:225px;height:690px;background:radial-gradient(ellipse 260px 300px at 0% 50%,rgba(15,155,255,.55),rgba(15,155,255,0) 100%);z-index:1}
+.tight td,.tight th{padding:5px 12px!important;font-size:18px!important;line-height:1.25!important;height:auto!important}
 .body{position:absolute;left:96px;right:96px;top:250px;bottom:110px}
 .mono{font-family:var(--mono)}
 .small{font-size:20px;line-height:1.45;color:var(--ink2)}
@@ -105,7 +106,7 @@ svg text{font-family:var(--mono)}
 .deck-controls button{min-width:40px;height:40px;padding:0 10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;font:500 14px/1 var(--mono)}
 .deck-controls button:hover,.deck-controls button:focus-visible{border-color:var(--fix);outline:2px solid var(--fix-soft)}
 .progress{position:fixed;left:0;top:0;height:3px;background:var(--fix);z-index:1000;transition:width .3s ease}
-.notes-panel{position:fixed;left:0;right:0;bottom:0;max-height:42vh;overflow:auto;background:#fffdf5;border-top:2px solid var(--warn);z-index:999;padding:16px max(20px,env(safe-area-inset-right,0px)) calc(70px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));font:400 16px/1.55 var(--sans);color:var(--ink)}
+.notes-panel{position:fixed;left:0;right:0;bottom:0;max-height:42vh;overflow:auto;background:#f5faff;border-top:2px solid var(--warn);z-index:999;padding:16px max(20px,env(safe-area-inset-right,0px)) calc(70px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));font:400 16px/1.55 var(--sans);color:var(--ink)}
 .notes-panel h4{font:600 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--warn);margin-bottom:8px}
 .notes-panel p{max-width:110ch;margin-bottom:8px}
 .notes-panel b{font-weight:600}
@@ -133,16 +134,15 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 2. WHERE IT SITS ============ -->
 <section class="slide" aria-label="Where A-1401 sits">
-  <div class="hdr"><span class="sec"><b>01</b>The equipment</span><span>02</span></div>
+  <div class="hdr"><span class="sec">1 · Thermal impact diagnosis</span><span>02</span></div>
   <h2 class="r">A-1401 cools wet syngas before hydrogen purification. <span class="h">Most of its job is condensing water.</span></h2>
   <div class="body">
     <svg class="r" style="--d:1" width="1728" height="330" viewBox="0 0 1728 330" aria-label="Process strip from shift reactor to PSA">
       <g font-size="20" fill="#14202a">
         <rect x="0" y="90" width="210" height="110" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="105" y="140" text-anchor="middle">MT shift</text><text x="105" y="168" text-anchor="middle" fill="#4b5963" font-size="17">reactor</text>
         <rect x="270" y="90" width="230" height="110" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="385" y="140" text-anchor="middle">E-1407 / E-1408</text><text x="385" y="168" text-anchor="middle" fill="#4b5963" font-size="17">heat recovery</text>
-        <rect x="560" y="70" width="330" height="150" fill="#f6e3d8" stroke="#b8450f" stroke-width="3"/><text x="725" y="128" text-anchor="middle" font-size="26" font-weight="600" fill="#b8450f">A-1401</text><text x="725" y="160" text-anchor="middle" fill="#4b5963" font-size="17">air cooler, 3 fans</text><text x="725" y="186" text-anchor="middle" fill="#4b5963" font-size="17">3.5–4.2 MW</text>
+        <rect x="560" y="70" width="330" height="150" fill="#dbe9f7" stroke="#0a3a75" stroke-width="3"/><text x="725" y="128" text-anchor="middle" font-size="26" font-weight="600" fill="#0a3a75">A-1401</text><text x="725" y="160" text-anchor="middle" fill="#4b5963" font-size="17">air cooler, 3 fans</text><text x="725" y="186" text-anchor="middle" fill="#4b5963" font-size="17">3.5–4.2 MW</text>
         <rect x="950" y="90" width="230" height="110" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="1065" y="140" text-anchor="middle">E-1409 / E-1410</text><text x="1065" y="168" text-anchor="middle" fill="#4b5963" font-size="17">water coolers</text>
         <rect x="1240" y="80" width="150" height="130" rx="60" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="1315" y="140" text-anchor="middle">D-1403</text><text x="1315" y="168" text-anchor="middle" fill="#4b5963" font-size="17">separator</text>
         <rect x="1450" y="90" width="150" height="110" fill="#f3f5f6" stroke="#7d8a92" stroke-width="1.5"/><text x="1525" y="140" text-anchor="middle">PSA</text><text x="1525" y="168" text-anchor="middle" fill="#4b5963" font-size="17">H₂ purifier</text>
@@ -154,7 +154,7 @@ aside.notes{display:none}
       <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#14202a"/></marker></defs>
       <text x="1315" y="300" text-anchor="middle" font-size="18" fill="#0b80dc">condensed water out</text>
       <g font-size="19">
-        <text x="526" y="60" text-anchor="middle" fill="#b8450f">158–167 °C in</text>
+        <text x="526" y="60" text-anchor="middle" fill="#0a3a75">158–167 °C in</text>
         <text x="920" y="60" text-anchor="middle" fill="#0b80dc">60–70 °C target</text>
       </g>
       <text x="725" y="262" text-anchor="middle" font-size="18" fill="#4b5963">gas in tubes, outside air across fins</text>
@@ -175,9 +175,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 3. MECHANISM ============ -->
 <section class="slide" aria-label="How debris hurts">
-  <div class="hdr"><span class="sec hotsec"><b>02</b>The problem</span><span>03</span></div>
+  <div class="hdr"><span class="sec">1 · Thermal impact diagnosis</span><span>03</span></div>
   <h2 class="r">Fluff on the fins chokes the air. On hot days the gas leaves too hot and <span class="h">the plant runs less gas.</span></h2>
   <div class="body" style="display:flex;gap:22px;align-items:stretch;top:330px;bottom:430px">
     <div class="box r" style="--d:1;flex:1"><div class="cap" style="margin-bottom:12px">May–Aug</div><h3>Poplar fluff, insects, dust</h3><p>carried up by the fans, stick under the bottom tube row</p></div>
@@ -198,9 +197,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 4. HISTORY ============ -->
 <section class="slide" aria-label="Three years of plant data">
-  <div class="hdr"><span class="sec hotsec"><b>02</b>Problem and impact</span><span>04</span></div>
+  <div class="hdr"><span class="sec">1 · Thermal impact diagnosis</span><span>04</span></div>
   <h2 class="r">Three years of plant data show a <span class="h">summer saw-tooth</span>: debris builds up, cleaning removes it</h2>
   <div class="body" style="display:grid;grid-template-columns:1fr 420px;gap:60px">
     <svg id="histChart" class="r" style="--d:1" width="1240" height="640" viewBox="0 0 1240 640" aria-label="Monthly equivalent blockage Nov 2023 to Oct 2026"></svg>
@@ -218,9 +216,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 5. IMPACT ============ -->
 <section class="slide" aria-label="Production impact">
-  <div class="hdr"><span class="sec hotsec"><b>02</b>Problem and impact</span><span>05</span></div>
+  <div class="hdr"><span class="sec">1 · Thermal impact diagnosis</span><span>05</span></div>
   <h2 class="r">In warm weather the fans are at 100 % and the plant runs <span class="h">25–35 % less gas</span></h2>
   <div class="body" style="display:grid;grid-template-columns:1fr 560px;gap:70px">
     <svg id="flowChart" class="r" style="--d:1" width="1100" height="640" viewBox="0 0 1100 640" aria-label="Median gas flow by air temperature"></svg>
@@ -239,9 +236,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 6. MODEL OVERVIEW ============ -->
 <section class="slide" aria-label="How we model the cooler">
-  <div class="hdr"><span class="sec"><b>03</b>Engineering model</span><span>06</span></div>
+  <div class="hdr"><span class="sec">1 · Thermal impact diagnosis</span><span>06</span></div>
   <h2 class="r">A physics model of the real bundle, row by row, <span class="f">with water condensation</span></h2>
   <div class="body" style="display:grid;grid-template-columns:repeat(5,1fr);gap:22px;top:300px;bottom:470px">
     <div class="box r" style="--d:1"><div class="cap" style="margin-bottom:10px">input</div><h3>Plant data</h3><p>datasheet geometry, hourly history, ERA5 air temperature</p></div>
@@ -264,9 +260,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 7. CALC 1: h and fin efficiency ============ -->
 <section class="slide" aria-label="Air-side coefficient and fin efficiency">
-  <div class="hdr"><span class="sec"><b>03</b>Key calculation 1</span><span>07</span></div>
+  <div class="hdr"><span class="sec">1 · Thermal impact diagnosis</span><span>07</span></div>
   <h2 class="r">Air-side coefficient and fin efficiency, clean bundle on a hot day</h2>
   <div class="body" style="display:grid;grid-template-columns:1fr 1fr 430px;gap:34px">
     <div class="stack" style="gap:20px">
@@ -313,9 +308,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 8. CALC 2: fan / system ============ -->
 <section class="slide" aria-label="Fan and system curves">
-  <div class="hdr"><span class="sec"><b>03</b>Key calculation 2</span><span>08</span></div>
+  <div class="hdr"><span class="sec">1 · Thermal impact diagnosis</span><span>08</span></div>
   <h2 class="r">Fan curve meets system curve: <span class="f">30 % blocked gaps give only 17 % less air</span></h2>
   <div class="body" style="display:grid;grid-template-columns:1080px 1fr;gap:60px">
     <svg id="fanChart" class="r" style="--d:1" width="1080" height="640" viewBox="0 0 1080 640" aria-label="Fan and system pressure curves"></svg>
@@ -345,9 +339,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 9. CALC 3: air mass & energy balance ============ -->
 <section class="slide" aria-label="Air mass and energy balance">
-  <div class="hdr"><span class="sec"><b>03</b>Key calculation 3</span><span>09</span></div>
+  <div class="hdr"><span class="sec">1 · Thermal impact diagnosis</span><span>09</span></div>
   <h2 class="r">Air mass and energy balance: the heat the gas loses is the heat the air gains</h2>
   <div class="body" style="display:grid;grid-template-columns:1fr 1fr 520px;gap:40px">
     <div class="stack" style="gap:20px">
@@ -375,9 +368,77 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 10. CLEAN VS FOULED ============ -->
+<section class="slide" aria-label="Comparison of cleaning methods">
+  <div class="hdr"><span class="sec">2 · Solution comparison matrix</span><span>10</span></div>
+  <h2 class="r">Five ways to clean A-1401. Ours are <span class="f">dry and run during the season</span></h2>
+  <div class="body" style="top:290px">
+    <table class="mx r" style="--d:1">
+      <thead><tr><th style="width:360px"></th><th>Compressed air</th><th>Water wash</th><th>Chemical / foam</th><th class="ours">1 · Sonic horns + vacuum hood</th><th class="ours">2 · DECAMEX dry powder</th></tr></thead>
+      <tbody>
+        <tr><td>Hot-day outlet (no cleaning 75 °C)</td><td><span class="dot nd"></span>no data</td><td><span class="dot nd"></span>no data</td><td><span class="dot nd"></span>no data</td><td class="ours"><span class="dot y"></span>67 °C</td><td class="ours"><span class="dot g"></span>63 °C</td></tr>
+        <tr><td>Plant must stop?</td><td><span class="dot g"></span>no</td><td><span class="dot y"></span>usually at shutdown</td><td><span class="dot y"></span>usually at shutdown</td><td class="ours"><span class="dot g"></span>no (coating option: once)</td><td class="ours"><span class="dot g"></span>no</td></tr>
+        <tr><td>Water on hot 304L tubes</td><td><span class="dot g"></span>no</td><td><span class="dot rd"></span>yes</td><td><span class="dot rd"></span>yes (rinse)</td><td class="ours"><span class="dot g"></span>no</td><td class="ours"><span class="dot g"></span>no</td></tr>
+        <tr><td>Risk to metal</td><td><span class="dot y"></span>medium</td><td><span class="dot rd"></span>medium–high</td><td><span class="dot rd"></span>high</td><td class="ours"><span class="dot g"></span>low</td><td class="ours"><span class="dot g"></span>low</td></tr>
+        <tr><td>Waste</td><td><span class="dot y"></span>dust blown around</td><td><span class="dot rd"></span>dirty water</td><td><span class="dot rd"></span>chemical water</td><td class="ours"><span class="dot g"></span>dust collected</td><td class="ours"><span class="dot g"></span>dry dust</td></tr>
+        <tr><td>Proven on poplar fluff?</td><td><span class="dot rd"></span>no</td><td><span class="dot y"></span>one plant</td><td><span class="dot rd"></span>no</td><td class="ours"><span class="dot rd"></span>not yet</td><td class="ours"><span class="dot rd"></span>not yet</td></tr>
+        <tr><td>Used in industry?</td><td><span class="dot g"></span>yes</td><td><span class="dot g"></span>yes</td><td><span class="dot g"></span>yes</td><td class="ours"><span class="dot y"></span>parts only</td><td class="ours"><span class="dot g"></span>yes</td></tr>
+      </tbody>
+    </table>
+    <p class="small r" style="--d:2;margin-top:26px;font-size:22px"><b style="color:var(--ink)">Rejected as routine:</b> compressed air (guidance: complete removal unlikely), water (chloride cracking of hot 304L, scale, effluent) and chemicals (aluminium fins tolerate only the mildest; wet fins re-foul 5–7× faster).</p>
+  </div>
+  <div class="foot"><span>Evidence labels and 30 sources in the full matrix. Outlet values: our model with assumed clearance</span><span class="gh">a1401_solutions_check/A1401_Solution_Comparison_Matrix.md</span></div>
+  <aside class="notes">
+    <p><b>Sonic horns:</b> compressed-air horns (Primasonics PAS-120) send loud low-frequency sound (120 Hz) through the air; the vibration shakes loose deposits, and a moving vacuum hood collects them. An O2T8 non-stick coating is an optional upgrade, but it needs a 200 °C cure, above the 170 °C design temperature, so we keep it optional.</p>
+    <p><b>DECAMEX:</b> a vendor service (CTP) that blows a fine dry powder through the fins at low pressure, one fan sector at a time, while the plant runs. Used on hundreds of industrial air coolers.</p>
+    <p><b>Chloride stress-corrosion cracking:</b> stainless steel can crack when chloride from water concentrates on a hot surface under stress. Reported at as little as 10 ppm chloride; our tubes run at 60–160 °C.</p>
+    <p><b>Wet fins re-foul faster:</b> lab study (Zhan 2018): wet surfaces collected 4.7–7.4× more particles than dry ones.</p>
+  </aside>
+</section>
+
+<section class="slide" aria-label="Safety: hazard register">
+  <div class="hdr"><span class="sec">2 · Solution comparison matrix</span><span>11</span></div>
+  <h2 class="r">Safety: the critical hazards are <span class="h">H₂/CO under pressure, moving fans and lost cooling</span></h2>
+  <div class="body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
+    <div class="stack r" style="--d:1;gap:16px">
+      <div class="cap" style="color:var(--hot)">Both solutions</div>
+      <div class="box hot"><h3>H01 · H₂/CO release near live bundle <span class="mono" style="font-size:17px">C4 · H</span></h3><p>integrity review, gas detection, ignition control, exclusion and escape routes</p></div>
+      <div class="box"><h3>H03 · Fan restart or windmilling <span class="mono" style="font-size:17px">C3 · H</span></h3><p>lockout, verified zero motion, restraint, guards kept</p></div>
+      <div class="box hot"><h3>H04 · One fan off: cooling margin lost <span class="mono" style="font-size:17px">C4 · H</span></h3><p>validated load/weather window, abort limits, no trip bypass</p></div>
+    </div>
+    <div class="stack r" style="--d:2;gap:16px">
+      <div class="cap" style="color:var(--fix)">S1 · O2T8 coating + sonic horns</div>
+      <div class="box hot"><h3>H06 · 200 °C cure &gt; 170 °C design <span class="mono" style="font-size:17px">C4 · H</span></h3><p>written OEM and materials approval before any shop cure</p></div>
+      <div class="box"><h3>H09 · 148 dB horn emission <span class="mono" style="font-size:17px">C3 · H</span></h3><p>remote sounding, measured exposure, alarms stay audible</p></div>
+      <div class="box hot"><h3>H10 · Structural response, fatigue <span class="mono" style="font-size:17px">C4 · H</span></h3><p>modal/strain test; ≈ 691,200 cycles per horn per year</p></div>
+      <div class="box hot"><h3>H12 · Organic dust in collector <span class="mono" style="font-size:17px">C4 · H</span></h3><p>characterise dust; rated collector, static control</p></div>
+    </div>
+    <div class="stack r" style="--d:3;gap:16px">
+      <div class="cap" style="color:var(--fix)">S2 · DECAMEX</div>
+      <div class="box"><h3>H13 · Powder inhalation, eye injury <span class="mono" style="font-size:17px">C3 · H</span></h3><p>actual product SDS, enclosed discharge, hygiene review</p></div>
+      <div class="box"><h3>H14 · Lance contact bends fins <span class="mono" style="font-size:17px">C3 · H</span></h3><p>representative patch, vendor stand-off, row inspection</p></div>
+      <div class="box"><h3>H15 · Fibres pushed deeper <span class="mono" style="font-size:17px">C2 · H</span></h3><p>prove capture at all six rows; stop if capture fails</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Preliminary HAZID, 20 hazards. C4 = multiple-fatality / major-loss potential … C1 = minor. H = hold until control is accepted. Not a HAZOP or LOPA</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §4–6</span></div>
+  <aside class="notes"><p><b>Say:</b> we listed 20 hazards across preparation, installation, cleaning, restart and waste. The critical ones are the same for both: hydrogen and CO in the tubes, fans that can restart, and losing cooling while one fan is off. Coating and horns add a 200 °C cure above the 170 °C design temperature, 148 dB sound and vibration fatigue. DECAMEX adds powder exposure and fin damage risk.</p><p><b>C4 / H:</b> C is consequence severity (C4 worst). H means hold: the activity cannot start until the control is accepted.</p></aside>
+</section>
+
+<section class="slide" aria-label="Safety: acceptance gates">
+  <div class="hdr"><span class="sec">2 · Solution comparison matrix</span><span>12</span></div>
+  <h2 class="r">Safety and material integrity: <span class="f">S2 is the practical first trial</span>; S1 is a development system behind gates</h2>
+  <div class="body">
+    <div class="r" style="--d:1;display:grid;grid-template-columns:repeat(7,1fr);gap:14px"><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G0</div><h3 style="font-size:24px;margin-top:6px">Correct basis</h3><p style="font-size:17px">P&ID, materials, access, hazardous area</p></div><div class="box fix" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G1</div><h3 style="font-size:24px;margin-top:6px">Bench / patch</h3><p style="font-size:17px">S1 4-arm test; S2 fibre-rich patch</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G2</div><h3 style="font-size:24px;margin-top:6px">Process safety</h3><p style="font-size:17px">safe fan-off window, gas and collector hazards</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G3</div><h3 style="font-size:24px;margin-top:6px">S1 install release</h3><p style="font-size:17px">OEM cure, lift, acoustic + structural limits</p></div><div class="box fix" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G4</div><h3 style="font-size:24px;margin-top:6px">Trial start</h3><p style="font-size:17px">permits, isolation, capture working, stop criteria</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G5</div><h3 style="font-size:24px;margin-top:6px">Acceptance</h3><p style="font-size:17px">no damage or leaks, measured airflow and duty</p></div><div class="box" style="padding:16px 16px"><div class="cap" style="color:var(--fix)">G6</div><h3 style="font-size:24px;margin-top:6px">Retention</h3><p style="font-size:17px">1-week and seasonal follow-up</p></div></div>
+    <div class="r" style="--d:2;display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:44px">
+      <div class="eq"><div class="lbl">Stop the activity on</div><div class="num" style="font-family:var(--sans);font-size:21px">gas alarm or suspected leak · uncontrolled access or sound exposure · loss of collection · unexpected motion or structural response · fin damage · process excursion · air-system fault · uncontrolled debris</div></div>
+      <div class="eq hotq"><div class="lbl">Material integrity</div><div class="num" style="font-family:var(--sans);font-size:21px">304L tubes, aluminium fins, 170 °C design wall. No water wash (chloride cracking where water evaporates). No combination credit: DECAMEX may erode the O2T8 film (H20)</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Monitoring stays advisory: no safety credit, no automatic cleaning permissive. Kazakhstan law and Air Liquide standards govern; HSE/OSHA used as references</span><span class="gh">A1401_Safety_and_Hazards_Assessment.md §7–8</span></div>
+  <aside class="notes"><p><b>Say:</b> nothing goes onto the plant without passing these gates. DECAMEX has fewer permanent changes, so it is the practical first trial; coating plus horns needs OEM cure acceptance, acoustic and strain tests and proven collection first.</p><p><b>Acoustic note:</b> 148 dB is sound power at the horn, not worker exposure; an acoustic specialist must measure exposure on site.</p></aside>
+</section>
+
 <section class="slide" aria-label="Clean versus fouled">
-  <div class="hdr"><span class="sec hotsec"><b>04</b>Thermal diagnosis</span><span>10</span></div>
+  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>13</span></div>
   <h2 class="r">On a real hot day, fouling raises the outlet from <span class="f">37 °C</span> to <span class="h">75 °C</span> and halves gas capacity</h2>
   <div class="body" style="display:grid;grid-template-columns:1100px 1fr;gap:60px">
     <svg id="sweepChart" class="r" style="--d:1" width="1100" height="640" viewBox="0 0 1100 640" aria-label="Outlet temperature versus blockage"></svg>
@@ -401,9 +462,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 11. VALIDATION ============ -->
 <section class="slide" aria-label="Model validation">
-  <div class="hdr"><span class="sec"><b>04</b>Is the model right?</span><span>11</span></div>
+  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>14</span></div>
   <h2 class="r">Checked against weeks it never saw, and against <span class="f">the plant's own 2026 cleaning</span></h2>
   <div class="body" style="display:grid;grid-template-columns:820px 1fr;gap:70px">
     <div>
@@ -433,9 +493,42 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 12. MONITORING ============ -->
+<section class="slide" aria-label="Duty recovered per solution">
+  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>15</span></div>
+  <h2 class="r">Duty recovered on the hot day: DECAMEX <span class="f">+242 kW</span>, horns <span class="f">+166 kW</span></h2>
+  <div class="body" style="display:grid;grid-template-columns:1180px 1fr;gap:60px">
+    <svg id="solChart" class="r" style="--d:1" width="1180" height="640" viewBox="0 0 1180 640" aria-label="Outlet temperature per solution"></svg>
+    <div class="stack" style="gap:26px">
+      <div class="kpi fix r" style="--d:2"><div class="v">+16 % <small>gas capacity</small></div><p>DECAMEX, 2 campaigns (1 Jun, 1 Jul). Recovers 77 % of the seasonal loss</p></div>
+      <div class="kpi fix r" style="--d:3"><div class="v">+10 % <small>gas capacity</small></div><p>Horns, 24 short events May–Sep. Recovers 53 % of the seasonal loss</p></div>
+      <div class="kpi grey r" style="--d:4"><div class="v" style="font-size:36px">Neither beats a full clean</div><p>Their value: repeated online, without a shutdown, between turnarounds</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Bars: base case; whiskers: low–high assumed clearance per event. Same day as slide 10. Turnaround + DECAMEX together not yet simulated</span><span class="gh">a1401_solutions_check/SIMULATION_REPORT_v2.md</span></div>
+  <aside class="notes">
+    <p><b>How we credit a solution:</b> we only let it remove the seasonal debris (the part that grows each summer), never the 50–60 % base. Clearance per event is an assumption from the vendor and literature, shown as low / base / high.</p>
+    <p><b>Duty recovered</b> = duty with the solution minus duty with no action, same day, same gas flow. DECAMEX +242 kW (+6.9 %), horns +166 kW (+4.7 %), a full clean on 1 July +310 kW.</p>
+    <p><b>Gas capacity</b> = how much more gas the plant could run at the 65 °C outlet target. Same result at 60 or 70 °C targets.</p>
+    <p><b>If the horns fail</b> to remove fibre, the cooler is very slightly worse than no action (75.0 °C) because we assumed a 1 % installation penalty.</p>
+  </aside>
+</section>
+
+<section class="slide" aria-label="Whole season effect">
+  <div class="hdr"><span class="sec">3 · Engineering / thermal model</span><span>16</span></div>
+  <h2 class="r">Replayed hour by hour over summer 2025: <span class="f">1,000 fewer hours</span> above the 65 °C target</h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
+    <div><div class="cap r" style="margin-bottom:10px">Hours with outlet above 65 °C, Apr–Sep 2025</div><svg id="hoursChart" class="r" style="--d:1" width="820" height="560" viewBox="0 0 820 560" aria-label="Hours above 65 C"></svg></div>
+    <div><div class="cap r" style="margin-bottom:10px">Mean outlet when air ≥ 30 °C, °C</div><svg id="meanChart" class="r" style="--d:2" width="820" height="560" viewBox="0 0 820 560" aria-label="Mean outlet in hot hours"></svg></div>
+  </div>
+  <div class="foot"><span>2,863 historian hours, fans 100 %, air ≥ 10 °C. "No debris" = limit if seasonal debris were fully prevented</span><span class="gh">results_v2/season_2025_scenarios_v2.csv</span></div>
+  <aside class="notes">
+    <p><b>Method:</b> we take every real hour of summer 2025 (real gas flow, real inlet, real air temperature) and replace only the blockage with what each solution would have held. Then we count hours above 65 °C.</p>
+    <p><b>Frequency:</b> more DECAMEX campaigns help (4 campaigns: 1,433 h); more horn events help little (52 instead of 24: −0.4 K) because the sound only reaches part of the deposit.</p>
+  </aside>
+</section>
+
 <section class="slide" aria-label="Predictive monitoring">
-  <div class="hdr"><span class="sec"><b>05</b>Monitoring model</span><span>12</span></div>
+  <div class="hdr"><span class="sec">Performance monitoring model</span><span>17</span></div>
   <h2 class="r">A monitor that tells operators <span class="f">when to clean</span>, built on the same model</h2>
   <div class="body">
     <div style="display:flex;gap:18px;align-items:stretch;height:250px">
@@ -471,139 +564,53 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 13. MATRIX ============ -->
-<section class="slide" aria-label="Comparison of cleaning methods">
-  <div class="hdr"><span class="sec"><b>06</b>Solutions</span><span>13</span></div>
-  <h2 class="r">Five ways to clean A-1401. Ours are <span class="f">dry and run during the season</span></h2>
-  <div class="body" style="top:290px">
-    <table class="mx r" style="--d:1">
-      <thead><tr><th style="width:360px"></th><th>Compressed air</th><th>Water wash</th><th>Chemical / foam</th><th class="ours">1 · Sonic horns + vacuum hood</th><th class="ours">2 · DECAMEX dry powder</th></tr></thead>
-      <tbody>
-        <tr><td>Hot-day outlet (no cleaning 75 °C)</td><td><span class="dot nd"></span>no data</td><td><span class="dot nd"></span>no data</td><td><span class="dot nd"></span>no data</td><td class="ours"><span class="dot y"></span>67 °C</td><td class="ours"><span class="dot g"></span>63 °C</td></tr>
-        <tr><td>Plant must stop?</td><td><span class="dot g"></span>no</td><td><span class="dot y"></span>usually at shutdown</td><td><span class="dot y"></span>usually at shutdown</td><td class="ours"><span class="dot g"></span>no (coating option: once)</td><td class="ours"><span class="dot g"></span>no</td></tr>
-        <tr><td>Water on hot 304L tubes</td><td><span class="dot g"></span>no</td><td><span class="dot rd"></span>yes</td><td><span class="dot rd"></span>yes (rinse)</td><td class="ours"><span class="dot g"></span>no</td><td class="ours"><span class="dot g"></span>no</td></tr>
-        <tr><td>Risk to metal</td><td><span class="dot y"></span>medium</td><td><span class="dot rd"></span>medium–high</td><td><span class="dot rd"></span>high</td><td class="ours"><span class="dot g"></span>low</td><td class="ours"><span class="dot g"></span>low</td></tr>
-        <tr><td>Waste</td><td><span class="dot y"></span>dust blown around</td><td><span class="dot rd"></span>dirty water</td><td><span class="dot rd"></span>chemical water</td><td class="ours"><span class="dot g"></span>dust collected</td><td class="ours"><span class="dot g"></span>dry dust</td></tr>
-        <tr><td>Proven on poplar fluff?</td><td><span class="dot rd"></span>no</td><td><span class="dot y"></span>one plant</td><td><span class="dot rd"></span>no</td><td class="ours"><span class="dot rd"></span>not yet</td><td class="ours"><span class="dot rd"></span>not yet</td></tr>
-        <tr><td>Used in industry?</td><td><span class="dot g"></span>yes</td><td><span class="dot g"></span>yes</td><td><span class="dot g"></span>yes</td><td class="ours"><span class="dot y"></span>parts only</td><td class="ours"><span class="dot g"></span>yes</td></tr>
-      </tbody>
+<section class="slide" aria-label="Economic assessment: CAPEX, OPEX and payback">
+  <div class="hdr"><span class="sec">Economic assessment &amp; lead time</span><span>18</span></div>
+  <h2 class="r">CAPEX / OPEX and payback: <span class="f">DECAMEX needs 39 t H₂ a year to pay back in 3 years</span>, coating + horns 99 t</h2>
+  <div class="body" style="display:grid;grid-template-columns:1.05fr 1fr;gap:48px">
+    <table class="r tight" style="--d:1;align-self:start">
+      <thead><tr><th style="text-align:left">k USD, low / base / high</th><th>S1 coating + horns</th><th>S2 DECAMEX</th></tr></thead>
+      <tbody><tr><td style="text-align:left">Engineering, design, MOC</td><td>15 / 30 / 60</td><td class="fix">—</td></tr><tr><td style="text-align:left">3 horns + regulators/valves</td><td>9 / 18 / 36</td><td class="fix">—</td></tr><tr><td style="text-align:left">Collector, hood, acoustic skirts</td><td>10 / 20 / 40</td><td class="fix">—</td></tr><tr><td style="text-align:left">Controls and electrical</td><td>5 / 10 / 20</td><td class="fix">—</td></tr><tr><td style="text-align:left">Initial coating, hired oven</td><td>15 / 30 / 60</td><td class="fix">—</td></tr><tr><td style="text-align:left">Installation, commissioning</td><td>8 / 16 / 32</td><td class="fix">—</td></tr><tr><td style="text-align:left">Contingency 25 %</td><td>15.5 / 31 / 62</td><td class="fix">—</td></tr><tr><td style="text-align:left">Qualification programme</td><td>15 / 30 / 60</td><td class="fix">—</td></tr><tr><td style="text-align:left">Survey, trial engineering, readiness</td><td>—</td><td class="fix">5 / 10 / 20</td></tr><tr><td style="text-align:left"><b>Initial cash</b></td><td><b>92.5 / 185 / 370</b></td><td class="fix"><b>5 / 10 / 20</b></td></tr><tr><td style="text-align:left">Per campaign (service, travel, waste)</td><td>—</td><td class="fix">8 / 18 / 40</td></tr><tr><td style="text-align:left"><b>OPEX per year</b></td><td><b>10.8 / 37.3 / 137.7</b> (recoat 30)</td><td class="fix"><b>8 / 36 / 160</b> (1–4 campaigns)</td></tr></tbody>
     </table>
-    <p class="small r" style="--d:2;margin-top:26px;font-size:22px"><b style="color:var(--ink)">Rejected as routine:</b> compressed air (guidance: complete removal unlikely), water (chloride cracking of hot 304L, scale, effluent) and chemicals (aluminium fins tolerate only the mildest; wet fins re-foul 5–7× faster).</p>
-  </div>
-  <div class="foot"><span>Evidence labels and 30 sources in the full matrix. Outlet values: our model with assumed clearance</span><span class="gh">a1401_solutions_check/A1401_Solution_Comparison_Matrix.md</span></div>
-  <aside class="notes">
-    <p><b>Sonic horns:</b> compressed-air horns (Primasonics PAS-120) send loud low-frequency sound (120 Hz) through the air; the vibration shakes loose deposits, and a moving vacuum hood collects them. An O2T8 non-stick coating is an optional upgrade, but it needs a 200 °C cure, above the 170 °C design temperature, so we keep it optional.</p>
-    <p><b>DECAMEX:</b> a vendor service (CTP) that blows a fine dry powder through the fins at low pressure, one fan sector at a time, while the plant runs. Used on hundreds of industrial air coolers.</p>
-    <p><b>Chloride stress-corrosion cracking:</b> stainless steel can crack when chloride from water concentrates on a hot surface under stress. Reported at as little as 10 ppm chloride; our tubes run at 60–160 °C.</p>
-    <p><b>Wet fins re-foul faster:</b> lab study (Zhan 2018): wet surfaces collected 4.7–7.4× more particles than dry ones.</p>
-  </aside>
-</section>
-
-<!-- ============ 14. DUTY RECOVERED ============ -->
-<section class="slide" aria-label="Duty recovered per solution">
-  <div class="hdr"><span class="sec"><b>06</b>Duty recovered</span><span>14</span></div>
-  <h2 class="r">Duty recovered on the hot day: DECAMEX <span class="f">+242 kW</span>, horns <span class="f">+166 kW</span></h2>
-  <div class="body" style="display:grid;grid-template-columns:1180px 1fr;gap:60px">
-    <svg id="solChart" class="r" style="--d:1" width="1180" height="640" viewBox="0 0 1180 640" aria-label="Outlet temperature per solution"></svg>
-    <div class="stack" style="gap:26px">
-      <div class="kpi fix r" style="--d:2"><div class="v">+16 % <small>gas capacity</small></div><p>DECAMEX, 2 campaigns (1 Jun, 1 Jul). Recovers 77 % of the seasonal loss</p></div>
-      <div class="kpi fix r" style="--d:3"><div class="v">+10 % <small>gas capacity</small></div><p>Horns, 24 short events May–Sep. Recovers 53 % of the seasonal loss</p></div>
-      <div class="kpi grey r" style="--d:4"><div class="v" style="font-size:36px">Neither beats a full clean</div><p>Their value: repeated online, without a shutdown, between turnarounds</p></div>
-    </div>
-  </div>
-  <div class="foot"><span>Bars: base case; whiskers: low–high assumed clearance per event. Same day as slide 10. Turnaround + DECAMEX together not yet simulated</span><span class="gh">a1401_solutions_check/SIMULATION_REPORT_v2.md</span></div>
-  <aside class="notes">
-    <p><b>How we credit a solution:</b> we only let it remove the seasonal debris (the part that grows each summer), never the 50–60 % base. Clearance per event is an assumption from the vendor and literature, shown as low / base / high.</p>
-    <p><b>Duty recovered</b> = duty with the solution minus duty with no action, same day, same gas flow. DECAMEX +242 kW (+6.9 %), horns +166 kW (+4.7 %), a full clean on 1 July +310 kW.</p>
-    <p><b>Gas capacity</b> = how much more gas the plant could run at the 65 °C outlet target. Same result at 60 or 70 °C targets.</p>
-    <p><b>If the horns fail</b> to remove fibre, the cooler is very slightly worse than no action (75.0 °C) because we assumed a 1 % installation penalty.</p>
-  </aside>
-</section>
-
-<!-- ============ 15. SEASON ============ -->
-<section class="slide" aria-label="Whole season effect">
-  <div class="hdr"><span class="sec"><b>06</b>Over a whole season</span><span>15</span></div>
-  <h2 class="r">Replayed hour by hour over summer 2025: <span class="f">1,000 fewer hours</span> above the 65 °C target</h2>
-  <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
-    <div><div class="cap r" style="margin-bottom:10px">Hours with outlet above 65 °C, Apr–Sep 2025</div><svg id="hoursChart" class="r" style="--d:1" width="820" height="560" viewBox="0 0 820 560" aria-label="Hours above 65 C"></svg></div>
-    <div><div class="cap r" style="margin-bottom:10px">Mean outlet when air ≥ 30 °C, °C</div><svg id="meanChart" class="r" style="--d:2" width="820" height="560" viewBox="0 0 820 560" aria-label="Mean outlet in hot hours"></svg></div>
-  </div>
-  <div class="foot"><span>2,863 historian hours, fans 100 %, air ≥ 10 °C. "No debris" = limit if seasonal debris were fully prevented</span><span class="gh">results_v2/season_2025_scenarios_v2.csv</span></div>
-  <aside class="notes">
-    <p><b>Method:</b> we take every real hour of summer 2025 (real gas flow, real inlet, real air temperature) and replace only the blockage with what each solution would have held. Then we count hours above 65 °C.</p>
-    <p><b>Frequency:</b> more DECAMEX campaigns help (4 campaigns: 1,433 h); more horn events help little (52 instead of 24: −0.4 K) because the sound only reaches part of the deposit.</p>
-  </aside>
-</section>
-
-<!-- ============ 16. SAFETY ============ -->
-<section class="slide" aria-label="Safety and integrity">
-  <div class="hdr"><span class="sec hotsec"><b>07</b>Safety and integrity</span><span>16</span></div>
-  <h2 class="r">Every option has a side effect. We quantified them and <span class="f">designed around them</span></h2>
-  <div class="body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px">
-    <div class="stack r" style="--d:1;gap:18px">
-      <div class="cap" style="color:var(--fix)">1 · Sonic horns</div>
-      <div class="box"><h3>148 dB at the horn</h3><p>hearing-protection zone during 10 s bursts; run at night, remote</p></div>
-      <div class="box"><h3>1 fan off ≈ 24 h / year</h3><p>20 min per sector × 3 × 24 events</p></div>
-      <div class="box"><h3>Coating cure 200 °C &gt; 170 °C design</h3><p>so coating stays optional, only with OEM approval</p></div>
-    </div>
-    <div class="stack r" style="--d:2;gap:18px">
-      <div class="cap" style="color:var(--fix)">2 · DECAMEX</div>
-      <div class="box"><h3>1 fan off: +30 K outlet</h3><p>for 1.6 h per sector, ≈ 9.6 h / year: use a cool night window or trim load</p></div>
-      <div class="box"><h3>Powder on aluminium fins</h3><p>SDS and fin compatibility to confirm with CTP; test on a 0.5 m² patch first</p></div>
-      <div class="box"><h3>Static from powder flow</h3><p>earth the lance; H₂ Ex zone</p></div>
-    </div>
-    <div class="stack r" style="--d:3;gap:18px">
-      <div class="cap" style="color:var(--hot)">All methods, and why not water</div>
-      <div class="box hot"><h3>Chloride cracking of 304L</h3><p>at ≥ 10 ppm Cl where water evaporates; tubes run 60–160 °C</p></div>
-      <div class="box"><h3>H₂ unit: Ex zone</h3><p>pneumatic horns and lances; Ex-rated hood fan</p></div>
-      <div class="box"><h3>Fluff is flammable</h3><p>collect it, never blow it onto hot surfaces. LOTO per fan, work at height</p></div>
-    </div>
-  </div>
-  <div class="foot"><span>Sources: SSINA (chloride SCC), ACC Users Group ACC02, OSHA 1910.242(b), Primasonics PAS-120, CTP references</span><span class="gh">a1401_solutions_check/ (matrix §2, protocols)</span></div>
-  <aside class="notes">
-    <p><b>One fan off:</b> while a sector is cleaned its fan must stop (LOTO = lock-out, tag-out, so nobody can restart it). With the current fouling one fan off raises the outlet about 30 K at constant gas flow, so we schedule it at night when the air is cool.</p>
-    <p><b>Ex zone:</b> area where hydrogen could form an explosive mixture; electrical equipment must be explosion-proof. Horns and DECAMEX are driven by compressed air, so they bring no spark source.</p>
-    <p><b>Material integrity:</b> tubes are 304L stainless, fins aluminium. Dry methods avoid chlorides and scale on the tubes and avoid harsh chemicals on the aluminium.</p>
-  </aside>
-</section>
-
-<!-- ============ 17. ECONOMICS ============ -->
-<section class="slide" aria-label="Economics and lead time">
-  <div class="hdr"><span class="sec"><b>08</b>Economics and lead time</span><span>17</span></div>
-  <h2 class="r">Cost, lead time and payback</h2>
-  <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:70px">
-    <div class="stack" style="gap:22px">
-      <div class="cap r">What each option uses (team estimates)</div>
-      <table class="r" style="--d:1">
-        <thead><tr><th></th><th>Horns</th><th>DECAMEX</th></tr></thead>
+    <div class="stack" style="gap:20px">
+      <div class="eq r" style="--d:2"><div class="lbl">Debottlenecking benefit</div><div class="f">ΔH₂ = Σ ΔV̇<sub>dry</sub> · h · y<sub>H₂</sub> · R<sub>PSA</sub> · ρ<sub>H₂</sub></div><div class="num">= ΔV̇ × h × 0.744 × 0.796 × 0.08988 = <b>0.0532 kg H₂ / Nm³</b></div></div>
+      <div class="eq r" style="--d:3"><div class="lbl">Payback</div><div class="f">payback = C<sub>0</sub> / (ΔH₂ · margin − OPEX)</div><div class="num">illustrative 3,000 Nm³/h × 600 h = <b>95.8 t H₂/yr</b>; at 1 USD/kg: S1 <b>3.2 yr</b>, S2 <b>0.17 yr</b></div></div>
+      <table class="r tight" style="--d:4">
+        <thead><tr><th style="text-align:left">Margin, USD/kg</th><th>0.5</th><th>1.0</th><th>2.0</th></tr></thead>
         <tbody>
-          <tr><td>Events per year</td><td>24</td><td>2</td></tr>
-          <tr><td>Compressed air / event</td><td>15.3 m³</td><td>1,920 m³</td></tr>
-          <tr><td>Energy / event</td><td>5.2 kWh</td><td>259 kWh</td></tr>
-          <tr><td>Consumable / event</td><td>none</td><td>≈ 95 kg powder</td></tr>
-          <tr><td>Fan-off time / year</td><td>≈ 24 h</td><td>≈ 9.6 h</td></tr>
-          <tr><td>New hardware</td><td>3 horns, hood</td><td>none (service)</td></tr>
+          <tr><td style="text-align:left">S1 simple payback, yr</td><td>17.5</td><td>3.2</td><td>1.2</td></tr>
+          <tr><td style="text-align:left">S2 readiness payback, yr</td><td class="fix">0.84</td><td class="fix">0.17</td><td class="fix">0.06</td></tr>
+          <tr><td style="text-align:left">5-yr NPV at 10 %, k USD</td><td>—</td><td>S1 55 · <b style="color:var(--fix)">S2 217</b></td><td>—</td></tr>
         </tbody>
       </table>
-      <div class="eq r" style="--d:2"><div class="lbl">Payback</div><div class="f">payback = CAPEX / (ΔH₂ × margin − OPEX)</div><div class="num">ΔH₂ from extra gas capacity in hot hours (slides 14–15)</div></div>
-    </div>
-    <div class="stack" style="gap:22px">
-      <div class="cap r" style="--d:3;color:var(--warn)">From the team's cost and lead-time file</div>
-      <div class="box r" style="--d:3;border-style:dashed"><h3>CAPEX · OPEX</h3><p>[to fill from the team's economics file]</p></div>
-      <div class="box r" style="--d:4;border-style:dashed"><h3>Lead time</h3><p>[to fill] DECAMEX is a vendor service (no hardware to buy); horns need procurement and installation at a shutdown</p></div>
-      <div class="box r" style="--d:5;border-style:dashed"><h3>Payback</h3><p>[to fill]</p></div>
     </div>
   </div>
-  <div class="foot"><span>Utilities and powder mass are team assumptions, not vendor specifications</span><span class="gh">a1401_solutions_check/A1401_Detailed_Engineering_Protocols_2_corrected.md</span></div>
-  <aside class="notes">
-    <p><b>CAPEX</b> = one-time purchase and installation cost. <b>OPEX</b> = yearly running cost (air, power, powder, service fee). <b>Payback</b> = years until the extra hydrogen sold pays back the purchase.</p>
-    <p>This slide is waiting for the team's economics and lead-time file; the placeholders are marked.</p>
-  </aside>
+  <div class="foot"><span>All money values are team planning allowances (USD, Nov 2026), not quotes. Margin = selling value minus feed, fuel, power: not gross price. No payback has been measured</span><span class="gh">A1401_Technoeconomic_Assessment_and_Lead_Time.md §3–7</span></div>
+  <aside class="notes"><p><b>Say:</b> coating plus horns needs about 185 k USD up front and 37 k a year, mostly for recoating. DECAMEX is a purchased service: about 10 k readiness and 18 k per campaign. With an illustrative 96 t of extra hydrogen a year at 1 USD/kg margin, coating plus horns pays back in about 3 years and DECAMEX in about 2 months.</p><p><b>Hurdle:</b> for a 3-year payback at 1 USD/kg, S1 must deliver 99 t extra H₂ a year, S2 only 39 t. These are economic hurdles, not demonstrated gains. A whole extra 5-day shutdown would cost about 133 t H₂, more than the illustrative annual gain.</p></aside>
 </section>
 
-<!-- ============ 18. RECOMMENDATION ============ -->
+<section class="slide" aria-label="Lead time">
+  <div class="hdr"><span class="sec">Economic assessment &amp; lead time</span><span>19</span></div>
+  <h2 class="r">Equipment lead time: <span class="f">DECAMEX trial in 4–8 weeks</span>; full coating retrofit 16–30 weeks plus a turnaround</h2>
+  <div class="body" style="display:grid;grid-template-columns:1fr 420px;gap:48px">
+    <table class="r tight" style="--d:1;align-self:start">
+      <thead><tr><th style="text-align:left">Workstream (parallel where possible)</th><th style="text-align:left">S1 coating + horns</th><th style="text-align:left">S2 DECAMEX</th></tr></thead>
+      <tbody><tr><td style="text-align:left;width:420px">Survey, samples, access</td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:8.3%;width:8.3%;top:0;bottom:0;background:var(--hot)"></div><div style="position:absolute;left:0;width:8.3%;top:0;bottom:0;background:var(--hot-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">1–2 weeks</div></td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:8.3%;width:8.3%;top:0;bottom:0;background:var(--fix)"></div><div style="position:absolute;left:0;width:8.3%;top:0;bottom:0;background:var(--fix-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">1–2 weeks</div></td></tr><tr><td style="text-align:left;width:420px">Feasibility, materials / acoustic tests</td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:33.3%;width:33.3%;top:0;bottom:0;background:var(--hot)"></div><div style="position:absolute;left:0;width:33.3%;top:0;bottom:0;background:var(--hot-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">4–8 weeks</div></td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:8.3%;width:16.7%;top:0;bottom:0;background:var(--fix)"></div><div style="position:absolute;left:0;width:8.3%;top:0;bottom:0;background:var(--fix-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">1–3 weeks</div></td></tr><tr><td style="text-align:left;width:420px">OEM / site method approval</td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:16.7%;width:33.3%;top:0;bottom:0;background:var(--hot)"></div><div style="position:absolute;left:0;width:16.7%;top:0;bottom:0;background:var(--hot-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">2–6 weeks</div></td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:8.3%;width:16.7%;top:0;bottom:0;background:var(--fix)"></div><div style="position:absolute;left:0;width:8.3%;top:0;bottom:0;background:var(--fix-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">1–3 weeks</div></td></tr><tr><td style="text-align:left;width:420px">Hardware or crew mobilisation</td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:50.0%;width:50.0%;top:0;bottom:0;background:var(--hot)"></div><div style="position:absolute;left:0;width:50.0%;top:0;bottom:0;background:var(--hot-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">6–12 weeks</div></td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:16.7%;width:33.3%;top:0;bottom:0;background:var(--fix)"></div><div style="position:absolute;left:0;width:16.7%;top:0;bottom:0;background:var(--fix-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">2–6 weeks</div></td></tr><tr><td style="text-align:left;width:420px">Customs, freight, logistics</td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:16.7%;width:16.7%;top:0;bottom:0;background:var(--hot)"></div><div style="position:absolute;left:0;width:16.7%;top:0;bottom:0;background:var(--hot-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">2–4 weeks</div></td><td style="width:520px"><span class="small">in mobilisation</span></td></tr><tr><td style="text-align:left;width:420px">Workshop booking, outage alignment</td><td style="width:520px"><div style="position:relative;height:26px;background:var(--panel)"><div style="position:absolute;left:16.7%;width:50.0%;top:0;bottom:0;background:var(--hot)"></div><div style="position:absolute;left:0;width:16.7%;top:0;bottom:0;background:var(--hot-soft)"></div></div><div class="mono" style="font-size:16px;color:var(--ink3);margin-top:4px">2–8 weeks</div></td><td style="width:520px"><span class="small">in mobilisation</span></td></tr>
+        <tr><td style="text-align:left">Plant intervention</td><td style="text-align:left">3–7 days (base 5), bundle removed</td><td style="text-align:left" class="fix">4–12 h per campaign (base 7), online</td></tr>
+      </tbody>
+    </table>
+    <div class="stack" style="gap:28px">
+      <div class="kpi fix r" style="--d:2"><div class="v">4–8<small>weeks</small></div><p>S2 decision to first controlled campaign (8–12 if import or access is difficult)</p></div>
+      <div class="kpi hot r" style="--d:3"><div class="v">8–12<small>weeks</small></div><p>S1 representative pilot; 16–30 weeks full retrofit after qualification, then the next turnaround</p></div>
+      <div class="kpi r" style="--d:4"><div class="v">133 t<small>H₂</small></div><p>cost of one extra 5-day shutdown at 1,107 kg H₂/h: recoating must fit a planned outage</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Team schedule allowances from an accepted order, not vendor commitments. Critical path S1: cure acceptance → coating benefit → shop → turnaround. S2: vendor acceptance → fan-off window → mobilisation</span><span class="gh">A1401_Technoeconomic_Assessment_and_Lead_Time.md §8</span></div>
+  <aside class="notes"><p><b>Say:</b> DECAMEX can be on site in 4 to 8 weeks because it is a service. Coating plus horns needs qualification first, then 16 to 30 weeks, and the bundle must come out for the cure, so it has to wait for a turnaround.</p></aside>
+</section>
+
 <section class="slide" aria-label="Recommendation">
-  <div class="hdr"><span class="sec"><b>09</b>Recommendation</span><span>18</span></div>
+  <div class="hdr"><span class="sec">Recommendation</span><span>20</span></div>
   <h2 class="r">Monitor all year, clean before the peak, and <span class="f">keep the fins dry and open between shutdowns</span></h2>
   <div class="body">
     <svg id="yearPlan" class="r" style="--d:1" width="1728" height="330" viewBox="0 0 1728 330" aria-label="One-year operating plan"></svg>
@@ -621,9 +628,8 @@ aside.notes{display:none}
   </aside>
 </section>
 
-<!-- ============ 19. CRITERIA + REPO ============ -->
 <section class="slide" aria-label="Where to find everything">
-  <div class="hdr"><span class="sec"><b>10</b>Everything is reproducible</span><span>19</span></div>
+  <div class="hdr"><span class="sec">Backup</span><span>21</span></div>
   <h2 class="r">All data, code and full calculations are in the repository</h2>
   <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:70px">
     <table class="r" style="--d:1">
@@ -641,11 +647,11 @@ aside.notes{display:none}
       <div class="cap">Case criteria and where we cover them</div>
       <table>
         <tbody>
-          <tr><td>Technical accuracy &amp; fundamentals (25 %)</td><td>6–11</td></tr>
-          <tr><td>Problem &amp; impact analysis (20 %)</td><td>3–5, 10</td></tr>
-          <tr><td>Monitoring model + backtest (20 %)</td><td>4, 12</td></tr>
-          <tr><td>Practicality &amp; innovation (20 %)</td><td>13–16, 18</td></tr>
-          <tr><td>Economics &amp; lead time (15 %)</td><td>17</td></tr>
+          <tr><td>Technical accuracy &amp; fundamentals (25 %)</td><td>6–9, 13–14</td></tr>
+          <tr><td>Problem &amp; impact analysis (20 %)</td><td>2–5, 13</td></tr>
+          <tr><td>Performance monitoring model + backtest (20 %)</td><td>4, 17</td></tr>
+          <tr><td>Solution practicality &amp; innovation (20 %)</td><td>10–12, 15–16, 20</td></tr>
+          <tr><td>Economic assessment &amp; lead time (15 %)</td><td>18–19</td></tr>
         </tbody>
       </table>
     </div>
@@ -654,9 +660,8 @@ aside.notes{display:none}
   <aside class="notes"><p>Point the judges to the calculations PDF for any number they want to check. Everything on the slides can be regenerated by running the scripts.</p></aside>
 </section>
 
-<!-- ============ 20. GLOSSARY (backup) ============ -->
 <section class="slide" aria-label="Glossary">
-  <div class="hdr"><span class="sec"><b>B</b>Backup · glossary</span><span>20</span></div>
+  <div class="hdr"><span class="sec">Backup</span><span>22</span></div>
   <h2 class="r">Terms in plain words</h2>
   <div class="body" style="top:220px;display:grid;grid-template-columns:1fr 1fr;gap:20px 70px;font-size:21px;line-height:1.4">
     <p><b>Duty (Q)</b> heat removed per second, kW</p>
@@ -691,7 +696,7 @@ aside.notes{display:none}
 <script>
 /* ===== small SVG helpers ===== */
 const NS='http://www.w3.org/2000/svg';
-const C={ink:'#0b0b0c',ink2:'#4b5963',ink3:'#7d8a92',line:'#d6dcdf',hot:'#b8450f',hotS:'#f6e3d8',fix:'#0b80dc',fixS:'#e4f3ff',panel:'#f3f5f6'};
+const C={ink:'#0b0b0c',ink2:'#4b5963',ink3:'#7d8a92',line:'#d6dcdf',hot:'#0a3a75',hotS:'#dbe9f7',fix:'#0b80dc',fixS:'#e4f3ff',panel:'#f3f5f6'};
 function el(t,a,p,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;p&&p.appendChild(e);return e;}
 function T(p,x,y,s,o={}){return el('text',Object.assign({x,y,'font-size':o.fs||18,fill:o.fill||C.ink2,'text-anchor':o.a||'start','font-weight':o.w||400},o.extra||{}),p,s);}
 function axisY(svg,L,R,y,vals,fmt){vals.forEach(v=>{el('line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:C.line,'stroke-width':1},svg);T(svg,L-12,y(v)+6,fmt(v),{a:'end'});});}
