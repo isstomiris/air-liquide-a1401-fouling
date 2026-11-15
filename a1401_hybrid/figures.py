@@ -12,21 +12,17 @@ plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 13, "axes.spines
 
 # H1 outlet on the hot reference day
 pick = [("No in-season action (2025)", "No action (2025)", GREY),
-        ("Horns only (24 events)", "Sonic horns", SKY), ("DECAMEX only (2 campaigns)", "DECAMEX x2", SKY),
         ("Full turnaround clean only (27 Jun)", "Turnaround clean (plant 2026)", SKY),
         ("Full clean + horns", "Turnaround + horns", BLUE), ("DECAMEX 1 Jun + full clean + DECAMEX 1 Aug", "Turnaround + DECAMEX x2", BLUE),
-        ("Full clean + horns + DECAMEX 1 Jun, 1 Aug", "Turnaround + horns + DECAMEX", BLUE),
-        ("Deep clean (base -10 %) + horns", "Deep turnaround (-10 % base) + horns", NAVY),
-        ("Deep clean (base -25 %) + horns", "Deep turnaround (-25 % base) + horns", NAVY),
-        ("Deep clean (base -100 %) + DECAMEX 1 Jun, 1 Aug", "Deep turnaround, base fully removed", NAVY),
-        ("Limit: clean bundle all season", "Clean bundle (model)", PALE)]
-fig, ax = plt.subplots(figsize=(12, 6.6))
+        ("Full clean + horns + DECAMEX 1 Jun, 1 Aug", "Turnaround + horns + DECAMEX x2", NAVY),
+        ("Limit: clean bundle all season", "Clean bundle (model reference)", PALE)]
+fig, ax = plt.subplots(figsize=(12, 4.8))
 for i, (k, lab, c) in enumerate(pick):
     v = R.loc[k, "ref_T_out_C"]; h = R.loc[k, "hours_gt_65C"]
     ax.barh(i, v, color=c, height=0.66)
     ax.text(v + 0.8, i, f"{v:.1f} °C   ·   {h:,} h > 65 °C", va="center", fontsize=12, color=INK)
 ax.set_yticks(range(len(pick))); ax.set_yticklabels([p[1] for p in pick]); ax.invert_yaxis()
-ax.axvline(65, color=BLUE, ls="--", lw=1.3); ax.text(65.5, -0.75, "65 °C target", color=BLUE, fontsize=12)
+ax.axvline(65, color=BLUE, ls="--", lw=1.3); ax.text(65.5, -0.62, "65 °C target", color=BLUE, fontsize=12)
 ax.set_xlim(0, 105); ax.set_xlabel("Syngas outlet on the hot day (18 Jul 2025, air 31.8 °C), °C")
 fig.tight_layout(rect=(0, 0.05, 1, 1))
 fig.text(0.01, 0.012, "Hours > 65 °C: season 2025 replayed hour by hour. Cleaning at the 27 Jun stop; before it the plant runs as in 2025. Horn hardware costs ~0.4 K on the hot day.", fontsize=10.5, color="#555"); fig.savefig(os.path.join(FIG, "h1_hybrid_outlet.png"), dpi=170); plt.close(fig)
@@ -53,17 +49,16 @@ ax[1].set_title("Extra hydrogen vs today's turnaround clean", loc="left", fontsi
 fig.tight_layout(); fig.savefig(os.path.join(FIG, "h2_base_removal.png"), dpi=170); plt.close(fig)
 
 # H3 economics: net per year vs no action with low-high whiskers
-plans = ["Horns", "DECAMEX x2", "Turnaround clean (current practice)", "Turnaround + horns", "Turnaround + DECAMEX x2",
-         "Turnaround + horns + DECAMEX x2", "Deep turnaround (-10 % base) + horns", "Deep turnaround (-25 % base) + horns"]
-cols = [SKY, SKY, GREY, BLUE, BLUE, BLUE, NAVY, NAVY]
-fig, ax = plt.subplots(figsize=(12, 6))
+plans = ["Horns", "DECAMEX x2"]
+cols = [SKY, BLUE]
+fig, ax = plt.subplots(figsize=(12, 3.2))
 for i, p in enumerate(plans):
     s = E[E.plan == p].set_index("case")["net_vs_no_action_kUSD_yr"]
     ax.barh(i, s["central"], color=cols[i], height=0.62)
     ax.plot([s["low"], s["high"]], [i, i], color=INK, lw=1.3); ax.plot([s["low"]] * 2, [i - .15, i + .15], color=INK, lw=1.3); ax.plot([s["high"]] * 2, [i - .15, i + .15], color=INK, lw=1.3)
     ax.text(s["high"] + 15, i, f"{s['central']:,.0f} k USD/yr", va="center", fontsize=12)
-ax.set_yticks(range(len(plans))); ax.set_yticklabels([p.replace(" (current practice)", "\n(plant practice 2026)") for p in plans]); ax.invert_yaxis()
-ax.set_xlabel("Net value per year vs no action, k USD (bar: central; line: low-high)"); ax.set_xlim(0, 1350)
+ax.set_yticks(range(len(plans))); ax.set_yticklabels(["Sonic horns\n(24 events)", "DECAMEX\n(2 campaigns)"]); ax.invert_yaxis()
+ax.set_xlabel("Net value per year vs no action, k USD (bar: central; line: low-high)"); ax.set_xlim(0, 600)
 fig.tight_layout(); fig.savefig(os.path.join(FIG, "h3_economics.png"), dpi=170); plt.close(fig)
 
 # H4 season blockage trace

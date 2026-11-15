@@ -316,64 +316,38 @@ aside.notes{display:none}
   <aside class="notes"><p><b>How it works:</b> every hour the monitor reads inlet and outlet temperature, gas flow, fan output and air temperature, finds the blockage that matches, and projects it 30 days ahead with last year's weather. It triggers a cleaning when the forecast crosses the threshold.</p><p><b>Honest note:</b> on the real 2025–26 data the forecaster is about as good as "no change" because fouling moves slowly; its value is the health number and the alarm.</p></aside>
 </section>
 
-<section class="slide" aria-label="Hybrid strategies">
-  <div class="hdr"><span class="sec"><b>06</b>Hybrid solutions</span><span>10</span></div>
-  <h2 class="r">We replayed 2025 hour by hour with every combination: <span class="f">combining with the turnaround clean is what counts</span></h2>
-  <div class="body" style="display:grid;grid-template-columns:1.55fr 1fr;gap:48px">
-    <div class="r" style="--d:1;display:flex;flex-direction:column;height:100%"><div class="figbox" style="flex:1;min-height:0"><img class="fig" src="img/h1_hybrid_outlet.png" alt="Hot-day outlet and hours above 65 °C for 11 strategies"></div></div>
-    <div class="stack" style="gap:28px">
-      <div class="kpi r" style="--d:2"><div class="v">2,651 → 1,347<small>h &gt; 65 °C</small></div><p>a turnaround clean alone (what the plant did in 2026)</p></div>
-      <div class="kpi fix r" style="--d:3"><div class="v">→ 1,158<small>h</small></div><p>adding horns and DECAMEX between stops: they stop new fluff piling up</p></div>
-      <div class="kpi hot r" style="--d:4"><div class="v">57 °C<small>floor</small></div><p>no seasonal method beats it: the 50–60 % base stays. Only a deep clean of the base gets closer to 37 °C.</p></div>
-    </div>
-  </div>
-  <div class="foot"><span>Same wet model and clearance inputs as the solution files; three-pool debris model (horns reach 50 %, DECAMEX 90 %)</span><span class="gh">a1401_hybrid/simulate_hybrid.py · results/hybrid_scenarios.csv</span></div>
-  <aside class="notes"><p><b>What we combined:</b> sonic horns (24 short events a season), DECAMEX dry powder (online campaigns), and the full turnaround clean (27 Jun stop). Each new deposit splits into what horns can reach, what only DECAMEX can reach, and what neither reaches.</p><p><b>Why horns look 0.4 K worse on the hot day:</b> the horn hardware itself blocks a little air; over the season horns still cut 130 hours above 65 °C.</p></aside>
-</section>
 
-<section class="slide" aria-label="Reaching the clean bundle">
-  <div class="hdr"><span class="sec"><b>06</b>Getting close to the clean bundle</span><span>11</span></div>
-  <h2 class="r">To approach 37 °C the turnaround must remove part of the <span class="h">base</span>: a deep clean, with DECAMEX through all six rows</h2>
-  <div class="body" style="display:grid;grid-template-columns:1.6fr 1fr;gap:48px">
-    <div class="r" style="--d:1;display:flex;flex-direction:column;height:100%"><div class="figbox" style="flex:1;min-height:0"><img class="fig" src="img/h2_base_removal.png" alt="Outlet and extra hydrogen versus share of base removed"></div></div>
-    <div class="stack" style="gap:28px">
-      <div class="kpi fix r" style="--d:2"><div class="v">≥ 6–7 %<small>of base</small></div><p>must come off for the deep clean (≈ 60 k USD) to pay in one season</p></div>
-      <div class="kpi r" style="--d:3"><div class="v">25 %<small>of base</small></div><p>already lets the plant run its full cool-weather gas flow after the stop: 46.6 °C on the hot day</p></div>
-      <div class="kpi hot r" style="--d:4"><div class="v">Unknown today</div><p>the inspection at the next stop decides: debris (removable) or bent fins and louvres (repair)</p></div>
-    </div>
-  </div>
-  <div class="foot"><span>What-if cases: share of base removed is a hypothesis, not a measurement. Extra gas capped at the cool-weather median flow 25,052 Nm³/h</span><span class="gh">a1401_hybrid/results/hybrid_scenarios.csv</span></div>
-  <aside class="notes"><p><b>Key message:</b> the clean bundle is a model reference. Reaching it means removing the 50–60 % base, which no cleaning so far has done. If the base is old compacted debris, DECAMEX through all six rows at the stop can reach it; if it is bent fins or stuck louvres, it needs repair, not cleaning.</p><p><b>Good news:</b> the plant does not need the full clean bundle. Removing a quarter of the base already lets it run full gas after the stop.</p></aside>
-</section>
 
-<section class="slide" aria-label="Top two strategies compared">
-  <div class="hdr"><span class="sec"><b>06</b>The two best combinations</span><span>12</span></div>
-  <h2 class="r">Turnaround + horns works today. <span class="f">Deep turnaround + horns</span> pays more if the base comes off</h2>
+
+
+<section class="slide" aria-label="Horns versus DECAMEX">
+  <div class="hdr"><span class="sec"><b>06</b>The two solutions compared</span><span>10</span></div>
+  <h2 class="r">Both cut the hot hours. <span class="f">DECAMEX recovers more</span>, costs nothing up front and can start sooner</h2>
   <div class="body">
     <table class="cmp r" style="--d:1">
-      <thead><tr><th></th><th>No action (2025)</th><th>Turnaround + horns</th><th style="background:var(--fix-soft);color:var(--fix)">Deep turnaround + horns<br>(−10 % / −25 % base)</th></tr></thead>
+      <thead><tr><th></th><th>No action (2025)</th><th>1 · Sonic horns + vacuum hood</th><th style="background:var(--fix-soft);color:var(--fix)">2 · DECAMEX dry cleaning</th></tr></thead>
       <tbody>
-        <tr><td>Outlet on the hot day</td><td>75.5 °C</td><td>57.5 °C</td><td class="fix">53.4 / 46.9 °C</td></tr>
-        <tr><td>Hours above 65 °C, season</td><td>2,651</td><td>1,214</td><td class="fix">1,092 / 1,076</td></tr>
-        <tr><td>Extra H₂ per season (upper)</td><td>—</td><td>386 t</td><td class="fix">495 / 601 t</td></tr>
-        <tr><td>CAPEX</td><td>—</td><td>90 k USD (horns)</td><td>90 k USD (horns)</td></tr>
-        <tr><td>OPEX per year</td><td>—</td><td>15 k USD</td><td>75 k USD (deep clean 60 k)</td></tr>
-        <tr><td>Net value per year vs no action</td><td>—</td><td>564 k USD</td><td class="fix">667 / 826 k USD</td></tr>
-        <tr><td>Extra vs plant practice (turnaround only)</td><td>—</td><td>+34 k USD/yr · payback 32 months</td><td class="fix">+136 / +295 k USD/yr · payback 4–8 months</td></tr>
-        <tr><td>Lead time</td><td>—</td><td>horns 8–12 weeks</td><td>horns 8–12 weeks; deep clean at the next stop</td></tr>
-        <tr><td>What must be true</td><td>—</td><td>a late-June stop each year</td><td>the stop, and ≥ 6–7 % of the base removable</td></tr>
+        <tr><td>How it works</td><td>—</td><td>sound waves shake fluff loose, hood vacuums it; 24 short events May–Sep</td><td class="fix">dry powder blown through the fins by lance; 2 campaigns (1 Jun, 1 Jul)</td></tr>
+        <tr><td>Outlet on the hot day (range)</td><td>75.2 °C</td><td>67.1 °C (62.4–72.5)</td><td class="fix">63.2 °C (60.1–69.6)</td></tr>
+        <tr><td>Duty recovered · gas capacity</td><td>—</td><td>+166 kW · +10 %</td><td class="fix">+242 kW · +16 %</td></tr>
+        <tr><td>Hours above 65 °C, season 2025</td><td>2,651</td><td>1,921</td><td class="fix">1,605</td></tr>
+        <tr><td>Extra H₂ per season (upper)</td><td>—</td><td>178 t</td><td class="fix">240 t</td></tr>
+        <tr><td>CAPEX · OPEX per year</td><td>—</td><td>90 k · 15 k USD</td><td class="fix">0 · 64 k USD</td></tr>
+        <tr><td>Net value per year · payback</td><td>—</td><td>251 k USD · 4 months</td><td class="fix">295 k USD · no investment</td></tr>
+        <tr><td>Lead time</td><td>—</td><td>8–12 weeks</td><td class="fix">4–8 weeks</td></tr>
+        <tr><td>Plant stays online?</td><td>—</td><td>yes, one fan off 20 min per sector</td><td class="fix">yes, one fan off 1.6 h per sector</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="foot"><span>Central case: H₂ margin 1.5 USD/kg; costs are team order-of-magnitude estimates, not quotes</span><span class="gh">a1401_hybrid/results/economics.csv</span></div>
-  <aside class="notes"><p><b>Why these two:</b> they top the season replay and the money. Adding online DECAMEX on top of a turnaround clean recovers about the same as horns but costs more each year (−18 k USD/yr central), so DECAMEX is better spent once, deep, at the stop.</p><p><b>Payback:</b> CAPEX divided by the yearly net gain over what the plant does today.</p></aside>
+  <div class="foot"><span>Season 2025 replayed hour by hour; base clearance values from the solution protocols (revision 2). Costs: central team estimates, H₂ margin 1.5 USD/kg</span><span class="gh">a1401_solutions_check/ · a1401_hybrid/results/economics.csv</span></div>
+  <aside class="notes"><p><b>Why DECAMEX comes out ahead:</b> it reaches about 90 % of the new fluff (lances go between rows) against about 50 % for horns, which mostly clean the bottom rows. It needs no hardware on the cooler, so there is no CAPEX and no extra air blockage.</p><p><b>Why keep horns:</b> once installed they run often and cheaply; they become attractive if a pilot shows they release poplar fluff.</p></aside>
 </section>
 
 <section class="slide" aria-label="Economics and lead time">
-  <div class="hdr"><span class="sec"><b>07</b>Economics and lead time</span><span>13</span></div>
-  <h2 class="r">Every option pays back within a season against no action. <span class="f">The extra spend on the deep clean pays most.</span></h2>
+  <div class="hdr"><span class="sec"><b>07</b>Economics and lead time</span><span>11</span></div>
+  <h2 class="r">Both solutions pay back within one season. <span class="f">DECAMEX needs no investment at all.</span></h2>
   <div class="body" style="display:grid;grid-template-columns:1.25fr 1fr;gap:48px">
-    <div class="r" style="--d:1;display:flex;flex-direction:column;height:100%"><div class="figbox" style="flex:1;min-height:0"><img class="fig" src="img/h3_economics.png" alt="Net value per year by strategy with low-high range"></div></div>
+    <div class="r" style="--d:1;display:flex;flex-direction:column;height:100%"><div class="figbox" style="flex:0 0 auto;height:330px"><img class="fig" src="img/h3_economics.png" alt="Net value per year for horns and DECAMEX with low-high range"></div><div class="stack" style="gap:24px;margin-top:34px"><div class="kpi fix"><div class="v">295 k USD<small>per year, DECAMEX</small></div><p>no CAPEX; 2 campaigns ≈ 64 k USD a year; bookable in 4–8 weeks</p></div><div class="kpi"><div class="v">4 months<small>payback, horns</small></div><p>90 k USD CAPEX, 251 k USD net a year (13 months in the pessimistic case)</p></div></div></div>
     <div class="stack" style="gap:18px">
       <table class="r" style="--d:2">
         <thead><tr><th style="text-align:left">Item (team estimate)</th><th>Cost, k USD</th><th>Lead time</th></tr></thead>
@@ -381,21 +355,20 @@ aside.notes{display:none}
           <tr><td style="text-align:left">Sonic horns ×3 + hood, CAPEX</td><td>50–150</td><td>8–12 wk</td></tr>
           <tr><td style="text-align:left">Horns OPEX incl. fan-off loss</td><td>12–18 / yr</td><td>—</td></tr>
           <tr><td style="text-align:left">DECAMEX online campaign</td><td>15–60 each</td><td>4–8 wk</td></tr>
-          <tr><td style="text-align:left">Deep-clean add-on at the stop</td><td>30–120</td><td>next stop</td></tr>
           <tr><td style="text-align:left">Monitor (existing PI tags)</td><td>5–20</td><td>2–4 wk</td></tr>
         </tbody>
       </table>
       <div class="eq r" style="--d:3"><div class="lbl">Payback from debottlenecking</div><div class="f">payback = CAPEX / (ΔH₂ × margin − OPEX)</div><div class="num">ΔH₂ = extra gas in hours the cooler limits the plant × 0.744 × 0.796 × 0.0899 kg/Nm³; margin 1.0–2.0 USD/kg</div></div>
     </div>
   </div>
-  <div class="foot"><span>Costs are order-of-magnitude estimates to be replaced by vendor quotes. A dedicated stop (not a planned turnaround) would cost ≈ 250 t H₂ in lost output</span><span class="gh">a1401_hybrid/economics.py</span></div>
-  <aside class="notes"><p><b>Where the money comes from:</b> extra hydrogen in the hours when the cooler is the bottleneck (outlet above 65 °C). We cap the extra gas at what the plant runs in cool weather, so we never claim more than the plant can make. It is still an upper estimate because it assumes the extra hydrogen can be sold.</p><p><b>Turnaround clean:</b> counted as free because the plant already did it at the planned June–July 2026 turnaround. If it needed its own 10-day stop, that stop alone would cost about 250 t H₂.</p></aside>
+  <div class="foot"><span>Costs are order-of-magnitude team estimates to be replaced by vendor quotes. Extra gas capped at the cool-weather flow, so never more than the plant can make</span><span class="gh">a1401_hybrid/economics.py · results/economics.csv</span></div>
+  <aside class="notes"><p><b>Where the money comes from:</b> extra hydrogen in the hours when the cooler is the bottleneck (outlet above 65 °C). We cap the extra gas at what the plant runs in cool weather. It is an upper estimate because it assumes the extra hydrogen can be sold.</p><p><b>Horns:</b> 90 k USD CAPEX, about 251 k USD net per year, so payback in about 4 months (13 months in the pessimistic case). <b>DECAMEX:</b> a service, no CAPEX, about 64 k USD per year for two campaigns.</p></aside>
 </section>
 
 <section class="slide" aria-label="Safety and integrity">
-  <div class="hdr"><span class="sec"><b>07</b>Safety and integrity</span><span>14</span></div>
+  <div class="hdr"><span class="sec"><b>07</b>Safety and integrity</span><span>12</span></div>
   <h2 class="r">Every option has a side effect. We quantified them and <span class="f">designed around them</span></h2>
-  <div class="body" style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+  <div class="body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px">
     <div class="stack r" style="--d:1;gap:18px">
       <div class="cap" style="color:var(--fix)">1 · Sonic horns</div>
       <div class="box"><h3>148 dB at the horn</h3><p>hearing-protection zone during 10 s bursts; run at night, remote</p></div>
@@ -409,12 +382,6 @@ aside.notes{display:none}
       <div class="box"><h3>Static from powder flow</h3><p>earth the lance; H₂ Ex zone</p></div>
     </div>
     <div class="stack r" style="--d:3;gap:18px">
-      <div class="cap" style="color:var(--fix)">3 · Deep turnaround clean</div>
-      <div class="box"><h3>Plant stopped, purged</h3><p>no H₂ in the bundle; gas test before entry, permit to work</p></div>
-      <div class="box"><h3>Work at height, inside plenum</h3><p>scaffold under the bundle, harness, confined-space rules</p></div>
-      <div class="box"><h3>Fin damage while cleaning</h3><p>lances kept off the fins; borescope before and after</p></div>
-    </div>
-    <div class="stack r" style="--d:4;gap:18px">
       <div class="cap" style="color:var(--hot)">All methods, and why not water</div>
       <div class="box hot"><h3>Chloride cracking of 304L</h3><p>at ≥ 10 ppm Cl where water evaporates; tubes run 60–160 °C</p></div>
       <div class="box"><h3>H₂ unit: Ex zone</h3><p>pneumatic horns and lances; Ex-rated hood fan</p></div>
@@ -430,44 +397,44 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Decision matrix">
-  <div class="hdr"><span class="sec"><b>08</b>Decision matrix</span><span>15</span></div>
-  <h2 class="r">Today the plant's turnaround clean and our deep hybrid tie. <span class="f">The inspection breaks the tie.</span></h2>
+  <div class="hdr"><span class="sec"><b>08</b>Decision matrix</span><span>13</span></div>
+  <h2 class="r">The decision matrix recommends <span class="f">DECAMEX as the main solution</span>, with horns as the next step after a pilot</h2>
   <div class="body">
     <table class="dm r" style="--d:1">
-      <thead><tr><th style="text-align:left">Option</th><th>Cooling<br>30 %</th><th>Economics<br>25 %</th><th>Safety<br>15 %</th><th>Certainty<br>15 %</th><th>Feasibility<br>15 %</th><th>Score today</th><th>After inspection</th></tr></thead>
+      <thead><tr><th style="text-align:left">Option</th><th>Cooling<br>30 %</th><th>Economics<br>25 %</th><th>Safety<br>15 %</th><th>Certainty<br>15 %</th><th>Feasibility<br>15 %</th><th>Score</th><th>After a successful pilot</th></tr></thead>
       <tbody>
-        <tr><td style="text-align:left">Sonic horns</td><td>2.9</td><td>2.5</td><td>3</td><td>2</td><td>3</td><td>2.69</td><td>2.69</td></tr>
-        <tr><td style="text-align:left">DECAMEX ×2 online</td><td>3.7</td><td>2.8</td><td>4</td><td>3</td><td>4</td><td>3.45</td><td>3.45</td></tr>
-        <tr><td style="text-align:left">Turnaround clean (plant 2026)</td><td>4.3</td><td>4.2</td><td>4</td><td>5</td><td>3</td><td class="w">4.15</td><td>4.15</td></tr>
-        <tr><td style="text-align:left">Turnaround + horns</td><td>4.7</td><td>4.4</td><td>3</td><td>4</td><td>3</td><td>4.00</td><td>4.00</td></tr>
-        <tr><td style="text-align:left">Deep turnaround</td><td>4.7</td><td>4.8</td><td>4</td><td>3 → 5</td><td>3</td><td>4.09</td><td>4.39</td></tr>
-        <tr class="win"><td style="text-align:left"><b>Deep turnaround + horns</b></td><td>5.0</td><td>5.0</td><td>3</td><td>3 → 5</td><td>3</td><td>4.10</td><td class="w">4.40</td></tr>
+        <tr><td style="text-align:left">No action (2025)</td><td>1.0</td><td>1.0</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td style="text-align:left">1 · Sonic horns + vacuum hood</td><td>2.8</td><td>2.7</td><td>3</td><td>2</td><td>3</td><td>2.71</td><td>2.86</td></tr>
+        <tr class="win"><td style="text-align:left"><b>2 · DECAMEX dry cleaning</b></td><td>3.6</td><td>3.0</td><td>4</td><td>3</td><td>4</td><td class="w">3.47</td><td class="w">3.62</td></tr>
       </tbody>
     </table>
-    <p class="small r" style="--d:2;margin-top:24px;font-size:21px">Cooling and economics are computed from the season replay (1–5 linear scale; deep options at the conservative −10 % base case). Safety, certainty and feasibility are team judgement: horns lose a point for 148 dB and fan stops; deep options lose certainty until the base is inspected.</p>
+    <p class="small r" style="--d:2;margin-top:24px;font-size:21px">Cooling: hours above 65 °C on a 1–5 scale, where 1 = no action (2,651 h) and 5 = no seasonal debris at all (1,032 h). Economics: net value per year, 1 = 0 and 5 = 600 k USD. Safety, certainty and feasibility are team judgement: horns lose points for 148 dB, more fan stops, an 8–12 week order and no test on poplar fluff. Neither is proven on poplar fluff, so both gain a point after a pilot.</p>
   </div>
-  <div class="foot"><span>Weights chosen by the team before scoring</span><span class="gh">a1401_hybrid/decision_matrix.py · results/decision_matrix.csv</span></div>
-  <aside class="notes"><p><b>Read it like this:</b> each option gets 1–5 per criterion; the score is the weighted sum. The plant's current practice is very certain, so today it is level with our hybrid. Once the turnaround inspection shows the base comes off, the deep hybrid wins clearly.</p></aside>
+  <div class="foot"><span>Weights chosen by the team before scoring. Water wash, compressed air and chemicals were rejected earlier (chloride cracking, incomplete removal, fin damage)</span><span class="gh">a1401_hybrid/decision_matrix.py · A1401_Solution_Comparison_Matrix.md</span></div>
+  <aside class="notes"><p><b>Read it like this:</b> each option gets 1–5 per criterion and the score is the weighted sum. DECAMEX wins on cooling, money, safety and lead time. Horns stay as the development option: cheap to run once installed, but not yet shown to work on poplar fluff.</p></aside>
 </section>
 
 <section class="slide" aria-label="Recommendation">
-  <div class="hdr"><span class="sec"><b>09</b>Recommendation</span><span>16</span></div>
-  <h2 class="r">Monitor all year, <span class="f">make the turnaround clean deep</span>, and keep the fins open with horns between stops</h2>
+  <div class="hdr"><span class="sec"><b>09</b>Recommendation</span><span>14</span></div>
+  <h2 class="r">Monitor all year, <span class="f">clean with DECAMEX before the peak</span>, and pilot the horns</h2>
   <div class="body">
     <svg id="yearPlan" class="r" style="--d:1" width="1728" height="330" viewBox="0 0 1728 330" aria-label="One-year operating plan"></svg>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:40px">
-      <div class="kpi fix r" style="--d:2"><div class="v" style="font-size:34px">Inspect the base</div><p>borescope + fin check at the next stop; test DECAMEX on a 0.5 m² patch</p></div>
-      <div class="kpi r" style="--d:3"><div class="v" style="font-size:34px">If it comes off</div><p>deep clean every turnaround: +136 to +295 k USD/yr over today</p></div>
-      <div class="kpi r" style="--d:4"><div class="v" style="font-size:34px">If not</div><p>turnaround + horns; repair fins and louvres, which cleaning cannot fix</p></div>
-      <div class="kpi r" style="--d:5"><div class="v" style="font-size:34px">Get quotes</div><p>horns and DECAMEX vendors, to replace our cost estimates</p></div>
+      <div class="kpi fix r" style="--d:2"><div class="v" style="font-size:34px">Book DECAMEX</div><p>2 campaigns (1 Jun, 1 Jul) or on alarm: 4–8 weeks lead time, no investment</p></div>
+      <div class="kpi r" style="--d:3"><div class="v" style="font-size:34px">Inspect the base</div><p>the 50–60 % that no cleaning removes: debris, louvres or damaged fins</p></div>
+      <div class="kpi r" style="--d:4"><div class="v" style="font-size:34px">Measure D-1403 condensate</div><p>pins down water content, our largest model uncertainty</p></div>
+      <div class="kpi r" style="--d:5"><div class="v" style="font-size:34px">Pilot horns + get quotes</div><p>0.5 m² patch on real fluff; vendor prices to replace our estimates</p></div>
     </div>
   </div>
-  <div class="foot"><span>2026 confirmed the timing: cleaning in late June gave 62 % at end of summer vs 72 % in 2025</span><span class="gh">a1401_hybrid/ · A1401_Solutions_Defense_Summary_2_corrected.md</span></div>
-  <aside class="notes"><p><b>Our pitch in one sentence:</b> the monitor says when, the turnaround clean done deep removes the old base, and horns stop new fluff piling up between stops. The first step costs almost nothing: look at the base at the next stop.</p></aside>
+  <div class="foot"><span>2026 confirmed the timing: cleaning in late June gave 62 % at end of summer vs 72 % in 2025</span><span class="gh">A1401_Solutions_Defense_Summary_2_corrected.md</span></div>
+  <aside class="notes">
+    <p><b>Our pitch in one sentence:</b> the monitor tells you when, the turnaround clean does the deep clean before the hottest weeks, and a dry online method (DECAMEX first, horns as the development option) stops fluff from piling up again between shutdowns.</p>
+    <p><b>Why a pilot first:</b> no published test shows either method removing poplar fluff. Poplar seed fibre repels water and holds oil, so we must test on the real material.</p>
+  </aside>
 </section>
 
 <section class="slide" aria-label="Where to find everything">
-  <div class="hdr"><span class="sec"><b>10</b>Everything is reproducible</span><span>17</span></div>
+  <div class="hdr"><span class="sec"><b>10</b>Everything is reproducible</span><span>15</span></div>
   <h2 class="r">All data, code and full calculations are in the repository</h2>
   <div class="body" style="display:grid;grid-template-columns:1fr 1fr;gap:70px">
     <table class="r" style="--d:1">
@@ -478,7 +445,7 @@ aside.notes{display:none}
         <tr><td class="mono">a1401_solutions_check/</td><td style="text-align:left">solution simulation, matrix, protocols</td></tr>
         <tr><td class="mono">a1401_monitor/</td><td style="text-align:left">monitor, backtests, dashboards</td></tr>
         <tr><td class="mono">plant_history/ · weather/</td><td style="text-align:left">hourly plant data, ERA5 weather</td></tr>
-        <tr><td class="mono">a1401_hybrid/</td><td style="text-align:left">hybrid combinations, economics, decision matrix</td></tr>
+        <tr><td class="mono">a1401_hybrid/</td><td style="text-align:left">economics and decision matrix</td></tr>
         <tr><td class="mono">a1401-3d/</td><td style="text-align:left">interactive 3D model of the cooler</td></tr>
       </tbody>
     </table>
@@ -489,8 +456,8 @@ aside.notes{display:none}
           <tr><td>Technical accuracy &amp; fundamentals (25 %)</td><td>5–8</td></tr>
           <tr><td>Problem &amp; impact analysis (20 %)</td><td>2–4, 8</td></tr>
           <tr><td>Monitoring model + backtest (20 %)</td><td>9</td></tr>
-          <tr><td>Practicality &amp; innovation (20 %)</td><td>10–12, 14–16</td></tr>
-          <tr><td>Economics &amp; lead time (15 %)</td><td>12–13</td></tr>
+          <tr><td>Practicality &amp; innovation (20 %)</td><td>10, 12–14</td></tr>
+          <tr><td>Economics &amp; lead time (15 %)</td><td>10–11</td></tr>
         </tbody>
       </table>
     </div>
@@ -500,7 +467,7 @@ aside.notes{display:none}
 </section>
 
 <section class="slide" aria-label="Glossary">
-  <div class="hdr"><span class="sec"><b>B</b>Backup · glossary</span><span>18</span></div>
+  <div class="hdr"><span class="sec"><b>B</b>Backup · glossary</span><span>16</span></div>
   <h2 class="r">Terms in plain words</h2>
   <div class="body" style="top:220px;display:grid;grid-template-columns:1fr 1fr;gap:20px 70px;font-size:21px;line-height:1.4">
     <p><b>Duty (Q)</b> heat removed per second, kW</p>
@@ -573,7 +540,7 @@ function axisY(svg,L,R,y,vals,fmt){vals.forEach(v=>{el('line',{x1:L,x2:R,y1:y(v)
   const L=360,R=1720,w=(R-L)/12,x=i=>L+w*i;
   m.forEach((s,i)=>{T(svg,x(i)+w/2,24,s,{a:'middle',fs:18});el('line',{x1:x(i),x2:x(i),y1:36,y2:320,stroke:C.muted||'#e8ecee'},svg);});
   el('rect',{x:x(4),y:36,width:w*4,height:284,fill:C.hotS,opacity:.6},svg);T(svg,x(6),312,'fluff and heat season',{a:'middle',fill:C.hot,fs:17});
-  const rows=[['Monitor (health + alarm)',0,12,C.ink3,'all year'],['Deep turnaround clean',5.85,6.25,C.hot,'late June: + inspect base'],['Sonic horns',4,9,C.fix,'24 short events, May–Sep'],['DECAMEX (no-stop years)',5,5.12,C.fixS,'1 Jun'],['',6,6.12,C.fixS,'1 Jul · or on alarm']];
+  const rows=[['Monitor (health + alarm)',0,12,C.ink3,'all year'],['DECAMEX campaigns',5,5.12,C.fix,'1 Jun'],['',6,6.12,C.fix,'1 Jul · or on alarm'],['Turnaround clean (plant)',5.85,6.25,C.ink,'late June, when planned'],['Sonic horns (after pilot)',4,9,C.fixS,'24 short events']];
   let r=0;rows.forEach(([lab,a,b,col,note])=>{if(lab)r++;const yy=40+r*52;if(lab)T(svg,L-16,yy+24,lab,{a:'end',fill:C.ink,fs:19});
     const rc=el('rect',{x:x(a),y:yy,width:Math.max(x(b)-x(a),14),height:32,fill:col,class:'growx'},svg);rc.style.setProperty('--d',r);
     T(svg,x(b)+10,yy+23,note,{fs:17,fill:C.ink2});});

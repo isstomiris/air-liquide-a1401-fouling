@@ -1,6 +1,6 @@
 # A-1401 hybrid cleaning strategies
 
-Combinations of sonic horns, DECAMEX and the turnaround clean, replayed hour by hour over season 2025 on the same
+Season replay (incl. combinations of sonic horns, DECAMEX and the turnaround clean; not used in the deck) on the same
 wet model as `a1401_solutions_check/`, plus quick economics and the decision matrix used in the deck.
 
 Run in order (needs the packages of `a1401_clean_vs_fouled/` and matplotlib):
