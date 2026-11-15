@@ -1,0 +1,13 @@
+case  S1 initial  S1 OPEX/yr   S2 readiness  S2 per campaign  S2 OPEX/yr   (k USD)
+low        45.0        2.7          3.0            7.0         7.0
+base       82.5        8.6          6.0           15.0        30.0
+high      157.5       27.9         12.0           33.0       132.0
+
+Illustrative benefit 95.81 t H2/yr (base costs)
+margin 0.5: S1 net   39.3 payback  2.10 yr | S2 net   17.9 payback  0.34 yr
+margin 1.0: S1 net   87.2 payback  0.95 yr | S2 net   65.8 payback  0.09 yr
+margin 2.0: S1 net  183.0 payback  0.45 yr | S2 net  161.6 payback  0.04 yr
+S1: H2 needed for 3-yr payback at 1 USD/kg = 36.1 t/yr
+S2: H2 needed for 3-yr payback at 1 USD/kg = 32.0 t/yr
+S1: 5-yr NPV at 10 %, 1 USD/kg = 248 k USD
+S2: 5-yr NPV at 10 %, 1 USD/kg = 243 k USD
