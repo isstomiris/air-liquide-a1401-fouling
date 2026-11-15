@@ -1,22 +1,16 @@
-"""Turnaround (shutdown) cleaning vs S1/S2, team estimates at Atyrau rates (USD thousand, low/base/high).
-The case files give no cleaning prices; all values are planning allowances, not quotes."""
-H2_RATE = 1107  # kg H2/h, plant rate used in the technoeconomic file (5-day stop = 133 t)
-MARGIN = 1.0    # USD/kg contribution margin (central case)
-YEARS = 5
-# direct cost of one shutdown wash: crew 4-6 people x 2-4 days at 8-18 USD/h, scaffold/access,
-# high-pressure water unit, water + effluent, fan isolation, inspection, fin straightening
-TAR_DIRECT = {"Crew (4-6 people, 2-4 days)": (1, 2.5, 6), "Scaffold and access": (2, 4, 8),
-              "HP water unit, water, effluent": (1.5, 3, 6), "Isolation, inspection, fin repair": (1.5, 2.5, 5)}
-DAYS = (1, 3, 5)  # extra outage days if the wash needs its own shutdown
-direct = [round(sum(v[i] for v in TAR_DIRECT.values()), 1) for i in range(3)]
-lost = [round(H2_RATE * 24 * d * MARGIN / 1000, 1) for d in DAYS]
-print("TAR wash direct cost per event:", direct)
-print("Lost H2 value for an extra stop (k USD):", lost, " t H2:", [round(H2_RATE*24*d/1000) for d in DAYS])
-cases = {
-    "Wash in a planned turnaround": [direct[i] * YEARS for i in range(3)],
-    "Wash in an extra shutdown": [(direct[i] + lost[i]) * YEARS for i in range(3)],
-    "S2 DECAMEX, online": [c0 + op * YEARS for c0, op in zip((3, 6, 12), (7, 30, 132))],
-    "S1 spray coating + horns": [c0 + op * YEARS for c0, op in zip((45, 82.5, 157.5), (2.7, 8.6, 27.9))],
-}
-for k, v in cases.items():
-    print(f"{k:32s} 5-yr cost, k USD: " + " / ".join(f"{x:.0f}" for x in v))
+"""Turnaround (shutdown) wash vs S1/S2, bottom-up at the same Atyrau unit rates as estimate_class4.py."""
+import sys, os; sys.path.insert(0, os.path.dirname(__file__))
+from estimate_class4 import LAB_CON, LAB_OWN, ENG, build
+TAR = [("Wash crew 4 x 3 days x 10 h", 120, LAB_CON), ("Scaffold / access, 3 bays", 3, 1300),
+       ("HP water unit rental", 3, 250), ("Water, m3", 60, 1.5), ("Effluent disposal", 1, 800),
+       ("Inspection, engineer h", 16, ENG), ("Fin combing / repair", 1, 1000), ("Permits, standby h", 60, LAB_OWN)]
+H2_RATE, MARGIN, YEARS = 1107, 1.0, 5
+wash = sum(q * r for _, q, r in TAR) * 1.20
+lost3 = H2_RATE * 24 * 3 * MARGIN
+b = build()
+cases = {"Turnaround wash": wash * YEARS, "S1 spray + horns": b["s1"] + YEARS * b["s1_opex"],
+         "S2 DECAMEX": b["s2"] + YEARS * b["s2_opex"], "Wash + extra 3-day stop": (wash + lost3) * YEARS}
+if __name__ == "__main__":
+    for n, q, r in TAR: print(f"{n:32s} {q*r:8,.0f}")
+    print(f"Wash per event incl. 20 % contingency: {wash:,.0f}; lost H2 per 3-day stop: {lost3:,.0f} USD ({H2_RATE*72/1000:.1f} t)")
+    for k, v in cases.items(): print(f"{k:26s} 5-yr {v:10,.0f}  range {v*0.7:,.0f}-{v*1.5:,.0f}")

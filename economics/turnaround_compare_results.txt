@@ -1,6 +1,13 @@
-TAR wash direct cost per event: [6.0, 12.0, 25]
-Lost H2 value for an extra stop (k USD): [26.6, 79.7, 132.8]  t H2: [27, 80, 133]
-Wash in a planned turnaround     5-yr cost, k USD: 30 / 60 / 125
-Wash in an extra shutdown        5-yr cost, k USD: 163 / 458 / 789
-S2 DECAMEX, online               5-yr cost, k USD: 38 / 156 / 672
-S1 spray coating + horns         5-yr cost, k USD: 58 / 126 / 297
+Wash crew 4 x 3 days x 10 h         1,943
+Scaffold / access, 3 bays           3,900
+HP water unit rental                  750
+Water, m3                              90
+Effluent disposal                     800
+Inspection, engineer h                411
+Fin combing / repair                1,000
+Permits, standby h                    648
+Wash per event incl. 20 % contingency: 11,449; lost H2 per 3-day stop: 79,704 USD (79.7 t)
+Turnaround wash            5-yr     57,245  range 40,072-85,868
+S1 spray + horns           5-yr    151,956  range 106,369-227,934
+S2 DECAMEX                 5-yr    308,569  range 215,998-462,853
+Wash + extra 3-day stop    5-yr    455,765  range 319,036-683,648
